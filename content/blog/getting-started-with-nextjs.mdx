@@ -1,0 +1,53 @@
+---
+title: "Getting Started with Next.js"
+date: "2025-07-20"
+excerpt: "Learn how to build modern web applications with Next.js, the React framework for production."
+categories: ["tech", "web-development", "react"]
+coverImage: "/images/blog/nextjs-cover.jpg"
+author: "Julian Bastow"
+---
+
+# Getting Started with Next.js
+
+Next.js is a powerful React framework that makes building web applications easier and more efficient. It provides a great developer experience with features like server-side rendering, static site generation, and more.
+
+## Why Choose Next.js?
+
+There are several reasons why Next.js has become a popular choice for building web applications:
+
+- **Server-side Rendering (SSR)**: Next.js can render your pages on the server, which improves performance and SEO.
+- **Static Site Generation (SSG)**: You can generate static HTML at build time, which can be served from a CDN for maximum performance.
+- **API Routes**: Next.js allows you to create API endpoints as part of your application.
+- **File-based Routing**: The routing system is based on your file structure, making it intuitive and easy to understand.
+- **Built-in CSS Support**: Next.js has built-in support for CSS modules, Sass, and other styling solutions.
+
+## Getting Started
+
+To create a new Next.js application, you can use the `create-next-app` command:
+
+```bash
+npx create-next-app@latest my-next-app
+```
+
+This will set up a new Next.js project with all the necessary configurations.
+
+## Creating Your First Page
+
+In Next.js, pages are React components exported from files in the `pages` directory (or `app` directory if using the App Router). For example, to create a home page, you would create a file at `pages/index.js` or `app/page.js`:
+
+```jsx
+export default function Home() {
+  return (
+    <div>
+      <h1>Welcome to my Next.js website!</h1>
+      <p>This is my first Next.js page.</p>
+    </div>
+  );
+}
+```
+
+## Conclusion
+
+Next.js provides a great foundation for building modern web applications. Its features like server-side rendering, static site generation, and file-based routing make it a powerful tool for developers.
+
+In future posts, we'll explore more advanced features of Next.js and how to use them effectively in your projects.

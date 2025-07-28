@@ -1,0 +1,74 @@
+---
+title: "Tailwind CSS Tips and Tricks"
+date: "2025-07-15"
+excerpt: "Discover useful tips and tricks to make the most out of Tailwind CSS in your web projects."
+categories: ["tech", "web-development", "css"]
+coverImage: "/images/blog/tailwind-cover.jpg"
+author: "Julian Bastow"
+---
+
+# Tailwind CSS Tips and Tricks
+
+Tailwind CSS has revolutionized the way developers approach styling in web applications. Its utility-first approach allows for rapid development without leaving your HTML. Here are some tips and tricks to help you make the most of Tailwind CSS.
+
+## Use the JIT (Just-in-Time) Mode
+
+Tailwind CSS v3.0 introduced the JIT engine by default, which offers several advantages:
+
+- Faster build times
+- Smaller file sizes
+- The ability to use arbitrary values
+- No need to configure purging
+
+```jsx
+// tailwind.config.js
+module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+## Create Custom Utilities with @apply
+
+You can create your own custom utility classes using the `@apply` directive in your CSS:
+
+```css
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+  }
+}
+```
+
+## Use Arbitrary Values for One-off Styles
+
+Tailwind CSS allows you to use arbitrary values for one-off styles:
+
+```html
+<div class="top-[117px]">
+  <!-- Content -->
+</div>
+```
+
+## Group Hover and Focus States
+
+You can use group hover and focus states to affect child elements:
+
+```html
+<div class="group border-2 p-4 hover:bg-gray-100">
+  <h3 class="text-lg font-bold group-hover:text-blue-500">Title</h3>
+  <p class="group-hover:text-gray-700">Description</p>
+</div>
+```
+
+## Conclusion
+
+Tailwind CSS provides a powerful and flexible approach to styling web applications. By leveraging these tips and tricks, you can make your development process more efficient and maintain a consistent design system across your project.
+
+In future posts, we'll explore more advanced techniques and integrations with frameworks like Next.js.

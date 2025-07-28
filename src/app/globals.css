@@ -12,7 +12,8 @@
   --foreground: oklch(0.985 0 0);
   --hover-bg: oklch(0.2 0 0);
   --border-color: oklch(0.985 0 0 / 0.145);
-  /* ... other overrides for dark mode ... */}
+  /* ... other overrides for dark mode ... */
+}
 
 @theme inline {
   --color-background: var(--background);
@@ -45,5 +46,86 @@
   
   .border-subtle {
     @apply border-[color:var(--border-color)];
+  }
+
+  /* MDXContent Styles */
+  .mdx-h1 {
+    @apply text-3xl font-bold mt-8 mb-4;
+  }
+  .mdx-h2 {
+    @apply text-2xl font-bold mt-6 mb-3;
+  }
+  .mdx-h3 {
+    @apply text-xl font-bold mt-4 mb-2;
+  }
+  .mdx-p {
+    @apply my-4;
+  }
+  .mdx-ul {
+    @apply list-disc pl-6 my-4;
+  }
+  .mdx-ol {
+    @apply list-decimal pl-6 my-4;
+  }
+  .mdx-li {
+    @apply mb-1;
+  }
+  .mdx-a {
+    @apply text-blue-600 dark:text-blue-400 hover:underline;
+  }
+  .mdx-img {
+    @apply rounded-lg mx-auto;
+  }
+  .mdx-img-alt {
+    @apply text-center text-sm mt-2 text-gray-600 dark:text-gray-400;
+  }
+  .mdx-blockquote {
+    @apply border-l-4 border-gray-300 dark:border-gray-700 pl-4 my-4 italic;
+  }
+  .mdx-code {
+    @apply bg-gray-100 dark:bg-gray-800 rounded px-1 py-0.5 font-mono text-sm;
+  }
+  .mdx-pre {
+    @apply bg-gray-100 dark:bg-gray-800 rounded p-4 overflow-x-auto my-4 font-mono text-sm;
+  }
+
+  /* CategoryList Styles */
+  .category-all-link {
+    @apply px-3 py-1.5 rounded-full text-sm transition-colors;
+  }
+  .category-all-link.active {
+    @apply bg-blue-600 text-white dark:bg-blue-700;
+  }
+  .category-all-link.inactive {
+    @apply bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700;
+  }
+  .category-link {
+    @apply px-3 py-1.5 rounded-full text-sm transition-colors;
+  }
+  .category-link.active {
+    @apply bg-blue-600 text-white dark:bg-blue-700;
+  }
+  .category-link.inactive {
+    @apply bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700;
+  }
+  
+  /* BlogPostPreview Styles */
+  .bpp-category-link {
+    @apply text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors;
+  }
+  .bpp-title {
+    @apply text-2xl font-bold;
+  }
+  .bpp-date {
+    @apply text-sm text-gray-600 dark:text-gray-400;
+  }
+  .bpp-cover-image {
+    @apply rounded-lg w-full object-cover;
+  }
+  .bpp-excerpt {
+    @apply text-gray-700 dark:text-gray-300;
+  }
+  .bpp-read-more-link {
+    @apply text-blue-600 dark:text-blue-400 hover:underline font-medium;
   }
 }
