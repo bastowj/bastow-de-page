@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { BlogPost } from '@/lib/blog';
+import Link from "next/link";
+import Image from "next/image";
+import { BlogPost } from "@/lib/blog";
 
 interface BlogPostPreviewProps {
   post: BlogPost;
@@ -9,12 +9,12 @@ interface BlogPostPreviewProps {
 export function BlogPostPreview({ post }: BlogPostPreviewProps) {
   const { slug, frontmatter } = post;
   const { title, date, excerpt, categories, coverImage } = frontmatter;
-  
+
   // Format the date
-  const formattedDate = new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
   return (
@@ -32,19 +32,17 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
             </Link>
           ))}
         </div>
-        
+
         {/* Title */}
         <h2 className="text-2xl font-bold">
           <Link href={`/blog/${slug}`} className="bpp-title">
             {title}
           </Link>
         </h2>
-        
+
         {/* Date */}
-        <div className="bpp-date">
-          {formattedDate}
-        </div>
-        
+        <div className="bpp-date">{formattedDate}</div>
+
         {/* Cover Image (if available) */}
         {coverImage && (
           <div className="my-4">
@@ -59,18 +57,13 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
             </Link>
           </div>
         )}
-        
+
         {/* Excerpt */}
-        <p className="bpp-excerpt">
-          {excerpt}
-        </p>
-        
+        <p className="bpp-excerpt">{excerpt}</p>
+
         {/* Read More Link */}
         <div>
-          <Link
-            href={`/blog/${slug}`}
-            className="bpp-read-more-link"
-          >
+          <Link href={`/blog/${slug}`} className="bpp-read-more-link">
             Read More →
           </Link>
         </div>

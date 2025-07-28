@@ -3,8 +3,8 @@ import { BlogPostPreview } from "@/components/BlogPostPreview";
 import { CategoryList } from "@/components/CategoryList";
 
 export const metadata = {
-  title: "Blog | Bastow.de",
-  description: "Explore articles on technology, web development, and digital lifestyle",
+  title: "blog | bastow.de",
+  description: "tech, dev, digital",
 };
 
 export default function BlogPage() {

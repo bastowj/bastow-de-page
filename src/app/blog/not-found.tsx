@@ -7,8 +7,8 @@ export default function BlogNotFound() {
       <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
         The blog post or category you&apos;re looking for doesn&apos;t exist.
       </p>
-      <Link 
-        href="/blog" 
+      <Link
+        href="/blog"
         className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
       >
         Back to Blog

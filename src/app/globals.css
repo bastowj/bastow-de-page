@@ -37,13 +37,13 @@
   .nav-link {
     @apply hover:opacity-70 transition-colors;
   }
-  
+
   .nav-button {
     @apply p-2 rounded-full transition-colors border border-solid border-transparent;
     @apply hover:bg-[color:var(--hover-bg)];
     @apply hover:border-[color:var(--border-color)];
   }
-  
+
   .border-subtle {
     @apply border-[color:var(--border-color)];
   }
@@ -108,7 +108,7 @@
   .category-link.inactive {
     @apply bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700;
   }
-  
+
   /* BlogPostPreview Styles */
   .bpp-category-link {
     @apply text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors;

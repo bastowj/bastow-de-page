@@ -1,5 +1,5 @@
 // MDXContent.tsx - Server Component
-import { ClientMDXContent } from './ClientMDXContent';
+import { ClientMDXContent } from "./ClientMDXContent";
 
 interface MDXContentProps {
   content: string;

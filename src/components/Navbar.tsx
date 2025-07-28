@@ -40,9 +40,7 @@ export function Navbar() {
             key={item.name}
             href={item.href}
             className={`nav-link ${
-              pathname === item.href
-                ? "font-medium"
-                : "font-normal"
+              pathname === item.href ? "font-medium" : "font-normal"
             }`}
           >
             {item.name}
@@ -84,9 +82,7 @@ export function Navbar() {
                 key={item.name}
                 href={item.href}
                 className={`py-2 nav-link ${
-                  pathname === item.href
-                    ? "font-medium"
-                    : "font-normal"
+                  pathname === item.href ? "font-medium" : "font-normal"
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >

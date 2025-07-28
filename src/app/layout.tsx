@@ -16,7 +16,10 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "bastow.de",
+  title: {
+    template: "bastow.de - %s",
+    default: "bastow.de",
+  },
   description: "a personal website",
 };
 
@@ -26,15 +29,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-// suppressHydrationWarning helps avoid React warnings
+    // suppressHydrationWarning helps avoid React warnings
     <html lang="en" suppressHydrationWarning>
-      <body className={`${robotoSans.variable} font-sans ${robotoMono.variable} font-mono`}>
+      <body
+        className={`${robotoSans.variable} font-sans ${robotoMono.variable} font-mono`}
+      >
         <ThemeProvider>
           <div className="flex flex-col min-h-screen">
             <Navbar />
-            <main className="flex-grow">
-              {children}
-            </main>
+            <main className="flex-grow">{children}</main>
             <Footer />
           </div>
         </ThemeProvider>

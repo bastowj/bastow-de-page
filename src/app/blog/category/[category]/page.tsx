@@ -2,43 +2,45 @@ import { getBlogPostsByCategory, getAllCategories } from "@/lib/blog";
 import { BlogPostPreview } from "@/components/BlogPostPreview";
 import { CategoryList } from "@/components/CategoryList";
 import { notFound } from "next/navigation";
-import Link from "next/link";
 
 // Define params type for Next.js 15
 type CategoryParams = Promise<{ category: string }>;
 
-// Generate metadata for the page
+// Generate metadata for the page - https://nextjs.org/docs/app/api-reference/functions/generate-metadata
 export async function generateMetadata({ params }: { params: CategoryParams }) {
-  // Await the params object first
   const resolvedParams = await params;
   const categoryName = decodeURIComponent(resolvedParams.category);
   const allCategories = getAllCategories();
-  
+
   if (!allCategories.includes(categoryName)) {
     return {
       title: "Category Not Found",
       description: "The requested category could not be found.",
     };
   }
-  
+
   return {
-    title: `${categoryName} | Bastow.de Blog`,
+    title: `${categoryName} | bastow.de blog`,
     description: `Explore articles in the ${categoryName} category`,
   };
 }
 
-export default async function CategoryPage({ params }: { params: CategoryParams }) {
+export default async function CategoryPage({
+  params,
+}: {
+  params: CategoryParams;
+}) {
   // Await the params object first
   const resolvedParams = await params;
   const categoryName = decodeURIComponent(resolvedParams.category);
   const allCategories = getAllCategories();
-  
+
   if (!allCategories.includes(categoryName)) {
     notFound();
   }
-  
+
   const posts = getBlogPostsByCategory(categoryName);
-  
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
@@ -51,7 +53,10 @@ export default async function CategoryPage({ params }: { params: CategoryParams 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar with categories */}
         <div className="lg:col-span-1">
-          <CategoryList categories={allCategories} activeCategory={categoryName} />
+          <CategoryList
+            categories={allCategories}
+            activeCategory={categoryName}
+          />
         </div>
 
         {/* Blog posts */}
