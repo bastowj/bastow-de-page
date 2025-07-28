@@ -1,14 +1,10 @@
+import { ThemeProvider } from "@/components/providers/theme-provider"; // Use the correct path
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -23,11 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+// suppressHydrationWarning helps avoid React warnings
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geistSans.variable} font-sans`}>
+        {/* Wrap the entire content that should react to theme changes */}
+        <ThemeProvider>
+          {/* e.g., <Header /> */}
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
