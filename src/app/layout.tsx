@@ -1,10 +1,15 @@
 import { ThemeProvider } from "@/components/providers/theme-provider"; // Use the correct path
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const robotoSans = Roboto({
+  variable: "--font-roboto-sans",
+  subsets: ["latin"],
+});
+
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
 });
 
@@ -21,10 +26,8 @@ export default function RootLayout({
   return (
 // suppressHydrationWarning helps avoid React warnings
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} font-sans`}>
-        {/* Wrap the entire content that should react to theme changes */}
+      <body className={`${robotoSans.variable} font-sans ${robotoMono.variable} font-mono`}>
         <ThemeProvider>
-          {/* e.g., <Header /> */}
           {children}
         </ThemeProvider>
       </body>
