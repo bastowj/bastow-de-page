@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export function Footer() {
@@ -16,9 +15,8 @@ export function Footer() {
   ];
 
   const socialLinks = [
-    { name: "GitHub", href: "https://github.com", icon: "github" },
-    { name: "Twitter", href: "https://twitter.com", icon: "twitter" },
-    { name: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
+    { name: "GitHub", href: "https://github.com/bastowj", icon: "github" },
+    { name: "LinkedIn", href: "https://linkedin.com/julian-bastow", icon: "linkedin" },
   ];
 
   return (
