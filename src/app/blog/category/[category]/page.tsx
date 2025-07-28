@@ -7,14 +7,6 @@ import Link from "next/link";
 // Define params type for Next.js 15
 type CategoryParams = Promise<{ category: string }>;
 
-// Generate static params for all categories
-export async function generateStaticParams() {
-  const categories = getAllCategories();
-  return categories.map((category) => ({
-    category,
-  }));
-}
-
 // Generate metadata for the page
 export async function generateMetadata({ params }: { params: CategoryParams }) {
   // Await the params object first

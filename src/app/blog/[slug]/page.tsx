@@ -7,14 +7,6 @@ import Image from "next/image";
 // Define params type for Next.js 15
 type SlugParams = Promise<{ slug: string }>;
 
-// Generate static params for all blog posts
-export async function generateStaticParams() {
-  const posts = getAllBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
-
 // Generate metadata for the page
 export async function generateMetadata({ params }: { params: SlugParams }) {
   // Await the params object first
