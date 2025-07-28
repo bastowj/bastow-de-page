@@ -1,9 +1,11 @@
 import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/blog";
 import { MDXContent } from "@/components/MDXContent";
 import { notFound } from "next/navigation";
-import { serialize } from "next-mdx-remote/serialize";
 import Link from "next/link";
 import Image from "next/image";
+
+// Define params type for Next.js 15
+type SlugParams = Promise<{ slug: string }>;
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
@@ -14,7 +16,7 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: SlugParams }) {
   // Await the params object first
   const resolvedParams = await params;
   const post = getBlogPostBySlug(resolvedParams.slug);
@@ -32,7 +34,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: SlugParams }) {
   // Await the params object first
   const resolvedParams = await params;
   
@@ -43,8 +45,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     notFound();
   }
   
-  // Serialize the MDX content
-  const mdxSource = await serialize(post.content);
+  // Get the raw MDX content
+  const mdxContent = post.content;
   
   // Format the date
   const formattedDate = new Date(post.frontmatter.date).toLocaleDateString("en-US", {
@@ -100,9 +102,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         </header>
         
         {/* MDX Content */}
-        <div className="prose dark:prose-invert max-w-none">
-          <MDXContent source={mdxSource} />
-        </div>
+        <MDXContent content={mdxContent} />
       </article>
     </div>
   );

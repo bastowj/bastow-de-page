@@ -4,6 +4,9 @@ import { CategoryList } from "@/components/CategoryList";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
+// Define params type for Next.js 15
+type CategoryParams = Promise<{ category: string }>;
+
 // Generate static params for all categories
 export async function generateStaticParams() {
   const categories = getAllCategories();
@@ -13,7 +16,7 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: { params: { category: string } }) {
+export async function generateMetadata({ params }: { params: CategoryParams }) {
   // Await the params object first
   const resolvedParams = await params;
   const categoryName = decodeURIComponent(resolvedParams.category);
@@ -32,7 +35,7 @@ export async function generateMetadata({ params }: { params: { category: string 
   };
 }
 
-export default async function CategoryPage({ params }: { params: { category: string } }) {
+export default async function CategoryPage({ params }: { params: CategoryParams }) {
   // Await the params object first
   const resolvedParams = await params;
   const categoryName = decodeURIComponent(resolvedParams.category);
