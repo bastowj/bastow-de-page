@@ -1,13 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(1 0 0); 
+  --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+  --hover-bg: oklch(0.95 0 0);
+  --border-color: oklch(0.145 0 0 / 0.08);
 }
 
 .dark {
-  --background: oklch(0.145 0 0); 
-  --foreground: oklch(0.985 0 0); 
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --hover-bg: oklch(0.2 0 0);
+  --border-color: oklch(0.985 0 0 / 0.145);
   /* ... other overrides for dark mode ... */}
 
 @theme inline {
@@ -24,5 +28,22 @@
     /* Improve font smoothing */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* 5. Component and utility styles */
+@layer components {
+  .nav-link {
+    @apply hover:opacity-70 transition-colors;
+  }
+  
+  .nav-button {
+    @apply p-2 rounded-full transition-colors border border-solid border-transparent;
+    @apply hover:bg-[color:var(--hover-bg)];
+    @apply hover:border-[color:var(--border-color)];
+  }
+  
+  .border-subtle {
+    @apply border-[color:var(--border-color)];
   }
 }

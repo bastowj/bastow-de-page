@@ -1,4 +1,5 @@
-import { ThemeProvider } from "@/components/providers/theme-provider"; // Use the correct path
+import { ThemeProvider } from "../components/providers/theme-provider"; // Use the correct path
+import { Navbar } from "../components/navbar";
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${robotoSans.variable} font-sans ${robotoMono.variable} font-mono`}>
         <ThemeProvider>
+          <Navbar />
           {children}
         </ThemeProvider>
       </body>
