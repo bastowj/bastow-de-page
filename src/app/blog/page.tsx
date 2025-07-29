@@ -16,7 +16,7 @@ export default function BlogPage() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">Blog</h1>
         <p className="text-xl text-gray-600 dark:text-gray-400">
-          Language, Tech, Infra, Product, Team
+          🌍 Language / 💻 Tech / 🏗️ Infra / 📦 Product / 👥 Team
         </p>
       </div>
 
