@@ -79,11 +79,8 @@ export function Footer() {
           <a className="text-sm nav-link" href="/privacy">
             Privacy Policy
           </a>
-          <a className="text-sm nav-link" href="/terms">
-            Terms of Service
-          </a>
-          <a className="text-sm nav-link" href="/cookies">
-            Cookie Policy
+          <a className="text-sm nav-link" href="/impressum">
+            Imprint (Impressum)
           </a>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { CategoryList } from "@/components/CategoryList";
 
 export const metadata = {
   title: "blog | bastow.de",
-  description: "tech, dev, digital",
+  description: "Language, Tech, Infra, Product, Team",
 };
 
 export default function BlogPage() {
@@ -16,7 +16,7 @@ export default function BlogPage() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">Blog</h1>
         <p className="text-xl text-gray-600 dark:text-gray-400">
-          tech, dev, digital
+          Language, Tech, Infra, Product, Team
         </p>
       </div>
 
