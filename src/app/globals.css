@@ -3,6 +3,7 @@
 :root {
   --background: oklch(0.96 0 0);
   --foreground: oklch(0.2 0 0);
+  --foreground-muted: oklch(0.4 0 0);
   --hover-bg: oklch(0.95 0 0);
   --border-color: oklch(0.145 0 0 / 0.08);
   --link-color: oklch(0.5 0.2 250);
@@ -12,6 +13,7 @@
 .dark {
   --background: oklch(0.1 0 0);
   --foreground: oklch(0.95 0 0);
+  --foreground-muted: oklch(0.7 0 0);
   --hover-bg: oklch(0.2 0 0);
   --border-color: oklch(0.985 0 0 / 0.145);
   --link-color: oklch(0.75 0.18 250);
@@ -21,6 +23,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
   --color-link: var(--link-color);
   --color-link-hover: var(--link-hover);
   --font-sans: var(--font-roboto-sans);
@@ -42,6 +45,9 @@
 
 /* 5. Component and utility styles */
 @layer components {
+  .text-muted {
+    @apply text-[theme(color.foreground-muted)];
+  }
   .nav-link {
     @apply hover:opacity-70 transition-colors;
   }
@@ -105,7 +111,7 @@
     @apply bg-blue-600 text-white dark:bg-blue-700;
   }
   .category-all-link.inactive {
-    @apply bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700;
+    @apply bg-gray-300 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700;
   }
   .category-link {
     @apply px-3 py-1.5 rounded-full text-sm transition-colors;
@@ -114,12 +120,12 @@
     @apply bg-blue-600 text-white dark:bg-blue-700;
   }
   .category-link.inactive {
-    @apply bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700;
+    @apply bg-gray-300 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700;
   }
 
   /* BlogPostPreview Styles */
   .bpp-category-link {
-    @apply text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors;
+    @apply text-xs px-2 py-1 bg-gray-300 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors;
   }
   .bpp-title {
     @apply text-2xl font-bold;

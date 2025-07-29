@@ -1,5 +1,6 @@
 import { getAllBlogPosts } from "@/lib/blog";
 import { BlogPostPreview } from "@/components/BlogPostPreview";
+import { LabelBar } from '@/components/LabelBar';
 import Link from "next/link";
 
 export default function Home() {
@@ -10,9 +11,9 @@ export default function Home() {
     <div className="max-w-6xl mx-auto px-4 py-12">
       <section className="mb-16">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Welcome to my page</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400">
-            🌍 Language / 💻 Tech / 🏗️ Infra / 📦 Product / 👥 Team
+          <h1 className="text-4xl font-bold mb-4">Welcome to my stuff</h1>
+          <p className="text-xl text-muted">
+            🌍 Language / 💻 Tech / 🖧 Infra / 📦 Product / 👥 Team
           </p>
         </div>
       </section>
