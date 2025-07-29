@@ -16,7 +16,7 @@ export function Footer() {
 
   const socialLinks = [
     { name: "GitHub", href: "https://github.com/bastowj", icon: "github" },
-    { name: "LinkedIn", href: "https://linkedin.com/julian-bastow", icon: "linkedin" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/julian-bastow", icon: "linkedin" },
   ];
 
   return (
