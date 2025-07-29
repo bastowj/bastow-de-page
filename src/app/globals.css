@@ -1,23 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(0.96 0 0);
+  --foreground: oklch(0.2 0 0);
   --hover-bg: oklch(0.95 0 0);
   --border-color: oklch(0.145 0 0 / 0.08);
+  --link-color: oklch(0.5 0.2 250);
+  --link-hover: oklch(0.45 0.25 250);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+  --background: oklch(0.1 0 0);
+  --foreground: oklch(0.95 0 0);
   --hover-bg: oklch(0.2 0 0);
   --border-color: oklch(0.985 0 0 / 0.145);
-  /* ... other overrides for dark mode ... */
+  --link-color: oklch(0.75 0.18 250);
+  --link-hover: oklch(0.8 0.22 250);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-link: var(--link-color);
+  --color-link-hover: var(--link-hover);
   --font-sans: var(--font-roboto-sans);
   --font-mono: var(--font-roboto-mono);
 }
@@ -29,6 +34,9 @@
     /* Improve font smoothing */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+  .link {
+    @apply text-[color:var(--link-color)] hover:text-[color:var(--link-hover)] underline;
   }
 }
 
@@ -97,7 +105,7 @@
     @apply bg-blue-600 text-white dark:bg-blue-700;
   }
   .category-all-link.inactive {
-    @apply bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700;
+    @apply bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700;
   }
   .category-link {
     @apply px-3 py-1.5 rounded-full text-sm transition-colors;

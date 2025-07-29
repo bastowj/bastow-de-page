@@ -22,7 +22,7 @@ export default function Home() {
           <h2 className="text-2xl font-bold">Latest posts</h2>
           <Link
             href="/blog"
-            className="text-blue-600 dark:text-blue-400 hover:underline"
+            className="link"
           >
             View all posts →
           </Link>
