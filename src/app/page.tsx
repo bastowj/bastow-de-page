@@ -1,6 +1,5 @@
 import { getAllBlogPosts } from "@/lib/blog";
 import { BlogPostPreview } from "@/components/BlogPostPreview";
-import { LabelBar } from '@/components/LabelBar';
 import Link from "next/link";
 
 export default function Home() {
