@@ -13,10 +13,7 @@ export async function generateMetadata({ params }: { params: CategoryParams }) {
   const allCategories = getAllCategories();
 
   if (!allCategories.includes(categoryName)) {
-    return {
-      title: "Category Not Found",
-      description: "The requested category could not be found.",
-    };
+    notFound();
   }
 
   return {

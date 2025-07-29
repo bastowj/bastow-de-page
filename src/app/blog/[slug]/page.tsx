@@ -13,10 +13,7 @@ export async function generateMetadata({ params }: { params: SlugParams }) {
   const post = getBlogPostBySlug(resolvedParams.slug);
 
   if (!post) {
-    return {
-      title: "Post Not Found",
-      description: "The requested blog post could not be found.",
-    };
+    notFound();
   }
 
   return {
