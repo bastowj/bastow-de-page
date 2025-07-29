@@ -1,4 +1,4 @@
-import { ThemeProvider } from "../components/providers/theme-provider"; // Use the correct path
+import { ThemeProvider } from "../components/providers/theme-provider";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import type { Metadata } from "next";

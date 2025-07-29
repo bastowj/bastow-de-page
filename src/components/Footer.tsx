@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export function Footer() {
@@ -16,7 +17,11 @@ export function Footer() {
 
   const socialLinks = [
     { name: "GitHub", href: "https://github.com/bastowj", icon: "github" },
-    { name: "LinkedIn", href: "https://www.linkedin.com/in/julian-bastow", icon: "linkedin" },
+    {
+      name: "LinkedIn",
+      href: "https://www.linkedin.com/in/julian-bastow",
+      icon: "linkedin",
+    },
   ];
 
   return (
@@ -25,7 +30,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand and Copyright */}
           <div className="flex flex-col">
-            <Link href="/" className="text-lg font-bold mb-4">
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/avatar.png"
+                alt="Avatar"
+                width={32}
+                height={32}
+                className="rounded-full"
+              />
               Bastow.de
             </Link>
             <p className="text-sm opacity-70">

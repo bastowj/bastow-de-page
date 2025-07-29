@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 // Generate metadata for the page - https://nextjs.org/docs/app/api-reference/functions/generate-metadata
 export function generateMetadata(): Metadata {
   const page = getStaticPageBySlug("impressum");
-  
+
   if (!page) {
     notFound();
   }
@@ -19,7 +19,7 @@ export function generateMetadata(): Metadata {
 
 export default function ImpressumPage() {
   const page = getStaticPageBySlug("impressum");
-  
+
   if (!page) {
     notFound();
   }
