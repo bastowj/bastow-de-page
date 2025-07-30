@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useTheme } from "next-themes";
 import { navItems, NavItem } from "@/constants/navigation";
+import { SunIcon, MoonIcon } from "@/lib/icons";
 
 export function Navbar() {
   const pathname = usePathname();
