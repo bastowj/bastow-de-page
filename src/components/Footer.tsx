@@ -3,17 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { footerNavItems, NavItem } from "@/constants/navigation";
 
 export function Footer() {
   const pathname = usePathname();
   const currentYear = new Date().getFullYear();
-
-  const footerNavItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" },
-  ];
 
   const socialLinks = [
     { name: "GitHub", href: "https://github.com/bastowj", icon: "github" },
@@ -49,7 +43,7 @@ export function Footer() {
           <div className="flex flex-col">
             <h3 className="text-sm font-semibold mb-4">Navigation</h3>
             <nav className="flex flex-col space-y-2">
-              {footerNavItems.map((item) => (
+              {footerNavItems.map((item:NavItem) => (
                 <Link
                   key={item.name}
                   href={item.href}

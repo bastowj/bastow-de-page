@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useTheme } from "next-themes";
+import { navItems, NavItem } from "@/constants/navigation";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -18,13 +19,6 @@ export function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  const navItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" },
-  ];
 
   return (
     <nav className="w-full py-4 px-8 sm:px-20 flex justify-between items-center border-b border-subtle bg-background text-foreground">
@@ -43,7 +37,7 @@ export function Navbar() {
 
       {/* Desktop Menu */}
       <div className="hidden sm:flex items-center space-x-8">
-        {navItems.map((item) => (
+        {navItems.map((item: NavItem) => (
           <Link
             key={item.name}
             href={item.href}

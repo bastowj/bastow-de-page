@@ -1,6 +1,6 @@
-import { ThemeProvider } from "../components/providers/theme-provider";
-import { Navbar } from "../components/Navbar";
-import { Footer } from "../components/Footer";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "bastow.de - %s",
     default: "bastow.de",
   },
-  description: "a personal website",
+  description: "🌍 Language / 💻 Tech / 🖧 Infra / 📦 Product / 👥 Team",
 };
 
 export default function RootLayout({

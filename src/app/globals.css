@@ -38,13 +38,14 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  .link {
-    @apply text-[color:var(--link-color)] hover:text-[color:var(--link-hover)] underline;
-  }
 }
 
 /* 5. Component and utility styles */
 @layer components {
+  /* Generic */
+  .link {
+    @apply text-[color:var(--link-color)] hover:text-[color:var(--link-hover)];
+  }
   .text-muted {
     @apply text-[theme(color.foreground-muted)];
   }
@@ -97,10 +98,10 @@
     @apply border-l-4 border-gray-300 dark:border-gray-700 pl-4 my-4 italic;
   }
   .mdx-code {
-    @apply bg-gray-100 dark:bg-gray-800 rounded px-1 py-0.5 font-mono text-sm;
+    @apply bg-gray-200 dark:bg-gray-800 rounded px-1 py-0.5 font-mono text-sm;
   }
   .mdx-pre {
-    @apply bg-gray-100 dark:bg-gray-800 rounded p-4 overflow-x-auto my-4 font-mono text-sm;
+    @apply bg-gray-200 dark:bg-gray-800 rounded p-4 overflow-x-auto my-4 font-mono text-sm;
   }
 
   /* CategoryList Styles */
@@ -138,8 +139,5 @@
   }
   .bpp-excerpt {
     @apply text-gray-700 dark:text-gray-300;
-  }
-  .bpp-read-more-link {
-    @apply text-blue-600 dark:text-blue-400 hover:underline font-medium;
   }
 }

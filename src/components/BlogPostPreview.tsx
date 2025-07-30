@@ -63,7 +63,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
 
         {/* Read More Link */}
         <div>
-          <Link href={`/blog/${slug}`} className="bpp-read-more-link">
+          <Link href={`/blog/${slug}`} className="link">
             Read More →
           </Link>
         </div>
