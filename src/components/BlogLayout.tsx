@@ -27,7 +27,9 @@ export function BlogLayout({
 
       {!showLabelBar && activeCategory && (
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Category: {activeCategory}</h1>
+          <h1 className="text-4xl font-bold mb-4">
+            Category: {activeCategory}
+          </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400">
             Explore articles in the {activeCategory} category
           </p>
@@ -37,7 +39,10 @@ export function BlogLayout({
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar with categories */}
         <div className="lg:col-span-1">
-          <CategoryList categories={categories} activeCategory={activeCategory} />
+          <CategoryList
+            categories={categories}
+            activeCategory={activeCategory}
+          />
         </div>
 
         {/* Blog posts */}

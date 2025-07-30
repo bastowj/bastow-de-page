@@ -1,15 +1,19 @@
-import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+import {
+  getMdxSlugs,
+  getMdxContentBySlug,
+  getAllMdxContent,
+  MdxContent,
+} from "@/lib/mdx";
 
 // Types for static pages
-export interface StaticPage {
-  slug: string;
-  frontmatter: {
-    title: string;
-    description: string;
-  };
-  content: string;
+export interface StaticPageFrontmatter {
+  title: string;
+  description: string;
+}
+
+export interface StaticPage extends MdxContent {
+  frontmatter: StaticPageFrontmatter;
 }
 
 const PAGES_DIRECTORY = path.join(process.cwd(), "content/pages");
@@ -18,46 +22,35 @@ const PAGES_DIRECTORY = path.join(process.cwd(), "content/pages");
  * Get all static page slugs
  */
 export function getStaticPageSlugs(): string[] {
-  if (!fs.existsSync(PAGES_DIRECTORY)) {
-    return [];
-  }
-
-  return fs
-    .readdirSync(PAGES_DIRECTORY)
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => file.replace(/\.mdx$/, ""));
+  return getMdxSlugs(PAGES_DIRECTORY);
 }
 
 /**
  * Get a single static page by slug
  */
 export function getStaticPageBySlug(slug: string): StaticPage | null {
-  try {
-    const fullPath = path.join(PAGES_DIRECTORY, `${slug}.mdx`);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
-
-    return {
-      slug,
-      frontmatter: {
-        title: data.title || "",
-        description: data.description || "",
-      },
-      content,
-    };
-  } catch (error) {
-    console.error(`Error getting static page ${slug}:`, error);
+  const mdxContent = getMdxContentBySlug(PAGES_DIRECTORY, slug);
+  if (!mdxContent) {
     return null;
   }
+
+  // Type assertion for frontmatter
+  return {
+    ...mdxContent,
+    frontmatter: mdxContent.frontmatter as StaticPageFrontmatter,
+  };
 }
 
 /**
  * Get all static pages
  */
 export function getAllStaticPages(): StaticPage[] {
-  const slugs = getStaticPageSlugs();
-  const pages = slugs
-    .map((slug) => getStaticPageBySlug(slug))
+  const allMdxContent = getAllMdxContent(PAGES_DIRECTORY);
+  const pages = allMdxContent
+    .map((mdxContent) => ({
+      ...mdxContent,
+      frontmatter: mdxContent.frontmatter as StaticPageFrontmatter,
+    }))
     .filter((page): page is StaticPage => page !== null);
 
   return pages;

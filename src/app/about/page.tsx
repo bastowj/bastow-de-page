@@ -1,4 +1,6 @@
-import StaticPage, { generateStaticPageMetadata } from "@/components/StaticPage";
+import StaticPage, {
+  generateStaticPageMetadata,
+} from "@/components/StaticPage";
 
 export function generateMetadata() {
   return generateStaticPageMetadata("about");

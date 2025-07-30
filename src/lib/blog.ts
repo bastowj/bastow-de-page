@@ -1,19 +1,23 @@
-import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+import {
+  getMdxSlugs,
+  getMdxContentBySlug,
+  getAllMdxContent,
+  MdxContent,
+} from "./mdx";
 
 // Types for blog posts
-export interface BlogPost {
-  slug: string;
-  frontmatter: {
-    title: string;
-    date: string;
-    excerpt: string;
-    categories: string[];
-    coverImage?: string;
-    author?: string;
-  };
-  content: string;
+export interface BlogPostFrontmatter {
+  title: string;
+  date: string;
+  excerpt: string;
+  categories: string[];
+  coverImage?: string;
+  author?: string;
+}
+
+export interface BlogPost extends MdxContent {
+  frontmatter: BlogPostFrontmatter;
 }
 
 const BLOG_DIRECTORY = path.join(process.cwd(), "content/blog");
@@ -22,51 +26,35 @@ const BLOG_DIRECTORY = path.join(process.cwd(), "content/blog");
  * Get all blog post slugs
  */
 export function getBlogPostSlugs(): string[] {
-  if (!fs.existsSync(BLOG_DIRECTORY)) {
-    return [];
-  }
-
-  return fs
-    .readdirSync(BLOG_DIRECTORY)
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => file.replace(/\.mdx$/, ""));
+  return getMdxSlugs(BLOG_DIRECTORY);
 }
 
 /**
  * Get a single blog post by slug
  */
 export function getBlogPostBySlug(slug: string): BlogPost | null {
-  try {
-    const fullPath = path.join(BLOG_DIRECTORY, `${slug}.mdx`);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(fileContents);
-
-    return {
-      slug,
-      frontmatter: {
-        title: data.title || "",
-        date: data.date || "",
-        excerpt: data.excerpt || "",
-        categories: data.categories || [],
-        coverImage: data.coverImage || "",
-        author: data.author || "",
-      },
-      content,
-    };
-  } catch (error) {
-    console.error(`Error getting blog post ${slug}:`, error);
+  const mdxContent = getMdxContentBySlug(BLOG_DIRECTORY, slug);
+  if (!mdxContent) {
     return null;
   }
+
+  // Type assertion for frontmatter
+  return {
+    ...mdxContent,
+    frontmatter: mdxContent.frontmatter as BlogPostFrontmatter,
+  };
 }
 
 /**
  * Get all blog posts
  */
 export function getAllBlogPosts(): BlogPost[] {
-  const slugs = getBlogPostSlugs();
-  const posts = slugs
-    .map((slug) => getBlogPostBySlug(slug))
-    .filter((post): post is BlogPost => post !== null)
+  const allMdxContent = getAllMdxContent(BLOG_DIRECTORY);
+  const posts = allMdxContent
+    .map((mdxContent) => ({
+      ...mdxContent,
+      frontmatter: mdxContent.frontmatter as BlogPostFrontmatter,
+    }))
     .sort(
       (post1, post2) =>
         new Date(post2.frontmatter.date).getTime() -

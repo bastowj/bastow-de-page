@@ -8,7 +8,9 @@ interface StaticPageProps {
   className?: string;
 }
 
-export async function generateStaticPageMetadata(slug: string): Promise<Metadata> {
+export async function generateStaticPageMetadata(
+  slug: string,
+): Promise<Metadata> {
   const page = getStaticPageBySlug(slug);
 
   if (!page) {
