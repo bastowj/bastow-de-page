@@ -16,9 +16,7 @@ export default function BlogPage() {
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="mb-12">
         <h1 className="text-4xl font-bold mb-4">Stuff I write</h1>
-        <p className="text-xl text-muted">
-          <LabelBar />
-        </p>
+        <LabelBar />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">

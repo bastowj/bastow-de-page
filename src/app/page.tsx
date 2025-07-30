@@ -12,9 +12,7 @@ export default function Home() {
       <section className="mb-16">
         <div className="mb-12">
           <h1 className="text-4xl font-bold mb-4">Welcome to my stuff</h1>
-          <p className="text-xl text-muted">
-            <LabelBar />
-          </p>
+          <LabelBar />
         </div>
       </section>
 
