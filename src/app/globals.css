@@ -129,7 +129,7 @@
 
   /* Blog Post Styles */
   .bp-category-link {
-    @apply text-xs text-[theme(color.foreground-btn)] px-2 py-1 bg-gray-300 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors;
+    @apply text-xs text-[theme(color.foreground-btn)] px-2 py-1 bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
   }
   .bp-title {
     @apply text-2xl font-bold;
