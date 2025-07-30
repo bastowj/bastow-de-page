@@ -4,26 +4,29 @@
   --background: oklch(0.96 0 0);
   --foreground: oklch(0.2 0 0);
   --foreground-muted: oklch(0.4 0 0);
+  --foreground-btn: oklch(0.2 0 0);
   --hover-bg: oklch(0.95 0 0);
   --border-color: oklch(0.145 0 0 / 0.08);
-  --link-color: oklch(0.5 0.2 250);
-  --link-hover: oklch(0.45 0.25 250);
+  --link-color: oklch(0.5084 0.102 234.51);
+  --link-hover: oklch(0.5784 0.112 234.51);
 }
 
 .dark {
   --background: oklch(0.1 0 0);
   --foreground: oklch(0.95 0 0);
   --foreground-muted: oklch(0.7 0 0);
+  --foreground-btn: oklch(0.2 0 0);
   --hover-bg: oklch(0.2 0 0);
   --border-color: oklch(0.985 0 0 / 0.145);
-  --link-color: oklch(0.75 0.18 250);
-  --link-hover: oklch(0.8 0.22 250);
+  --link-color: oklch(0.5084 0.102 234.51);
+  --link-hover: oklch(0.5784 0.112 234.51);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-btn: var(--foreground-btn);
   --color-link: var(--link-color);
   --color-link-hover: var(--link-hover);
   --font-sans: var(--font-roboto-sans);
@@ -106,7 +109,7 @@
 
   /* CategoryList Styles */
   .category-all-link {
-    @apply px-3 py-1.5 rounded-full text-sm transition-colors;
+    @apply px-2 py-1 rounded-full text-xs transition-colors;
   }
   .category-all-link.active {
     @apply bg-blue-600 text-white dark:bg-blue-700;
@@ -115,7 +118,7 @@
     @apply bg-gray-300 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700;
   }
   .category-link {
-    @apply px-3 py-1.5 rounded-full text-sm transition-colors;
+    @apply px-2 py-1 rounded-full text-xs text-[theme(color.foreground-btn)] transition-colors;
   }
   .category-link.active {
     @apply bg-blue-600 text-white dark:bg-blue-700;
@@ -124,11 +127,11 @@
     @apply bg-gray-300 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700;
   }
 
-  /* BlogPostPreview Styles */
-  .bpp-category-link {
-    @apply text-xs px-2 py-1 bg-gray-300 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors;
+  /* Blog Post Styles */
+  .bp-category-link {
+    @apply text-xs text-[theme(color.foreground-btn)] px-2 py-1 bg-gray-300 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors;
   }
-  .bpp-title {
+  .bp-title {
     @apply text-2xl font-bold;
   }
   .bpp-date {
@@ -140,4 +143,6 @@
   .bpp-excerpt {
     @apply text-gray-700 dark:text-gray-300;
   }
+
+  /* LabelBar Styles */
 }

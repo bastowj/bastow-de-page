@@ -26,7 +26,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
             <Link
               key={category}
               href={`/blog/category/${category}`}
-              className="bpp-category-link"
+              className="bp-category-link"
             >
               {category}
             </Link>
@@ -35,7 +35,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
 
         {/* Title */}
         <h2 className="text-2xl font-bold">
-          <Link href={`/blog/${slug}`} className="bpp-title">
+          <Link href={`/blog/${slug}`} className="bp-title">
             {title}
           </Link>
         </h2>

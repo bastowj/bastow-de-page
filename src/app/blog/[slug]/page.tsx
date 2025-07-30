@@ -65,7 +65,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
               <Link
                 key={category}
                 href={`/blog/category/${category}`}
-                className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                className="bp-category-link"
               >
                 {category}
               </Link>

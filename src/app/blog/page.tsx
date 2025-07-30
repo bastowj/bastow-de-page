@@ -1,6 +1,7 @@
 import { getAllBlogPosts, getAllCategories } from "@/lib/blog";
 import { BlogPostPreview } from "@/components/BlogPostPreview";
 import { CategoryList } from "@/components/CategoryList";
+import { LabelBar } from "@/components/LabelBar";
 
 export const metadata = {
   title: "blog | bastow.de",
@@ -13,10 +14,10 @@ export default function BlogPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Blog</h1>
+      <div className="mb-12">
+        <h1 className="text-4xl font-bold mb-4">Stuff I write</h1>
         <p className="text-xl text-muted">
-          🌍 Language / 💻 Tech / 🖧 Infra / 📦 Product / 👥 Team
+          <LabelBar />
         </p>
       </div>
 
