@@ -3,6 +3,7 @@ import { MDXContent } from "@/components/MDXContent";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { formatDate } from "@/lib/utils"; // Import formatDate
 
 // Define params type for Next.js 15
 type SlugParams = Promise<{ slug: string }>;
@@ -36,15 +37,8 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
   // Get the raw MDX content
   const mdxContent = post.content;
 
-  // Format the date
-  const formattedDate = new Date(post.frontmatter.date).toLocaleDateString(
-    "en-US",
-    {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    },
-  );
+  // Format the date using the utility function
+  const formattedDate = formatDate(post.frontmatter.date);
 
   return (
     <div className="main-content-wrapper">

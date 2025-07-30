@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { BlogPost } from "@/lib/blog";
+import { formatDate } from "@/lib/utils"; // Import formatDate
 
 interface BlogPostPreviewProps {
   post: BlogPost;
@@ -10,12 +11,8 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
   const { slug, frontmatter } = post;
   const { title, date, excerpt, categories, coverImage } = frontmatter;
 
-  // Format the date
-  const formattedDate = new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  // Format the date using the utility function
+  const formattedDate = formatDate(date);
 
   return (
     <article className="mb-10 border-b border-subtle pb-8">
