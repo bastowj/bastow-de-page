@@ -112,19 +112,19 @@
     @apply px-2 py-1 rounded-full text-xs transition-colors;
   }
   .category-all-link.active {
-    @apply bg-blue-600 text-white dark:bg-blue-700;
+    @apply bg-blue-600 text-white;
   }
   .category-all-link.inactive {
-    @apply bg-gray-300 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700;
+    @apply bg-gray-300  hover:bg-gray-400;
   }
   .category-link {
     @apply px-2 py-1 rounded-full text-xs text-[theme(color.foreground-btn)] transition-colors;
   }
   .category-link.active {
-    @apply bg-blue-600 text-white dark:bg-blue-700;
+    @apply bg-blue-600 text-white;
   }
   .category-link.inactive {
-    @apply bg-gray-300 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700;
+    @apply bg-gray-300 hover:bg-gray-400;
   }
 
   /* Blog Post Styles */
