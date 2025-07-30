@@ -64,7 +64,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
         {/* Read More Link */}
         <div>
           <Link href={`/blog/${slug}`} className="link">
-            Read More →
+            Read More
           </Link>
         </div>
       </div>

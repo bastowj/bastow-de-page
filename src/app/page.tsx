@@ -20,7 +20,7 @@ export default function Home() {
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold">Latest posts</h2>
           <Link href="/blog" className="link">
-            View all posts →
+            View all posts
           </Link>
         </div>
 

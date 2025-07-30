@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
           href="/blog"
           className="text-blue-600 dark:text-blue-400 hover:underline"
         >
-          ← Back to all posts
+          Back to all posts
         </Link>
       </div>
 
