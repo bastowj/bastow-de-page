@@ -5,5 +5,5 @@ export function generateMetadata() {
 }
 
 export default function ImpressumPage() {
-  return <StaticPage slug="impressum" className="max-w-4xl mx-auto px-4 py-12" />;
+  return <StaticPage slug="impressum" className="max-w-6xl mx-auto px-4 py-12" />;
 }

@@ -1,32 +1,9 @@
-import type { Metadata } from "next";
-import { getStaticPageBySlug } from "@/lib/pages";
-import { MDXContent } from "@/components/MDXContent";
-import { notFound } from "next/navigation";
+import StaticPage, { generateStaticPageMetadata } from "@/components/StaticPage";
 
-// Generate metadata for the page - https://nextjs.org/docs/app/api-reference/functions/generate-metadata
-export function generateMetadata(): Metadata {
-  const page = getStaticPageBySlug("privacy");
-
-  if (!page) {
-    notFound();
-  }
-
-  return {
-    title: page.frontmatter.title,
-    description: page.frontmatter.description,
-  };
+export function generateMetadata() {
+  return generateStaticPageMetadata("privacy");
 }
 
-export default function PrivacyPolicyPage() {
-  const page = getStaticPageBySlug("privacy");
-
-  if (!page) {
-    notFound();
-  }
-
-  return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <MDXContent content={page.content} />
-    </div>
-  );
+export default function ImpressumPage() {
+  return <StaticPage slug="privacy" className="main-content-wrapper" />;
 }

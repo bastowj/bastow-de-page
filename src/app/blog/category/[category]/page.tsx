@@ -39,7 +39,7 @@ export default async function CategoryPage({
   const posts = getBlogPostsByCategory(categoryName);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
+    <div className="main-content-wrapper">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">Category: {categoryName}</h1>
         <p className="text-xl text-gray-600 dark:text-gray-400">

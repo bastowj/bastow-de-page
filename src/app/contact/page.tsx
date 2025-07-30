@@ -5,5 +5,5 @@ export function generateMetadata() {
 }
 
 export default function ContactPage() {
-  return <StaticPage slug="contact" className="max-w-5xl mx-auto px-4 py-12" />;
+  return <StaticPage slug="contact" className="main-content-wrapper" />;
 }

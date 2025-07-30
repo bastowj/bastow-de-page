@@ -47,7 +47,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
   );
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
+    <div className="main-content-wrapper">
       <div className="mb-8">
         <Link
           href="/blog"

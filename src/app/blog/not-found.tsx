@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function BlogNotFound() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-20 text-center">
+    <div className="main-content-wrapper">
       <h1 className="text-4xl font-bold mb-4">404 - Not Found</h1>
       <p className="text-xl text-muted mb-8">
         The blog post or category you&apos;re looking for doesn&apos;t exist.

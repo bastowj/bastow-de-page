@@ -33,7 +33,11 @@
   --font-mono: var(--font-roboto-mono);
 }
 
-/* 4. Base styles using @layer */
+/* Layer hierarchy */
+
+@layer base, components;
+
+/* Base styles using @layer */
 @layer base {
   body {
     @apply bg-background text-foreground;
@@ -43,9 +47,12 @@
   }
 }
 
-/* 5. Component and utility styles */
+/* Component and utility styles */
 @layer components {
   /* Generic */
+  .main-content-wrapper {
+    @apply max-w-6xl mx-auto px-4 py-12;
+  }
   .link {
     @apply text-[color:var(--link-color)] hover:text-[color:var(--link-hover)];
   }
@@ -55,13 +62,11 @@
   .nav-link {
     @apply hover:opacity-70 transition-colors;
   }
-
   .nav-button {
     @apply p-2 rounded-full transition-colors border border-solid border-transparent;
     @apply hover:bg-[color:var(--hover-bg)];
     @apply hover:border-[color:var(--border-color)];
   }
-
   .border-subtle {
     @apply border-[color:var(--border-color)];
   }

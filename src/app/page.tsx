@@ -8,7 +8,7 @@ export default function Home() {
   const latestPosts = getAllBlogPosts().slice(0, 3);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="main-content-wrapper">
       <section className="mb-16">
         <div className="mb-12">
           <LabelBar />
