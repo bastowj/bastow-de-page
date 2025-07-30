@@ -16,9 +16,7 @@ export interface BlogPostFrontmatter {
   author?: string;
 }
 
-export interface BlogPost extends MdxContent {
-  frontmatter: BlogPostFrontmatter;
-}
+export type BlogPost = MdxContent<BlogPostFrontmatter>;
 
 const BLOG_DIRECTORY = path.join(process.cwd(), "content/blog");
 
@@ -33,35 +31,28 @@ export function getBlogPostSlugs(): string[] {
  * Get a single blog post by slug
  */
 export function getBlogPostBySlug(slug: string): BlogPost | null {
-  const mdxContent = getMdxContentBySlug(BLOG_DIRECTORY, slug);
+  const mdxContent = getMdxContentBySlug<BlogPostFrontmatter>(
+    BLOG_DIRECTORY,
+    slug,
+  );
   if (!mdxContent) {
     return null;
   }
 
-  // Type assertion for frontmatter
-  return {
-    ...mdxContent,
-    frontmatter: mdxContent.frontmatter as BlogPostFrontmatter,
-  };
+  return mdxContent as BlogPost;
 }
 
 /**
  * Get all blog posts
  */
 export function getAllBlogPosts(): BlogPost[] {
-  const allMdxContent = getAllMdxContent(BLOG_DIRECTORY);
-  const posts = allMdxContent
-    .map((mdxContent) => ({
-      ...mdxContent,
-      frontmatter: mdxContent.frontmatter as BlogPostFrontmatter,
-    }))
-    .sort(
-      (post1, post2) =>
-        new Date(post2.frontmatter.date).getTime() -
-        new Date(post1.frontmatter.date).getTime(),
-    );
+  const posts = getAllMdxContent<BlogPostFrontmatter>(BLOG_DIRECTORY).sort(
+    (post1, post2) =>
+      new Date(post2.frontmatter.date).getTime() -
+      new Date(post1.frontmatter.date).getTime(),
+  );
 
-  return posts;
+  return posts as BlogPost[];
 }
 
 /**

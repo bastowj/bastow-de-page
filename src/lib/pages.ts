@@ -12,9 +12,7 @@ export interface StaticPageFrontmatter {
   description: string;
 }
 
-export interface StaticPage extends MdxContent {
-  frontmatter: StaticPageFrontmatter;
-}
+export type StaticPage = MdxContent<StaticPageFrontmatter>;
 
 const PAGES_DIRECTORY = path.join(process.cwd(), "content/pages");
 
@@ -29,29 +27,21 @@ export function getStaticPageSlugs(): string[] {
  * Get a single static page by slug
  */
 export function getStaticPageBySlug(slug: string): StaticPage | null {
-  const mdxContent = getMdxContentBySlug(PAGES_DIRECTORY, slug);
+  const mdxContent = getMdxContentBySlug<StaticPageFrontmatter>(
+    PAGES_DIRECTORY,
+    slug,
+  );
   if (!mdxContent) {
     return null;
   }
 
-  // Type assertion for frontmatter
-  return {
-    ...mdxContent,
-    frontmatter: mdxContent.frontmatter as StaticPageFrontmatter,
-  };
+  return mdxContent as StaticPage;
 }
 
 /**
  * Get all static pages
  */
 export function getAllStaticPages(): StaticPage[] {
-  const allMdxContent = getAllMdxContent(PAGES_DIRECTORY);
-  const pages = allMdxContent
-    .map((mdxContent) => ({
-      ...mdxContent,
-      frontmatter: mdxContent.frontmatter as StaticPageFrontmatter,
-    }))
-    .filter((page): page is StaticPage => page !== null);
-
-  return pages;
+  const pages = getAllMdxContent<StaticPageFrontmatter>(PAGES_DIRECTORY);
+  return pages as StaticPage[];
 }

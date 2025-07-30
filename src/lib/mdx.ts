@@ -2,9 +2,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-export interface MdxContent {
+export interface MdxContent<T = Record<string, unknown>> {
   slug: string;
-  frontmatter: Record<string, any>;
+  frontmatter: T;
   content: string;
 }
 
@@ -19,10 +19,10 @@ export function getMdxSlugs(directory: string): string[] {
     .map((file) => file.replace(/\.mdx$/, ""));
 }
 
-export function getMdxContentBySlug(
+export function getMdxContentBySlug<T = Record<string, unknown>>(
   directory: string,
   slug: string,
-): MdxContent | null {
+): MdxContent<T> | null {
   try {
     const fullPath = path.join(directory, `${slug}.mdx`);
     const fileContents = fs.readFileSync(fullPath, "utf8");
@@ -30,7 +30,7 @@ export function getMdxContentBySlug(
 
     return {
       slug,
-      frontmatter: data,
+      frontmatter: data as T,
       content,
     };
   } catch (error) {
@@ -42,11 +42,13 @@ export function getMdxContentBySlug(
   }
 }
 
-export function getAllMdxContent(directory: string): MdxContent[] {
+export function getAllMdxContent<T = Record<string, unknown>>(
+  directory: string,
+): MdxContent<T>[] {
   const slugs = getMdxSlugs(directory);
   const allContent = slugs
-    .map((slug) => getMdxContentBySlug(directory, slug))
-    .filter((content): content is MdxContent => content !== null);
+    .map((slug) => getMdxContentBySlug<T>(directory, slug))
+    .filter((content): content is MdxContent<T> => content !== null);
 
   return allContent;
 }
