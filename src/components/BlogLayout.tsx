@@ -31,7 +31,7 @@ export function BlogLayout({
             Category: {activeCategory}
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400">
-            Explore articles in the {activeCategory} category
+            Explore texts in the {activeCategory} category
           </p>
         </div>
       )}
@@ -54,7 +54,7 @@ export function BlogLayout({
               ))
             ) : (
               <p className="text-center py-10 text-gray-500">
-                No blog posts found.
+                No texts found.
               </p>
             )}
           </div>

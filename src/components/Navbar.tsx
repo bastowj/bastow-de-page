@@ -54,7 +54,7 @@ export function Navbar() {
           className="nav-button"
           aria-label="Toggle theme"
         >
-          {theme === "dark" ? "🌙" : "☀️"}
+          {theme === "dark" ? <MoonIcon className="nav-theme-icon"/> : <SunIcon className="nav-theme-icon"/>}
         </button>
       </div>
 
@@ -65,7 +65,7 @@ export function Navbar() {
           className="nav-button mr-2"
           aria-label="Toggle theme"
         >
-          {theme === "dark" ? "🌙" : "☀️"}
+          {theme === "dark" ? <MoonIcon className="nav-theme-icon"/> : <SunIcon className="nav-theme-icon"/>}
         </button>
         <button
           onClick={toggleMenu}
