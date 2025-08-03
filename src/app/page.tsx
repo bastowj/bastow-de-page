@@ -18,9 +18,9 @@ export default function Home() {
 
       <section className="mb-16">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold">Latest posts</h2>
-          <Link href="/blog" className="link">
-            View all posts
+          <h2 className="text-2xl font-bold">Latest texts</h2>
+          <Link href="/texts" className="link">
+            View all texts
           </Link>
         </div>
 

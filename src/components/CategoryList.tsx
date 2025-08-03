@@ -14,7 +14,7 @@ export function CategoryList({
       <h3 className="text-lg font-semibold mb-4">Categories</h3>
       <div className="flex flex-wrap gap-2">
         <Link
-          href="/blog"
+          href="/texts"
           className={`category-all-link ${!activeCategory ? "active" : "inactive"}`}
         >
           All
@@ -23,7 +23,7 @@ export function CategoryList({
         {categories.map((category) => (
           <Link
             key={category}
-            href={`/blog/category/${category}`}
+            href={`/texts/category/${category}`}
             className={`category-link ${activeCategory === category ? "active" : "inactive"}`}
           >
             {category}

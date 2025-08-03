@@ -22,7 +22,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
           {categories.map((category) => (
             <Link
               key={category}
-              href={`/blog/category/${category}`}
+              href={`/texts/category/${category}`}
               className="bp-category-link"
             >
               {category}
@@ -32,7 +32,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
 
         {/* Title */}
         <h2 className="text-2xl font-bold">
-          <Link href={`/blog/${slug}`} className="bp-title">
+          <Link href={`/texts/${slug}`} className="bp-title">
             {title}
           </Link>
         </h2>
@@ -43,7 +43,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
         {/* Cover Image (if available) */}
         {coverImage && (
           <div className="my-4">
-            <Link href={`/blog/${slug}`}>
+            <Link href={`/texts/${slug}`}>
               <Image
                 src={coverImage}
                 alt={title}
@@ -60,7 +60,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
 
         {/* Read More Link */}
         <div>
-          <Link href={`/blog/${slug}`} className="link">
+          <Link href={`/texts/${slug}`} className="link">
             Read More
           </Link>
         </div>

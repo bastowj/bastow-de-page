@@ -43,8 +43,8 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
   return (
     <div className="main-content-wrapper">
       <div className="mb-8">
-        <Link href="/blog" className="link">
-          Back to all posts
+        <Link href="/texts" className="link">
+          Back to all texts
         </Link>
       </div>
 
@@ -55,7 +55,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
             {post.frontmatter.categories.map((category) => (
               <Link
                 key={category}
-                href={`/blog/category/${category}`}
+                href={`/texts/category/${category}`}
                 className="bp-category-link"
               >
                 {category}

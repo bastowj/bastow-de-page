@@ -18,7 +18,7 @@ export interface BlogPostFrontmatter {
 
 export type BlogPost = MdxContent<BlogPostFrontmatter>;
 
-const BLOG_DIRECTORY = path.join(process.cwd(), "content/blog");
+const BLOG_DIRECTORY = path.join(process.cwd(), "content/texts");
 
 /**
  * Get all blog post slugs

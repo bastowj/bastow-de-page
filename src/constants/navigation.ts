@@ -9,7 +9,7 @@ export type NavItem = {
 export const navItems = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Blog", href: "/blog" },
+  { name: "Texts", href: "/texts" },
   { name: "Contact", href: "/contact" },
 ];
 
