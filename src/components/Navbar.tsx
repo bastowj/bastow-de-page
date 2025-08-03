@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useTheme } from "next-themes";
 import { navItems, NavItem } from "@/constants/navigation";
-import { SunIcon, MoonIcon } from "@/lib/icons";
+import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon } from "@/lib/icons";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -80,7 +80,11 @@ export function Navbar() {
           className="nav-button"
           aria-label="Toggle menu"
         >
-          {isMenuOpen ? "✕" : "☰"}
+          {isMenuOpen ? (
+            <XMarkIcon className="nav-theme-icon" />
+          ) : (
+            <Bars3Icon className="nav-theme-icon" />
+          )}
         </button>
       </div>
 
