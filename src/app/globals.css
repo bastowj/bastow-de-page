@@ -71,7 +71,7 @@
     @apply border-[color:var(--border-color)];
   }
   .nav-theme-icon {
-    @apply w-6 h-6
+    @apply w-6 h-6;
   }
 
   /* MDXContent Styles */

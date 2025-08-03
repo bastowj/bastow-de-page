@@ -53,9 +53,7 @@ export function BlogLayout({
                 <BlogPostPreview key={post.slug} post={post} />
               ))
             ) : (
-              <p className="text-center py-10 text-gray-500">
-                No texts found.
-              </p>
+              <p className="text-center py-10 text-gray-500">No texts found.</p>
             )}
           </div>
         </div>
