@@ -1,10 +1,11 @@
 import { getAllCategories } from "@/lib/blog";
 import type { MetadataRoute } from "next";
+import { SITE_CONFIG } from "@/constants/config";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://www.bastow.de";
+  const baseUrl = SITE_CONFIG.baseUrl;
 
-  // Blog Categories
+  // Text Categories
   const allCategories = await getAllCategories();
   const categoriesSitemap = allCategories.map((category) => ({
     url: `${baseUrl}/texts/category/${category}`,

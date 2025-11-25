@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
+import { SITE_CONFIG } from "@/constants/config";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://www.bastow.de";
+  const baseUrl = SITE_CONFIG.baseUrl;
   return {
     rules: [
       {

@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import { SITE_CONFIG } from "@/constants/config";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -17,10 +18,10 @@ const robotoMono = Roboto_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: "bastow.de - %s",
-    default: "bastow.de",
+    template: SITE_CONFIG.defaultTitle + " - %s",
+    default: SITE_CONFIG.defaultTitle,
   },
-  description: "🌍 Language / 💻 Tech / 🖧 Infra / 📦 Product / 👥 Team",
+  description: SITE_CONFIG.baseUrl,
 };
 
 export default function RootLayout({

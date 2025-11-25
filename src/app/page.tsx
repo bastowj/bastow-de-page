@@ -1,6 +1,7 @@
 import { getAllBlogPosts } from "@/lib/blog";
 import { BlogPostPreview } from "@/components/BlogPostPreview";
 import { LabelBar } from "@/components/LabelBar";
+import { RandomCitation } from "@/components/RandomCitation";
 import Link from "next/link";
 
 export default function Home() {
@@ -8,11 +9,12 @@ export default function Home() {
   const latestPosts = getAllBlogPosts().slice(0, 3);
 
   return (
-    <div className="main-content-wrapper">
+    <div className="container mx-auto px-4">
       <section className="mb-16">
         <div className="mb-12">
-          <LabelBar />
           <h1 className="text-4xl font-bold mb-4">Welcome to my stuff</h1>
+          <LabelBar />
+          <RandomCitation />
         </div>
       </section>
 
