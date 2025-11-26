@@ -20,7 +20,7 @@ export function BlogLayout({
     <div className="main-content-wrapper">
       {showLabelBar && (
         <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">Stuff I write</h1>
+          <h1 className="blog-h1">Stuff I write</h1>
           <LabelBar />
         </div>
       )}

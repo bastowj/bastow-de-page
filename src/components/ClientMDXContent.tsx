@@ -80,7 +80,7 @@ export function ClientMDXContent({ content }: ClientMDXContentProps) {
   }, [content]);
 
   if (!mdxSource) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   return <MDXRemote {...mdxSource} components={components} />;
