@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
           </div>
 
           {/* Title */}
-          <h1 className="text-4xl font-bold mb-4">{post.frontmatter.title}</h1>
+          <h1 className="blog-h1">{post.frontmatter.title}</h1>
 
           {/* Date and Author */}
           <div className="text-gray-600 dark:text-gray-400 mb-6">

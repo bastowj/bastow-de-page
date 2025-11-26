@@ -12,7 +12,7 @@ export default function Home() {
     <div className="main-content-wrapper container">
       <section className="mb-16">
         <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">Welcome to my stuff</h1>
+          <h1 className="blog-h1">Welcome to my stuff</h1>
           <LabelBar />
           <RandomCitation />
         </div>
@@ -20,7 +20,7 @@ export default function Home() {
 
       <section className="mb-16">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl font-bold">Latest texts</h2>
+          <h2 className="blog-h2">Latest texts</h2>
           <Link href="/texts" className="link">
             View all texts
           </Link>
