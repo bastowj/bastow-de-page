@@ -26,7 +26,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
             <Link
               key={category}
               href={`/texts/category/${category}`}
-              className="bp-category-link"
+              className="blog-category-link"
             >
               {category}
             </Link>
