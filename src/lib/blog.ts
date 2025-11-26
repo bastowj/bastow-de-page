@@ -22,6 +22,8 @@ const BLOG_DIRECTORY = path.join(process.cwd(), "content/texts");
 
 /**
  * Get all blog post slugs
+ *
+ * @returns {string[]} - An array of blog post slugs
  */
 export function getBlogPostSlugs(): string[] {
   return getMdxSlugs(BLOG_DIRECTORY);
@@ -29,6 +31,9 @@ export function getBlogPostSlugs(): string[] {
 
 /**
  * Get a single blog post by slug
+ *
+ * @param {string} slug - The slug of the blog post to retrieve
+ * @returns {BlogPost | null} - The blog post with the given slug, or null if not found
  */
 export function getBlogPostBySlug(slug: string): BlogPost | null {
   const mdxContent = getMdxContentBySlug<BlogPostFrontmatter>(
@@ -44,6 +49,9 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
 
 /**
  * Get all blog posts
+ *
+ * @param {string} category - The category to filter by
+ * @returns {BlogPost[]} - An array of blog posts that match the category
  */
 export function getAllBlogPosts(): BlogPost[] {
   const posts = getAllMdxContent<BlogPostFrontmatter>(BLOG_DIRECTORY).sort(
@@ -57,6 +65,9 @@ export function getAllBlogPosts(): BlogPost[] {
 
 /**
  * Get all categories from blog posts
+ *
+ * @param {string} category - The category to filter by
+ * @returns {BlogPost[]} - An array of blog posts that match the category
  */
 export function getAllCategories(): string[] {
   const posts = getAllBlogPosts();
@@ -73,6 +84,9 @@ export function getAllCategories(): string[] {
 
 /**
  * Get blog posts by category
+ *
+ * @param {string} category - The category to filter by
+ * @returns {BlogPost[]} - An array of blog posts that match the category
  */
 export function getBlogPostsByCategory(category: string): BlogPost[] {
   const posts = getAllBlogPosts();

@@ -18,6 +18,8 @@ const PAGES_DIRECTORY = path.join(process.cwd(), "content/pages");
 
 /**
  * Get all static page slugs
+ *
+ * @returns An array of slugs
  */
 export function getStaticPageSlugs(): string[] {
   return getMdxSlugs(PAGES_DIRECTORY);
@@ -25,6 +27,9 @@ export function getStaticPageSlugs(): string[] {
 
 /**
  * Get a single static page by slug
+ *
+ * @param slug - The slug of the page to get
+ * @returns The static page or `null` if not found
  */
 export function getStaticPageBySlug(slug: string): StaticPage | null {
   const mdxContent = getMdxContentBySlug<StaticPageFrontmatter>(
@@ -40,6 +45,8 @@ export function getStaticPageBySlug(slug: string): StaticPage | null {
 
 /**
  * Get all static pages
+ *
+ * @returns An array of static pages
  */
 export function getAllStaticPages(): StaticPage[] {
   const pages = getAllMdxContent<StaticPageFrontmatter>(PAGES_DIRECTORY);
