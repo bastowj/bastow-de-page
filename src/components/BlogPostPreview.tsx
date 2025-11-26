@@ -44,7 +44,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
         {/* Cover Image (if available) */}
         {coverImage && (
           <div className="my-4">
-            <Link href={`/texts/${slug}`}>
+            <Link href={`/texts/${safeSlug}`}>
               <Image
                 src={coverImage}
                 alt={title}
@@ -61,7 +61,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
 
         {/* Read More Link */}
         <div>
-          <Link href={`/texts/${slug}`} className="link">
+          <Link href={`/texts/${safeSlug}`} className="link">
             Read More
           </Link>
         </div>
