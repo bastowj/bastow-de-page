@@ -32,10 +32,7 @@ export async function generateStaticPageMetadata({
   };
 }
 
-export default async function StaticPage({
-  slug,
-  className,
-}: StaticPageProps) {
+export default async function StaticPage({ slug, className }: StaticPageProps) {
   const page = cachedGetStaticPageBySlug(slug);
 
   if (!page) {

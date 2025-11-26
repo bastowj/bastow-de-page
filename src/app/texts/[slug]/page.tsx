@@ -56,7 +56,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
               <Link
                 key={category}
                 href={`/texts/category/${category}`}
-                className="bp-category-link"
+                className="blog-category-link"
               >
                 {category}
               </Link>

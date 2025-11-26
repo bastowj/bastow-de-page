@@ -10,9 +10,9 @@ interface BlogPostPreviewProps {
 export function BlogPostPreview({ post }: BlogPostPreviewProps) {
   const { slug, frontmatter } = post;
   const { title, date, excerpt, categories, coverImage } = frontmatter;
-  
+
   // Make sure the slug is valid
-  const safeSlug = isValidSlug(slug) ? slug : 'default-fallback-slug';
+  const safeSlug = isValidSlug(slug) ? slug : "default-fallback-slug";
 
   // Format the date using the utility function
   const formattedDate = formatDate(date);
@@ -34,14 +34,12 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold">
-          <Link href={`/texts/${safeSlug}`} className="bp-title">
-            {title}
-          </Link>
+        <h2 className="blog-h2">
+          <Link href={`/texts/${safeSlug}`}>{title}</Link>
         </h2>
 
         {/* Date */}
-        <div className="bpp-date">{formattedDate}</div>
+        <div className="blog-date">{formattedDate}</div>
 
         {/* Cover Image (if available) */}
         {coverImage && (
@@ -52,14 +50,14 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
                 alt={title}
                 width={800}
                 height={450}
-                className="bpp-cover-image"
+                className="blog-cover-image"
               />
             </Link>
           </div>
         )}
 
         {/* Excerpt */}
-        <p className="bpp-excerpt">{excerpt}</p>
+        <p className="blog-excerpt">{excerpt}</p>
 
         {/* Read More Link */}
         <div>

@@ -51,10 +51,10 @@
 @layer components {
   /* Generic */
   .container {
-    @apply grid grid-cols-1 xl:grid-cols-2 gap-x-14 gap-y-4 mx-auto max-w-6xl;
+    @apply grid grid-cols-1 xl:grid-cols-2 gap-x-14 gap-y-4 mx-auto;
   }
   .main-content-wrapper {
-    @apply max-w-6xl mx-auto px-4 py-12;
+    @apply max-w-6xl mx-auto px-4 py-8;
   }
   .link {
     @apply text-[color:var(--link-color)] hover:text-[color:var(--link-hover)];
@@ -79,13 +79,13 @@
 
   /* MDXContent Styles */
   .mdx-h1 {
-    @apply text-3xl font-bold mt-8 mb-4;
+    @apply text-3xl font-bold mt-4 mb-4;
   }
   .mdx-h2 {
-    @apply text-2xl font-bold mt-6 mb-3;
+    @apply text-2xl font-bold mt-3 mb-3;
   }
   .mdx-h3 {
-    @apply text-xl font-bold mt-4 mb-2;
+    @apply text-xl font-bold mt-2 mb-2;
   }
   .mdx-p {
     @apply my-4;
@@ -119,17 +119,32 @@
   }
 
   /* Blog Styles */
-    /* MDXContent Styles */
+  /* MDXContent Styles */
   .blog-h1 {
-    @apply text-3xl font-bold mt-8 mb-4;
+    @apply text-3xl font-bold mt-4 mb-4;
   }
   .blog-h2 {
-    @apply text-2xl font-bold mt-6 mb-3;
+    @apply text-2xl font-bold mt-3 mb-3;
   }
   .blog-h3 {
-    @apply text-xl font-bold mt-4 mb-2;
+    @apply text-xl font-bold mt-2 mb-2;
   }
-  
+  .blog-category-link {
+    @apply text-xs text-[theme(color.foreground-btn)] px-2 py-1 bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+  }
+  .blog-title {
+    @apply text-2xl font-bold;
+  }
+  .blog-date {
+    @apply text-sm text-gray-600 dark:text-gray-400;
+  }
+  .blog-cover-image {
+    @apply rounded-lg w-full object-cover;
+  }
+  .blog-excerpt {
+    @apply text-gray-700 dark:text-gray-300;
+  }
+
   /* CategoryList Styles */
   .category-all-link {
     @apply px-2 py-1 rounded-full text-xs transition-colors;
@@ -148,22 +163,5 @@
   }
   .category-link.inactive {
     @apply bg-gray-300 hover:bg-gray-400;
-  }
-
-  /* Blog Post Styles */
-  .bp-category-link {
-    @apply text-xs text-[theme(color.foreground-btn)] px-2 py-1 bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
-  }
-  .bp-title {
-    @apply text-2xl font-bold;
-  }
-  .bpp-date {
-    @apply text-sm text-gray-600 dark:text-gray-400;
-  }
-  .bpp-cover-image {
-    @apply rounded-lg w-full object-cover;
-  }
-  .bpp-excerpt {
-    @apply text-gray-700 dark:text-gray-300;
   }
 }
