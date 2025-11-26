@@ -10,6 +10,8 @@ interface BlogPostPreviewProps {
 export function BlogPostPreview({ post }: BlogPostPreviewProps) {
   const { slug, frontmatter } = post;
   const { title, date, excerpt, categories, coverImage } = frontmatter;
+  
+  // Make sure the slug is valid
   const safeSlug = isValidSlug(slug) ? slug : 'default-fallback-slug';
 
   // Format the date using the utility function
