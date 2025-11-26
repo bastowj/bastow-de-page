@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { BlogPost } from "@/lib/blog";
-import { formatDate } from "@/lib/utils"; // Import formatDate
+import { formatDate, isValidSlug } from "@/lib/utils";
 
 interface BlogPostPreviewProps {
   post: BlogPost;
@@ -10,6 +10,7 @@ interface BlogPostPreviewProps {
 export function BlogPostPreview({ post }: BlogPostPreviewProps) {
   const { slug, frontmatter } = post;
   const { title, date, excerpt, categories, coverImage } = frontmatter;
+  const safeSlug = isValidSlug(slug) ? slug : 'default-fallback-slug';
 
   // Format the date using the utility function
   const formattedDate = formatDate(date);
@@ -32,7 +33,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
 
         {/* Title */}
         <h2 className="text-2xl font-bold">
-          <Link href={`/texts/${slug}`} className="bp-title">
+          <Link href={`/texts/${safeSlug}`} className="bp-title">
             {title}
           </Link>
         </h2>
