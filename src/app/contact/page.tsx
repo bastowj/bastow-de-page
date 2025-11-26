@@ -3,7 +3,7 @@ import StaticPage, {
 } from "@/components/StaticPage";
 
 export function generateMetadata() {
-  return generateStaticPageMetadata("contact");
+  return generateStaticPageMetadata({ slug: "contact" });
 }
 
 export default function ContactPage() {

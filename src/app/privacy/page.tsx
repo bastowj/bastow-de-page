@@ -3,7 +3,7 @@ import StaticPage, {
 } from "@/components/StaticPage";
 
 export function generateMetadata() {
-  return generateStaticPageMetadata("privacy");
+  return generateStaticPageMetadata({ slug: "privacy" });
 }
 
 export default function ImpressumPage() {
