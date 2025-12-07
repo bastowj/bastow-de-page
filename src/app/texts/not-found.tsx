@@ -9,7 +9,7 @@ export default function BlogNotFound() {
       </p>
       <Link
         href="/texts"
-        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+        className="blog-category-link"
       >
         Back to Texts
       </Link>
