@@ -1,9 +1,18 @@
-import { getAllCategories } from "@/lib/blog";
+import { getAllCategories, getAllBlogPosts } from "@/lib/blog";
 import type { MetadataRoute } from "next";
 import { SITE_CONFIG } from "@/constants/config";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_CONFIG.baseUrl;
+
+  // Blog posts
+  const allPosts = await getAllBlogPosts();
+  const postsSitemap = allPosts.map((post) => ({
+    url: `${baseUrl}/texts/${post.slug}`,
+    lastModified: new Date(post.frontmatter.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
 
   // Text Categories
   const allCategories = await getAllCategories();
@@ -29,5 +38,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === "" ? 1 : 0.8,
   }));
 
-  return [...staticRoutesSitemap, ...categoriesSitemap];
+  return [...staticRoutesSitemap, ...postsSitemap, ...categoriesSitemap];
 }
