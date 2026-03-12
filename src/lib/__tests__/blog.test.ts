@@ -28,7 +28,7 @@ describe("getAllBlogPosts", () => {
       makePost("old", "2023-01-01", []),
       makePost("new", "2024-06-01", []),
       makePost("mid", "2023-12-01", []),
-    ] as any);
+    ]);
 
     const posts = getAllBlogPosts();
     expect(posts.map((p) => p.slug)).toEqual(["new", "mid", "old"]);
@@ -40,7 +40,7 @@ describe("getAllCategories", () => {
     jest.spyOn(mdxLib, "getAllMdxContent").mockReturnValue([
       makePost("a", "2024-01-01", ["Tech", "Language"]),
       makePost("b", "2024-02-01", ["Tech", "Product"]),
-    ] as any);
+    ]);
 
     expect(getAllCategories()).toEqual(["Language", "Product", "Tech"]);
   });
@@ -56,7 +56,7 @@ describe("getBlogPostsByCategory", () => {
       makePost("a", "2024-01-01", ["Tech"]),
       makePost("b", "2024-02-01", ["Language"]),
       makePost("c", "2024-03-01", ["Tech", "Infra"]),
-    ] as any);
+    ]);
 
     const result = getBlogPostsByCategory("Tech");
     expect(result.map((p) => p.slug)).toEqual(["c", "a"]);
@@ -65,7 +65,7 @@ describe("getBlogPostsByCategory", () => {
   it("returns empty array when no posts match", () => {
     jest.spyOn(mdxLib, "getAllMdxContent").mockReturnValue([
       makePost("a", "2024-01-01", ["Tech"]),
-    ] as any);
+    ]);
 
     expect(getBlogPostsByCategory("Language")).toEqual([]);
   });

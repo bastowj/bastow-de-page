@@ -14,13 +14,13 @@ beforeEach(() => {
 describe("getMdxSlugs", () => {
   it("returns slugs stripped of .mdx extension", () => {
     mockFs.existsSync.mockReturnValue(true);
-    mockFs.readdirSync.mockReturnValue(["foo.mdx", "bar.mdx"] as any);
+    mockFs.readdirSync.mockReturnValue(["foo.mdx", "bar.mdx"] as unknown as string[]);
     expect(getMdxSlugs(DIR)).toEqual(["foo", "bar"]);
   });
 
   it("ignores non-.mdx files", () => {
     mockFs.existsSync.mockReturnValue(true);
-    mockFs.readdirSync.mockReturnValue(["foo.mdx", "readme.md", "image.png"] as any);
+    mockFs.readdirSync.mockReturnValue(["foo.mdx", "readme.md", "image.png"] as unknown as string[]);
     expect(getMdxSlugs(DIR)).toEqual(["foo"]);
   });
 
@@ -33,7 +33,7 @@ describe("getMdxSlugs", () => {
 describe("getMdxContentBySlug", () => {
   it("parses frontmatter and content from an MDX file", () => {
     mockFs.readFileSync.mockReturnValue(
-      "---\ntitle: Hello\n---\n\nBody text." as any,
+      "---\ntitle: Hello\n---\n\nBody text." as unknown as Buffer,
     );
     const result = getMdxContentBySlug<{ title: string }>(DIR, "hello");
     expect(result).toEqual({
@@ -58,10 +58,10 @@ describe("getMdxContentBySlug", () => {
 describe("getAllMdxContent", () => {
   it("returns content for all MDX files in the directory", () => {
     mockFs.existsSync.mockReturnValue(true);
-    mockFs.readdirSync.mockReturnValue(["a.mdx", "b.mdx"] as any);
+    mockFs.readdirSync.mockReturnValue(["a.mdx", "b.mdx"] as unknown as string[]);
     mockFs.readFileSync
-      .mockReturnValueOnce("---\ntitle: A\n---\n\nContent A." as any)
-      .mockReturnValueOnce("---\ntitle: B\n---\n\nContent B." as any);
+      .mockReturnValueOnce("---\ntitle: A\n---\n\nContent A." as unknown as Buffer)
+      .mockReturnValueOnce("---\ntitle: B\n---\n\nContent B." as unknown as Buffer);
 
     const result = getAllMdxContent<{ title: string }>(DIR);
     expect(result).toHaveLength(2);
@@ -71,9 +71,9 @@ describe("getAllMdxContent", () => {
 
   it("skips files that fail to parse", () => {
     mockFs.existsSync.mockReturnValue(true);
-    mockFs.readdirSync.mockReturnValue(["good.mdx", "bad.mdx"] as any);
+    mockFs.readdirSync.mockReturnValue(["good.mdx", "bad.mdx"] as unknown as string[]);
     mockFs.readFileSync
-      .mockReturnValueOnce("---\ntitle: Good\n---\n\nOK." as any)
+      .mockReturnValueOnce("---\ntitle: Good\n---\n\nOK." as unknown as Buffer)
       .mockImplementationOnce(() => {
         throw new Error("unreadable");
       });
