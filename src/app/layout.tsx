@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_CONFIG } from "@/constants/config";
+import { Analytics } from "@vercel/analytics/next";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({
             <Footer />
           </div>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
