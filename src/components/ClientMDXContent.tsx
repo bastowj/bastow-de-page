@@ -69,15 +69,24 @@ export function ClientMDXContent({ content }: ClientMDXContentProps) {
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(
     null,
   );
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const serializeMdx = async () => {
-      const serialized = await serialize(content);
-      setMdxSource(serialized as MDXRemoteSerializeResult);
+      try {
+        const serialized = await serialize(content);
+        setMdxSource(serialized as MDXRemoteSerializeResult);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error(String(err)));
+      }
     };
 
     serializeMdx();
   }, [content]);
+
+  if (error) {
+    return <p>Failed to render content.</p>;
+  }
 
   if (!mdxSource) {
     return <div></div>;
