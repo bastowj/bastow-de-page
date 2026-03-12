@@ -1,0 +1,129 @@
+---
+title: "Ubuntu: How to add an additional encrypted partition and unlock it from your system disk"
+date: "2025-01-25"
+excerpt: "You want to add an additional encrypted disk or partition to your LUKS setup - if you do not want to input your key a second time on each boot here is how to daisy chain the unlocking. "
+categories: ["linux", "luks", "cryptsetup", "ubuntu"]
+coverImage:
+author: "Julian Bastow"
+---
+
+# How to add an additional encrypted partition and unlock it from your system disk
+
+You want to add an additional encrypted disk or partition to your LUKS setup - if you do not want to input your key a second time on each boot here is how to daisy chain the unlocking.
+
+### Find and encrypt your disk
+
+First find the correct disk using `lsblk`. Make sure you identify the correct one or disaster is waiting to happen. If you do not know what you are doing its best to stop here.
+
+Let's consider the new disk is `/dev/sdb`. Now create and format the partition:
+
+```bash
+sudo parted /dev/sdb mklabel gpt
+sudo parted /dev/sdb mkpart primary ext4 0% 100%
+```
+
+Depending on your distro and your setup you might have to install the `parted` package first.
+
+Now apply the LUKS encryption to it. You'll add a password for this partition. Do not lose it!
+
+```bash
+sudo cryptsetup luksFormat /dev/sdb1
+```
+
+Next open the encrypted volume and map it to a virtual device:
+
+```bash
+sudo cryptsetup luksOpen /dev/sdb1 your_crypt_device
+```
+
+Format the unlocked partition:
+
+```bash
+sudo mkfs.ext4 /dev/mapper/your_crypt_device
+```
+
+### Setup a keyfile for unlocking on boot
+
+The unlocking of the partition we will do by storing a keyfile on the already encrypted root partition. Do not store this on an unencrypted one if you do not want to compromise your data!
+
+```
+sudo mkdir -p /etc/luks
+sudo dd if=/dev/urandom of=/etc/luks/your_crypt_device.key bs=512 count=8
+sudo chmod 0400 /etc/luks/your_crypt_device.key
+```
+
+Now add this key to your encrypted partition (the new one!)
+
+```bash
+sudo cryptsetup luksAddKey /dev/sdb1 /etc/luks/your_crypt_device.key
+```
+
+### Find the correct UUIDs
+
+First you'll need to get the UUID of the new encrypted partition. A normal run of `lsblk -f /dev/sdb1` might loop empty output so first force the kernel to rescan the disk:
+
+```bash
+sudo partprobe /dev/sdb
+```
+
+Afterwards you should be able to get the correct UUID as follows:
+
+```bash
+sudo lsblk -f /dev/sdb
+```
+
+You should get two UUIDs here for your device like this:
+
+```
+ % lsblk -f /dev/sdb
+NAME                   FSTYPE      FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+sdb
+└─sdb1                 crypto_LUKS 2           xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  └─your_crypt_device  ext4        1.0         yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy  2955.6G     0%
+```
+
+The first one is the outer one of the encrypted disk. Thisone goes into `/etc/crypttab`.
+
+The second one is the inner one from the unlocked encrypted partition. Thisone goes into `/etc/fstab`.
+
+### Setup unlocking
+
+Edit `/etc/crypttab` and add the outer `crypto_LUKS` UUID as follows:
+
+```
+your_crypt_device UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx /etc/luks/your_crypt_device.key luks,discard
+```
+
+### Setup mounting
+
+Edit `/etc/fstab` and add the inner `ext4` UUID as follows at the bottom:
+
+```
+/dev/disk/by-uuid/yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy /mnt/your_mountpoint ext4 defaults 0 2
+```
+
+Make sure to create your mountpoint if it doesn't exist yet:
+
+```bash
+mkdir -p /mnt/your_mountpoint
+```
+
+Now reload the config:
+
+```bash
+sudo systemctl daemon-reload
+```
+
+Start the encryption mapping
+
+```bash
+sudo cryptdisks_start your_crypt_device
+```
+
+And mount the drive:
+
+```bash
+sudo mount -a
+```
+
+Confirm it worked with `df -h`. Make sure this works correctly or you will hang in the rescue console after next boot. If you run into any issues now go back and fix first.
