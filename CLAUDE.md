@@ -9,9 +9,10 @@ npm run dev      # Start dev server with Turbopack
 npm run build    # Production build
 npm run lint     # ESLint + Prettier check
 npm run format   # Auto-format with Prettier
+npm test         # Run Jest tests
 ```
 
-No test suite is configured.
+Tests live in `src/lib/__tests__/`. A pre-commit hook runs `lint` and `test` before every commit.
 
 ## Architecture
 
