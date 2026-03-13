@@ -5,18 +5,6 @@ export interface Citation {
 
 export const Citations: Citation[] = [
   {
-    text: "The only way to do great work is to love what you do.",
-    author: "Steve Jobs",
-  },
-  {
-    text: "Innovation distinguishes between a leader and a follower.",
-    author: "Steve Jobs",
-  },
-  {
-    text: "Stay hungry, stay foolish.",
-    author: "Steve Jobs",
-  },
-  {
     text: "It's the little things that make Freedom become Not Freedom",
     author: "Theo de Raath",
   },
@@ -27,17 +15,5 @@ export const Citations: Citation[] = [
   {
     text: "Success is not final, failure is not fatal: It is the courage to continue that counts.",
     author: "Winston Churchill",
-  },
-  {
-    text: "The only impossible journey is the one you never begin.",
-    author: "Tony Robbins",
-  },
-  {
-    text: "Life is what happens to you while you're busy making other plans.",
-    author: "John Lennon",
-  },
-  {
-    text: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
-    author: "Nelson Mandela",
   },
 ];
