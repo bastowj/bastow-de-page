@@ -35,7 +35,7 @@ export default async function ImagesPage() {
                 >
                   <Image
                     src={media.preview_url}
-                    alt={media.description ?? ""}
+                    alt={media.description ?? post.content ?? ""}
                     width={300}
                     height={300}
                     className="w-full h-full object-cover"
