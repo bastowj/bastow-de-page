@@ -10,6 +10,7 @@ export const navItems = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Texts", href: "/texts" },
+  { name: "Images", href: "/images" },
   { name: "Contact", href: "/contact" },
 ];
 
