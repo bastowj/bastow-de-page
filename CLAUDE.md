@@ -24,6 +24,8 @@ This is a **Next.js App Router** personal website/blog for Julian Bastow (bastow
 
 **Styling**: Tailwind CSS v4 via PostCSS — no `tailwind.config.*` file, uses v4 defaults. Global styles in `src/app/globals.css`.
 
+**Styling convention**: All component styles are defined as named classes in the `@layer components` block in `globals.css`. Do not use inline Tailwind utility classes directly in JSX for anything beyond trivial one-offs — extract them into a named class in `globals.css` instead. Use `color:var(--token)` syntax when referencing CSS custom properties (e.g. `text-[color:var(--foreground-btn)]`).
+
 **Theming**: Dark/light mode via `next-themes`, wrapped in `src/components/providers/theme-provider.tsx` at the root layout.
 
 **Site config**: `src/constants/config.ts` holds `baseUrl` and author metadata used for SEO (sitemap, robots, OpenGraph).
