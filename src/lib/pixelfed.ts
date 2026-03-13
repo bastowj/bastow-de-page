@@ -30,7 +30,7 @@ export async function getPixelfedPosts(maxId?: string): Promise<PixelfedPost[]> 
 
   const res = await fetch(
     `${PIXELFED_INSTANCE}/api/v1/accounts/${PIXELFED_ACCOUNT_ID}/statuses?${params}`,
-    { headers, next: { revalidate: 3600 } },
+    { headers, next: { revalidate: 900 } },
   );
 
   if (!res.ok) throw new Error(`Failed to fetch Pixelfed posts: ${res.status}`);
