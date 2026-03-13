@@ -42,9 +42,12 @@ export default function RootLayout({
         className={`${robotoSans.variable} font-sans ${robotoMono.variable} font-mono`}
       >
         <ThemeProvider>
+          <a href="#main-content" className="skip-to-content">
+            Skip to content
+          </a>
           <div className="flex flex-col min-h-screen">
             <Navbar />
-            <main className="grow">{children}</main>
+            <main id="main-content" className="grow">{children}</main>
             <Footer />
           </div>
         </ThemeProvider>

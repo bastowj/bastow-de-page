@@ -45,10 +45,21 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  /* Global focus styles — keyboard only, not on mouse click */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-[color:var(--link-color)] rounded-sm;
+  }
 }
 
 /* Component and utility styles */
 @layer components {
+  /* Skip to content */
+  .skip-to-content {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50;
+    @apply bg-background text-foreground px-4 py-2 rounded border border-current font-medium;
+  }
+
   /* Generic */
   .container {
     @apply grid grid-cols-1 xl:grid-cols-2 gap-x-14 gap-y-4 mx-auto;
