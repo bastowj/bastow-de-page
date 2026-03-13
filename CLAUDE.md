@@ -30,6 +30,6 @@ Tailwind variant classes (`group`, `group-hover`, `peer`, etc.) cannot be used i
 
 **Theming**: Dark/light mode via `next-themes`, wrapped in `src/components/providers/theme-provider.tsx` at the root layout.
 
-**Site config**: `src/constants/config.ts` holds `baseUrl` and author metadata used for SEO (sitemap, robots, OpenGraph).
+**Site config**: `src/constants/config.ts` holds `baseUrl`, author metadata, and site-wide constants (e.g. `PIXELFED_PROFILE`). Add any new site-wide URLs or identifiers here rather than inlining them in page files.
 
 **Path alias**: `@/*` maps to `src/*`.

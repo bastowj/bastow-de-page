@@ -2,14 +2,13 @@ import { getPixelfedPosts } from "@/lib/pixelfed";
 import { blurhashToDataURL } from "@/lib/blurhash";
 import { ImageGrid } from "@/components/ImageGrid";
 import type { ImagePost } from "@/app/api/images/route";
+import { PIXELFED_PROFILE } from "@/constants/config";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Images",
   description: "Photos from my Pixelfed",
 };
-
-const PIXELFED_PROFILE = "https://pixelfed.de/jbastow";
 
 export default async function ImagesPage() {
   let initialImages: ImagePost[] = [];

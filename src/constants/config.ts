@@ -5,4 +5,6 @@ export const SITE_CONFIG = {
   author: "Julian Bastow",
 };
 
+export const PIXELFED_PROFILE = "https://pixelfed.de/jbastow";
+
 export type SiteConfig = typeof SITE_CONFIG;
