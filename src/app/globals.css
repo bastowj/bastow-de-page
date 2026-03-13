@@ -153,6 +153,20 @@
     @apply text-[color:var(--foreground-muted)]
   }
 
+  /* Images page */
+  .images-page-header {
+    @apply flex items-baseline justify-between mb-2;
+  }
+  .images-profile-link {
+    @apply text-sm;
+  }
+  .image-grid {
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3;
+  }
+  .image-grid-sentinel {
+    @apply flex justify-center py-4;
+  }
+
   /* Image card with caption tooltip */
   .image-card {
     @apply relative block aspect-square overflow-hidden rounded-lg;

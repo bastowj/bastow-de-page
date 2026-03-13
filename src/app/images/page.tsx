@@ -1,5 +1,7 @@
-import Image from "next/image";
-import { getPixelfedPosts, type PixelfedPost } from "@/lib/pixelfed";
+import { getPixelfedPosts } from "@/lib/pixelfed";
+import { blurhashToDataURL } from "@/lib/blurhash";
+import { ImageGrid } from "@/components/ImageGrid";
+import type { ImagePost } from "@/app/api/images/route";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,46 +9,46 @@ export const metadata: Metadata = {
   description: "Photos from my Pixelfed",
 };
 
+const PIXELFED_PROFILE = "https://pixelfed.de/jbastow";
+
 export default async function ImagesPage() {
-  let posts: PixelfedPost[] = [];
+  let initialImages: ImagePost[] = [];
+  let initialNextMaxId: string | null = null;
+
   try {
-    posts = await getPixelfedPosts();
+    const posts = await getPixelfedPosts();
+    initialImages = posts.flatMap((post) =>
+      post.media_attachments
+        .filter((m) => m.type === "image")
+        .map((media) => ({
+          postId: post.id,
+          postUrl: post.url,
+          content: post.content,
+          mediaId: media.id,
+          preview_url: media.preview_url,
+          description: media.description,
+          blurDataURL: media.blurhash ? blurhashToDataURL(media.blurhash) : null,
+        })),
+    );
+    if (posts.length > 0) {
+      initialNextMaxId = posts[posts.length - 1].id;
+    }
   } catch {
-    posts = [];
+    initialImages = [];
   }
 
   return (
     <div className="main-content-wrapper">
-      <h1 className="blog-h1">Images</h1>
-      {posts.length === 0 ? (
+      <div className="images-page-header">
+        <h1 className="blog-h1">Images</h1>
+        <a href={PIXELFED_PROFILE} target="_blank" rel="noopener noreferrer" className="link images-profile-link">
+          Follow on Pixelfed
+        </a>
+      </div>
+      {initialImages.length === 0 ? (
         <p className="text-muted">No images yet.</p>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-          {posts.map((post) =>
-            post.media_attachments
-              .filter((m) => m.type === "image")
-              .map((media) => (
-                <a
-                  key={media.id}
-                  href={post.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="image-card"
-                >
-                  <Image
-                    src={media.preview_url}
-                    alt={media.description ?? post.content ?? ""}
-                    width={300}
-                    height={300}
-                    className="image-card-img"
-                  />
-                  {post.content && (
-                    <span className="image-card-caption">{post.content}</span>
-                  )}
-                </a>
-              )),
-          )}
-        </div>
+        <ImageGrid initialImages={initialImages} initialNextMaxId={initialNextMaxId} />
       )}
     </div>
   );

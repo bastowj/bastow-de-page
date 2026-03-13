@@ -8,6 +8,7 @@ export interface PixelfedMediaAttachment {
   url: string;
   preview_url: string;
   description: string | null;
+  blurhash: string | null;
 }
 
 export interface PixelfedPost {
@@ -18,14 +19,17 @@ export interface PixelfedPost {
   media_attachments: PixelfedMediaAttachment[];
 }
 
-export async function getPixelfedPosts(): Promise<PixelfedPost[]> {
+export async function getPixelfedPosts(maxId?: string): Promise<PixelfedPost[]> {
   const headers: HeadersInit = {};
   if (process.env.PIXELFED_TOKEN) {
     headers["Authorization"] = `Bearer ${process.env.PIXELFED_TOKEN}`;
   }
 
+  const params = new URLSearchParams({ only_media: "true", limit: "24" });
+  if (maxId) params.set("max_id", maxId);
+
   const res = await fetch(
-    `${PIXELFED_INSTANCE}/api/v1/accounts/${PIXELFED_ACCOUNT_ID}/statuses?only_media=true&limit=24`,
+    `${PIXELFED_INSTANCE}/api/v1/accounts/${PIXELFED_ACCOUNT_ID}/statuses?${params}`,
     { headers, next: { revalidate: 3600 } },
   );
 
