@@ -42,7 +42,7 @@ export default async function ImagesPage() {
       <div className="images-page-header">
         <h1 className="blog-h1">Images</h1>
         <a href={PIXELFED_PROFILE} target="_blank" rel="noopener noreferrer" className="link images-profile-link">
-          Follow on Pixelfed
+          View on Pixelfed
         </a>
       </div>
       {initialImages.length === 0 ? (
