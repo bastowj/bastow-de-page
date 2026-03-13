@@ -155,15 +155,21 @@
 
   /* Image card with caption tooltip */
   .image-card {
-    @apply group relative block aspect-square overflow-hidden rounded-lg;
+    @apply relative block aspect-square overflow-hidden rounded-lg;
   }
   .image-card-img {
-    @apply w-full h-full object-cover transition-opacity group-hover:opacity-60;
+    @apply w-full h-full object-cover transition-opacity;
+  }
+  .image-card:hover .image-card-img {
+    @apply opacity-60;
   }
   .image-card-caption {
-    @apply absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0;
-    @apply transition-transform duration-200;
+    @apply absolute inset-x-0 bottom-0 transition-transform duration-200;
     @apply bg-black/70 text-white text-xs px-2 py-1.5 line-clamp-2;
+    transform: translateY(100%);
+  }
+  .image-card:hover .image-card-caption {
+    transform: translateY(0);
   }
 
   /* CategoryList Styles */
