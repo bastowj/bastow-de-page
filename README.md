@@ -32,3 +32,11 @@ docker run -p 3000:3000 bastow-de
 ## Content
 
 Blog posts and static pages live as MDX files in `/content/`. Blog posts are served at `/texts/[slug]`.
+
+## Environment Variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `PIXELFED_TOKEN` | Yes | Personal access token for the Pixelfed API (read scope) |
+
+Create a `.env.local` file for local development. Get a token at pixelfed.de/settings/applications.
