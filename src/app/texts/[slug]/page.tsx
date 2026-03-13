@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: SlugParams }) {
   }
 
   return {
-    title: `${post.frontmatter.title} | Bastow.de Blog`,
+    title: post.frontmatter.title,
     description: post.frontmatter.excerpt,
   };
 }
