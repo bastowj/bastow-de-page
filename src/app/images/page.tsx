@@ -31,15 +31,18 @@ export default async function ImagesPage() {
                   href={post.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block aspect-square overflow-hidden rounded-lg hover:opacity-80 transition-opacity"
+                  className="image-card"
                 >
                   <Image
                     src={media.preview_url}
                     alt={media.description ?? post.content ?? ""}
                     width={300}
                     height={300}
-                    className="w-full h-full object-cover"
+                    className="image-card-img"
                   />
+                  {post.content && (
+                    <span className="image-card-caption">{post.content}</span>
+                  )}
                 </a>
               )),
           )}

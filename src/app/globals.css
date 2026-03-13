@@ -153,6 +153,19 @@
     @apply text-[color:var(--foreground-muted)]
   }
 
+  /* Image card with caption tooltip */
+  .image-card {
+    @apply group relative block aspect-square overflow-hidden rounded-lg;
+  }
+  .image-card-img {
+    @apply w-full h-full object-cover transition-opacity group-hover:opacity-60;
+  }
+  .image-card-caption {
+    @apply absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0;
+    @apply transition-transform duration-200;
+    @apply bg-black/70 text-white text-xs px-2 py-1.5 line-clamp-2;
+  }
+
   /* CategoryList Styles */
   .category-all-link {
     @apply px-2 py-1 rounded-full text-xs transition-colors;
