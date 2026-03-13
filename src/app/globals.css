@@ -130,7 +130,7 @@
     @apply text-xl font-bold mt-2 mb-2;
   }
   .blog-category-link {
-    @apply text-xs text-[color:var(--foreground-btn)] px-2 py-1 bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+    @apply text-xs text-[color:var(--foreground-btn)] px-2 py-1 rounded-full border border-current hover:opacity-70 transition-opacity;
   }
   .blog-date {
     @apply text-sm text-gray-600 dark:text-gray-400;
