@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getPixelfedPosts } from "@/lib/pixelfed";
+import { getPixelfedPosts, type PixelfedPost } from "@/lib/pixelfed";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ImagesPage() {
-  let posts;
+  let posts: PixelfedPost[] = [];
   try {
     posts = await getPixelfedPosts();
   } catch {
