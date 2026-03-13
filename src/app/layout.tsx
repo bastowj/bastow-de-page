@@ -23,6 +23,11 @@ export const metadata: Metadata = {
     default: SITE_CONFIG.defaultTitle,
   },
   description: SITE_CONFIG.description,
+  alternates: {
+    types: {
+      "application/rss+xml": `${SITE_CONFIG.baseUrl}/feed.xml`,
+    },
+  },
 };
 
 export default function RootLayout({
