@@ -12,12 +12,7 @@ export default async function ImagesPage() {
   try {
     posts = await getPixelfedPosts();
   } catch {
-    return (
-      <div className="main-content-wrapper">
-        <h1 className="blog-h1">Images</h1>
-        <p className="text-muted">Could not load images right now. Try again later.</p>
-      </div>
-    );
+    posts = [];
   }
 
   return (
