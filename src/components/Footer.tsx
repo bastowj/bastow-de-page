@@ -87,15 +87,13 @@ export function Footer() {
         </div>
 
         {/* Bottom Links */}
-        <div className="mt-8 pt-8 border-t border-subtle flex flex-wrap gap-6 justify-center md:justify-between">
-          <div className="flex gap-6">
-            <a className="text-sm nav-link" href="/privacy">
-              Privacy Policy
-            </a>
-            <a className="text-sm nav-link" href="/impressum">
-              Imprint (Impressum)
-            </a>
-          </div>
+        <div className="mt-8 pt-8 border-t border-subtle flex flex-wrap gap-6 justify-center md:justify-start">
+          <a className="text-sm nav-link" href="/privacy">
+            Privacy Policy
+          </a>
+          <a className="text-sm nav-link" href="/impressum">
+            Imprint (Impressum)
+          </a>
           <a className="text-sm nav-link" href="/feed.xml">
             RSS
           </a>
