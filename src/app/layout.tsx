@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s - " + SITE_CONFIG.defaultTitle,
     default: SITE_CONFIG.defaultTitle,
   },
-  description: SITE_CONFIG.baseUrl,
+  description: SITE_CONFIG.description,
 };
 
 export default function RootLayout({
