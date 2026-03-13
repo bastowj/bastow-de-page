@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Images",
-  description: "Photos from my Pixelfed",
+  description: "Images from my Pixelfed",
 };
 
 export default async function ImagesPage() {
