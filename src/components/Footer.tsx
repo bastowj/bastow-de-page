@@ -16,6 +16,11 @@ export function Footer() {
       href: "https://www.linkedin.com/in/julian-bastow",
       icon: "linkedin",
     },
+    {
+      name: "Pixelfed",
+      href: "https://pixelfed.de/jbastow",
+      icon: "pixelfed",
+    },
   ];
 
   return (
@@ -74,6 +79,7 @@ export function Footer() {
                   {link.icon === "github" && "GH"}
                   {link.icon === "twitter" && "TW"}
                   {link.icon === "linkedin" && "LI"}
+                  {link.icon === "pixelfed" && "PF"}
                 </a>
               ))}
             </div>

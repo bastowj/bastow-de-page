@@ -60,7 +60,7 @@
     @apply text-[color:var(--link-color)] hover:text-[color:var(--link-hover)];
   }
   .text-muted {
-    @apply text-[theme(color.foreground-muted)];
+    @apply text-[color:var(--foreground-muted)];
   }
   .nav-link {
     @apply hover:opacity-70 transition-colors;
@@ -130,7 +130,7 @@
     @apply text-xl font-bold mt-2 mb-2;
   }
   .blog-category-link {
-    @apply text-xs text-[theme(color.foreground-btn)] px-2 py-1 bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+    @apply text-xs text-[color:var(--foreground-btn)] px-2 py-1 bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
   }
   .blog-date {
     @apply text-sm text-gray-600 dark:text-gray-400;
@@ -139,7 +139,7 @@
     @apply rounded-lg w-full object-cover;
   }
   .blog-excerpt {
-    @apply text-gray-700 dark:text-gray-300;
+    @apply text-[color:var(--foreground-muted)]
   }
 
   /* CategoryList Styles */
@@ -153,7 +153,7 @@
     @apply bg-gray-300  hover:bg-gray-400;
   }
   .category-link {
-    @apply px-2 py-1 rounded-full text-xs text-[theme(color.foreground-btn)] transition-colors;
+    @apply px-2 py-1 rounded-full text-xs text-[color:var(--foreground-btn)] transition-colors;
   }
   .category-link.active {
     @apply bg-blue-600 text-white;

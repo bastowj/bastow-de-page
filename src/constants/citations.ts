@@ -17,8 +17,8 @@ export const Citations: Citation[] = [
     author: "Steve Jobs",
   },
   {
-    text: "The future belongs to those who believe in the beauty of their dreams.",
-    author: "Eleanor Roosevelt",
+    text: "It's the little things that make Freedom become Not Freedom",
+    author: "Theo de Raath",
   },
   {
     text: "It does not matter how slowly you go as long as you do not stop.",
@@ -39,9 +39,5 @@ export const Citations: Citation[] = [
   {
     text: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
     author: "Nelson Mandela",
-  },
-  {
-    text: "The way to get started is to quit talking and begin doing.",
-    author: "Walt Disney",
   },
 ];

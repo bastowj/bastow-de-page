@@ -9,7 +9,7 @@ export default function Home() {
   const latestPosts = getAllBlogPosts().slice(0, 3);
 
   return (
-    <div className="main-content-wrapper container">
+    <div className="main-content-wrapper">
       <section className="mb-16">
         <div className="mb-12">
           <h1 className="blog-h1">Welcome to my stuff</h1>
