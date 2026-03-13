@@ -7,9 +7,9 @@ export function RandomCitation() {
     <blockquote className="mt-4 italic border-l-4 border-gray-300 pl-4 text-lg text-gray-700">
       &quot;{randomCitation.text}&quot;
       {randomCitation.author && (
-        <cite className="block mt-2 text-right font-normal">
+        <footer className="block mt-2 text-right font-normal not-italic">
           — {randomCitation.author}
-        </cite>
+        </footer>
       )}
     </blockquote>
   );

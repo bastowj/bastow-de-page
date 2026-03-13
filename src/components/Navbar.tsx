@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { navItems, NavItem } from "@/constants/navigation";
 import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon } from "@/lib/icons";
@@ -20,6 +20,14 @@ export function Navbar() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMenuOpen(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <nav className="w-full py-4 px-8 sm:px-20 flex justify-between items-center border-b border-subtle bg-background text-foreground">
