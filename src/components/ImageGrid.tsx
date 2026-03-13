@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef, useEffect, useState, useCallback } from "react";
 import type { ImagePost } from "@/app/api/images/route";
+import { Lightbox } from "@/components/Lightbox";
 
 interface ImageGridProps {
   initialImages: ImagePost[];
@@ -13,6 +14,7 @@ export function ImageGrid({ initialImages, initialNextMaxId }: ImageGridProps) {
   const [images, setImages] = useState<ImagePost[]>(initialImages);
   const [nextMaxId, setNextMaxId] = useState<string | null>(initialNextMaxId);
   const [loading, setLoading] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   const loadMore = useCallback(async () => {
@@ -45,13 +47,12 @@ export function ImageGrid({ initialImages, initialNextMaxId }: ImageGridProps) {
   return (
     <>
       <div className="image-grid">
-        {images.map((img) => (
-          <a
+        {images.map((img, i) => (
+          <button
             key={img.mediaId}
-            href={img.postUrl}
-            target="_blank"
-            rel="noopener noreferrer"
             className="image-card"
+            onClick={() => setLightboxIndex(i)}
+            aria-label={img.description ?? img.content ?? "Open image"}
           >
             <Image
               src={img.preview_url}
@@ -62,12 +63,21 @@ export function ImageGrid({ initialImages, initialNextMaxId }: ImageGridProps) {
               {...(img.blurDataURL ? { placeholder: "blur", blurDataURL: img.blurDataURL } : {})}
             />
             {img.content && <span className="image-card-caption">{img.content}</span>}
-          </a>
+          </button>
         ))}
       </div>
       <div ref={sentinelRef} className="image-grid-sentinel">
         {loading && <p className="text-muted">Loading…</p>}
       </div>
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={images}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onPrev={() => setLightboxIndex((i) => Math.max(0, (i ?? 0) - 1))}
+          onNext={() => setLightboxIndex((i) => Math.min(images.length - 1, (i ?? 0) + 1))}
+        />
+      )}
     </>
   );
 }
