@@ -26,6 +26,8 @@ This is a **Next.js App Router** personal website/blog for Julian Bastow (bastow
 
 **Styling convention**: All component styles are defined as named classes in the `@layer components` block in `globals.css`. Do not use inline Tailwind utility classes directly in JSX for anything beyond trivial one-offs — extract them into a named class in `globals.css` instead. Use `color:var(--token)` syntax when referencing CSS custom properties (e.g. `text-[color:var(--foreground-btn)]`).
 
+Tailwind variant classes (`group`, `group-hover`, `peer`, etc.) cannot be used inside `@apply` in Tailwind v4 — they will cause a build error. Use native CSS selectors instead (e.g. `.image-card:hover .image-card-img { @apply opacity-60; }`).
+
 **Theming**: Dark/light mode via `next-themes`, wrapped in `src/components/providers/theme-provider.tsx` at the root layout.
 
 **Site config**: `src/constants/config.ts` holds `baseUrl` and author metadata used for SEO (sitemap, robots, OpenGraph).
