@@ -27,7 +27,7 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/avatar.png"
-            alt="Avatar"
+            alt="Julian"
             width={32}
             height={32}
             className="rounded-full"
