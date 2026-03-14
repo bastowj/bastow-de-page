@@ -149,7 +149,7 @@
     @apply grid grid-cols-1 md:grid-cols-3 gap-8;
   }
   .footer-section {
-    @apply flex flex-col;
+    @apply flex flex-col gap-2;
   }
   .footer-brand-link {
     @apply flex items-center gap-2;
@@ -161,16 +161,16 @@
     @apply text-sm opacity-70;
   }
   .footer-heading {
-    @apply text-sm font-semibold mb-4;
+    @apply text-sm font-semibold;
   }
   .footer-nav {
-    @apply flex flex-row flex-wrap gap-x-4 gap-y-1 mt-2;
+    @apply flex flex-row flex-wrap gap-x-4 gap-y-1;
   }
   .footer-nav-link {
     @apply text-sm hover:opacity-70 transition-colors;
   }
   .footer-social-links {
-    @apply flex flex-wrap gap-2 mt-2;
+    @apply flex flex-wrap gap-2;
   }
   .footer-bottom {
     @apply mt-8 pt-8 border-t border-[color:var(--border-color)] flex flex-wrap gap-6 justify-center md:justify-start;
