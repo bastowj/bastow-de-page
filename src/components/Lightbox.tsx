@@ -18,6 +18,7 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
   const touchStartX = useRef<number | null>(null);
   const [offset, setOffset] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
+  const [incomingIndex, setIncomingIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -52,12 +53,15 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
 
     if (Math.abs(delta) > 50 && !(delta > 0 && atStart) && !(delta < 0 && atEnd)) {
       const direction = delta < 0 ? -1 : 1;
+      const targetIndex = index + (direction < 0 ? 1 : -1);
+      setIncomingIndex(targetIndex);
       setTransitioning(true);
       setOffset(direction * window.innerWidth);
       setTimeout(() => {
         if (direction < 0) onNext(); else onPrev();
         setTransitioning(false);
         setOffset(0);
+        setIncomingIndex(null);
       }, 200);
     } else {
       setTransitioning(true);
@@ -65,6 +69,8 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
       setTimeout(() => setTransitioning(false), 200);
     }
   };
+
+  const incomingImg = incomingIndex !== null ? images[incomingIndex] : null;
 
   return (
     <div className="lightbox-backdrop" onClick={onClose} role="dialog" aria-modal="true">
@@ -87,6 +93,19 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
         >
           <ChevronLeftIcon className="nav-theme-icon" />
         </button>
+
+        {/* Incoming image placeholder shown behind the outgoing image */}
+        {incomingImg?.blurDataURL && (
+          <div
+            className="lightbox-img-wrapper"
+            style={{
+              position: "absolute",
+              backgroundImage: `url(${incomingImg.blurDataURL})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+        )}
 
         <div
           className="lightbox-img-wrapper"
