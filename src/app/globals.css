@@ -251,6 +251,9 @@
   .blog-h2 {
     @apply text-2xl font-bold mt-3 mb-3;
   }
+  .blog-h2 a {
+    @apply text-[color:var(--primary)] hover:text-[color:var(--primary-hover)];
+  }
   .blog-h3 {
     @apply text-xl font-bold mt-2 mb-2;
   }
