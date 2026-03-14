@@ -4,10 +4,10 @@ export function RandomCitation() {
   const randomCitation = getRandomCitation();
 
   return (
-    <blockquote className="mt-4 italic border-l-4 border-gray-300 pl-4 text-lg text-gray-700">
+    <blockquote className="citation">
       &quot;{randomCitation.text}&quot;
       {randomCitation.author && (
-        <footer className="block mt-2 text-right font-normal not-italic">
+        <footer className="citation-footer">
           — {randomCitation.author}
         </footer>
       )}

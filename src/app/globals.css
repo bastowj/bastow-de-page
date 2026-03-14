@@ -120,6 +120,14 @@
     @apply w-6 h-6;
   }
 
+  /* Citation */
+  .citation {
+    @apply mt-4 italic border-l-4 border-gray-300 pl-4 text-lg text-gray-700;
+  }
+  .citation-footer {
+    @apply block mt-2 text-right font-normal not-italic;
+  }
+
   /* MDXContent Styles */
   .mdx-h1 {
     @apply text-3xl font-bold mt-4 mb-4;
