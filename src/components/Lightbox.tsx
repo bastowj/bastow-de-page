@@ -39,7 +39,7 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
     if (touchStartX.current === null) return;
     const delta = e.changedTouches[0].clientX - touchStartX.current;
     if (Math.abs(delta) > 50) {
-      delta < 0 ? onNext() : onPrev();
+      if (delta < 0) onNext(); else onPrev();
     }
     touchStartX.current = null;
   };
