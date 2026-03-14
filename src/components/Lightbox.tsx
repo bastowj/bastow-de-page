@@ -135,7 +135,7 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
               rel="noopener noreferrer"
               className="lightbox-caption-link link"
             >
-              View on Pixelfed ↗
+              View on Pixelfed
             </a>
           </div>
         )}
@@ -147,7 +147,7 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
               rel="noopener noreferrer"
               className="lightbox-caption-link link"
             >
-              View on Pixelfed ↗
+              View on Pixelfed
             </a>
           </div>
         )}
