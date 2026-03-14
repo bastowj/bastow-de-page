@@ -51,7 +51,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
       <article>
         <header className="mb-8">
           {/* Categories */}
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="blog-post-categories mb-4">
             {post.frontmatter.categories.map((category) => (
               <Link
                 key={category}
@@ -67,7 +67,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
           <h1 className="blog-h1">{post.frontmatter.title}</h1>
 
           {/* Date and Author */}
-          <div className="text-gray-600 dark:text-gray-400 mb-6">
+          <div className="blog-post-meta">
             {formattedDate}
             {post.frontmatter.author && ` • By ${post.frontmatter.author}`}
           </div>
@@ -80,7 +80,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
                 alt={post.frontmatter.title}
                 width={1200}
                 height={630}
-                className="rounded-lg w-full object-cover"
+                className="blog-cover-image"
               />
             </div>
           )}

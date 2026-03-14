@@ -18,10 +18,10 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
   const formattedDate = formatDate(date);
 
   return (
-    <article className="mb-10 border-b border-subtle pb-8">
-      <div className="flex flex-col gap-4">
+    <article className="blog-post-preview">
+      <div className="blog-post-preview-inner">
         {/* Categories */}
-        <div className="flex flex-wrap gap-2">
+        <div className="blog-post-categories">
           {categories.map((category) => (
             <Link
               key={category}

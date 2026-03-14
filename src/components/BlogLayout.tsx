@@ -26,32 +26,27 @@ export function BlogLayout({
       )}
 
       {!showLabelBar && activeCategory && (
-        <div className="text-center mb-12">
+        <div className="blog-layout-category-header">
           <h1 className="blog-h1">Category: {activeCategory}</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-400">
+          <p className="blog-layout-category-subtitle">
             Explore texts in the {activeCategory} category
           </p>
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="blog-layout-grid">
         {/* Sidebar with categories */}
         <div className="lg:col-span-1">
-          <CategoryList
-            categories={categories}
-            activeCategory={activeCategory}
-          />
+          <CategoryList categories={categories} activeCategory={activeCategory} />
         </div>
 
         {/* Blog posts */}
         <div className="lg:col-span-3">
-          <div className="space-y-10">
+          <div className="blog-layout-posts">
             {posts.length > 0 ? (
-              posts.map((post) => (
-                <BlogPostPreview key={post.slug} post={post} />
-              ))
+              posts.map((post) => <BlogPostPreview key={post.slug} post={post} />)
             ) : (
-              <p className="text-center py-10 text-gray-500">No texts found.</p>
+              <p className="blog-layout-empty">No texts found.</p>
             )}
           </div>
         </div>

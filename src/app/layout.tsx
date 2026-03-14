@@ -45,7 +45,7 @@ export default function RootLayout({
           <a href="#main-content" className="skip-to-content">
             Skip to content
           </a>
-          <div className="flex flex-col min-h-screen">
+          <div className="layout-shell">
             <Navbar />
             <main id="main-content" className="grow">{children}</main>
             <Footer />

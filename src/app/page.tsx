@@ -19,14 +19,14 @@ export default function Home() {
       </section>
 
       <section className="mb-16">
-        <div className="flex justify-between items-center mb-8">
+        <div className="home-latest-header">
           <h2 className="blog-h2">Latest texts</h2>
           <Link href="/texts" className="link">
             View all texts
           </Link>
         </div>
 
-        <div className="space-y-10">
+        <div className="blog-layout-posts">
           {latestPosts.map((post) => (
             <BlogPostPreview key={post.slug} post={post} />
           ))}

@@ -12,7 +12,7 @@ export function CategoryList({
   return (
     <div className="mb-8">
       <h3 className="blog-h3">Categories</h3>
-      <div className="flex flex-wrap gap-2">
+      <div className="category-list-tags">
         <Link
           href="/texts"
           className={`category-all-link ${!activeCategory ? "active" : "inactive"}`}

@@ -8,6 +8,6 @@ export function generateMetadata() {
 
 export default function ImpressumPage() {
   return (
-    <StaticPage slug="impressum" className="max-w-6xl mx-auto px-4 py-12" />
+    <StaticPage slug="impressum" className="main-content-wrapper" />
   );
 }
