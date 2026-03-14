@@ -3,25 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { footerNavItems, NavItem } from "@/constants/navigation";
+import { footerNavItems, socialLinks, NavItem } from "@/constants/navigation";
 
 export function Footer() {
   const pathname = usePathname();
   const currentYear = new Date().getFullYear();
-
-  const socialLinks = [
-    { name: "GitHub", href: "https://github.com/bastowj", icon: "github" },
-    {
-      name: "LinkedIn",
-      href: "https://www.linkedin.com/in/julian-bastow",
-      icon: "linkedin",
-    },
-    {
-      name: "Pixelfed",
-      href: "https://pixelfed.de/jbastow",
-      icon: "pixelfed",
-    },
-  ];
 
   return (
     <footer className="w-full py-8 px-8 sm:px-20 mt-auto border-t border-subtle bg-background text-foreground">
