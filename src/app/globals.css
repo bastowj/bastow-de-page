@@ -170,7 +170,10 @@
     @apply text-sm hover:opacity-70 transition-colors;
   }
   .footer-social-links {
-    @apply flex flex-wrap gap-2;
+    @apply flex flex-wrap gap-4;
+  }
+  .footer-social-link {
+    @apply text-sm font-medium hover:opacity-70 transition-colors;
   }
   .footer-bottom {
     @apply mt-8 pt-8 border-t border-[color:var(--border-color)] flex flex-wrap gap-6 justify-center md:justify-start;

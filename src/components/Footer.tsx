@@ -56,7 +56,7 @@ export function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="nav-button"
+                  className="footer-social-link"
                   aria-label={link.name}
                 >
                   {link.icon === "github" && "GH"}
