@@ -7,23 +7,22 @@ import {
 } from "@/lib/icons";
 
 export function LabelBar() {
-  const iconClass = "inline-block w-4 h-4 mr-1 text-muted";
   return (
-    <p className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-[theme(color.foreground-muted)]">
+    <p className="label-bar">
       <span>
-        <GlobeAltIcon className={iconClass} /> Language
+        <GlobeAltIcon className="label-bar-icon" /> Language
       </span>
       <span>
-        <CpuChipIcon className={iconClass} /> Tech
+        <CpuChipIcon className="label-bar-icon" /> Tech
       </span>
       <span>
-        <ServerStackIcon className={iconClass} /> Infra
+        <ServerStackIcon className="label-bar-icon" /> Infra
       </span>
       <span>
-        <CubeIcon className={iconClass} /> Product
+        <CubeIcon className="label-bar-icon" /> Product
       </span>
       <span>
-        <UsersIcon className={iconClass} /> Team
+        <UsersIcon className="label-bar-icon" /> Team
       </span>
     </p>
   );

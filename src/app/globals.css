@@ -120,6 +120,14 @@
     @apply w-6 h-6;
   }
 
+  /* LabelBar */
+  .label-bar {
+    @apply flex flex-wrap gap-x-4 gap-y-1 text-sm text-[color:var(--foreground-muted)];
+  }
+  .label-bar-icon {
+    @apply inline-block w-4 h-4 mr-1 text-[color:var(--foreground-muted)];
+  }
+
   /* Citation */
   .citation {
     @apply mt-4 italic border-l-4 border-gray-300 pl-4 text-lg text-gray-700;
