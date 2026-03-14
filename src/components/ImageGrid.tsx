@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRef, useEffect, useState, useCallback } from "react";
 import type { ImagePost } from "@/app/api/images/route";
 import { Lightbox } from "@/components/Lightbox";
+import { Spinner } from "@/components/Spinner";
 
 interface ImageGridProps {
   initialImages: ImagePost[];
@@ -67,7 +68,7 @@ export function ImageGrid({ initialImages, initialNextMaxId }: ImageGridProps) {
         ))}
       </div>
       <div ref={sentinelRef} className="image-grid-sentinel">
-        {loading && <p className="text-muted">Loading…</p>}
+        {loading && <Spinner />}
       </div>
       {lightboxIndex !== null && (
         <Lightbox
