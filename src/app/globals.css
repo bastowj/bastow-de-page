@@ -133,7 +133,7 @@
     @apply w-full py-8 px-8 sm:px-20 mt-auto border-t border-[color:var(--border-color)] bg-background text-foreground;
   }
   .footer-inner {
-    @apply max-w-screen-xl mx-auto;
+    @apply w-full;
   }
   .footer-grid {
     @apply grid grid-cols-1 md:grid-cols-3 gap-8;
