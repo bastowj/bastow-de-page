@@ -94,24 +94,18 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
           <ChevronLeftIcon className="nav-theme-icon" />
         </button>
 
-        {/* Incoming image placeholder shown behind the outgoing image */}
-        {incomingImg?.blurDataURL && (
-          <div
-            className="lightbox-img-wrapper"
-            style={{
-              position: "absolute",
-              backgroundImage: `url(${incomingImg.blurDataURL})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          />
-        )}
-
         <div
           className="lightbox-img-wrapper"
           style={{
             transform: `translateX(${offset}px)`,
             transition: transitioning ? "transform 200ms ease" : "none",
+            backgroundImage: incomingImg?.blurDataURL
+              ? `url(${incomingImg.blurDataURL})`
+              : img.blurDataURL
+                ? `url(${img.blurDataURL})`
+                : undefined,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
           }}
         >
           <Image
