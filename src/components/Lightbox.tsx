@@ -47,7 +47,10 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
     const delta = e.changedTouches[0].clientX - touchStartX.current;
     touchStartX.current = null;
 
-    if (Math.abs(delta) > 50) {
+    const atStart = index === 0;
+    const atEnd = index === images.length - 1;
+
+    if (Math.abs(delta) > 50 && !(delta > 0 && atStart) && !(delta < 0 && atEnd)) {
       const direction = delta < 0 ? -1 : 1;
       setTransitioning(true);
       setOffset(direction * window.innerWidth);
