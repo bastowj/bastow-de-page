@@ -42,15 +42,9 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
 
   return (
     <div className="main-content-wrapper">
-      <div className="mb-8">
-        <Link href="/texts" className="blog-category-link">
-          Back to all texts
-        </Link>
-      </div>
-
       <article>
         <header className="mb-8">
-          {/* Categories */}
+          {/* Categories, Author, Date, Back link */}
           <div className="blog-post-categories mb-4">
             {post.frontmatter.categories.map((category) => (
               <Link
@@ -61,15 +55,13 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
                 {category}
               </Link>
             ))}
-          </div>
-
-          {/* Title */}
-          <h1 className="blog-h1">{post.frontmatter.title}</h1>
-
-          {/* Date and Author */}
-          <div className="blog-post-meta">
-            {formattedDate}
-            {post.frontmatter.author && ` • By ${post.frontmatter.author}`}
+            {post.frontmatter.author && (
+              <span className="blog-post-meta">By {post.frontmatter.author},</span>
+            )}
+            <span className="blog-post-meta">{formattedDate}</span>
+            <Link href="/texts" className="link ml-auto">
+              Back to all texts
+            </Link>
           </div>
 
           {/* Cover Image */}

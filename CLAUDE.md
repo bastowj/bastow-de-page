@@ -28,6 +28,8 @@ This is a **Next.js App Router** personal website/blog for Julian Bastow (bastow
 
 Tailwind variant classes (`group`, `group-hover`, `peer`, etc.) cannot be used inside `@apply` in Tailwind v4 — they will cause a build error. Use native CSS selectors instead (e.g. `.image-card:hover .image-card-img { @apply opacity-60; }`).
 
+**Do not use canonical Tailwind token shorthand classes** (e.g. `text-link`, `decoration-link`, `text-foreground-muted`) even though the IDE may suggest them. The project uses `@theme inline` which resolves token values statically at build time — using canonical names bakes in the light-mode value and breaks dark mode. Always reference CSS custom properties directly via `var(--token)` (e.g. `text-[color:var(--primary)]`) so the browser resolves them at runtime and the `.dark` class override takes effect.
+
 **Theming**: Dark/light mode via `next-themes`, wrapped in `src/components/providers/theme-provider.tsx` at the root layout.
 
 **Site config**: `src/constants/config.ts` holds `baseUrl`, author metadata, and site-wide constants (e.g. `PIXELFED_PROFILE`). Add any new site-wide URLs or identifiers here rather than inlining them in page files.

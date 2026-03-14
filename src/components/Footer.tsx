@@ -49,12 +49,8 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-social-link"
-                  aria-label={link.name}
                 >
-                  {link.icon === "github" && "GH"}
-                  {link.icon === "twitter" && "TW"}
-                  {link.icon === "linkedin" && "LI"}
-                  {link.icon === "pixelfed" && "PF"}
+                  {link.name}
                 </a>
               ))}
             </div>
