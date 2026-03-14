@@ -128,6 +128,47 @@
     @apply inline-block w-4 h-4 mr-1 text-[color:var(--foreground-muted)];
   }
 
+  /* Footer */
+  .footer {
+    @apply w-full py-8 px-8 sm:px-20 mt-auto border-t border-[color:var(--border-color)] bg-background text-foreground;
+  }
+  .footer-inner {
+    @apply max-w-screen-xl mx-auto;
+  }
+  .footer-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-8;
+  }
+  .footer-section {
+    @apply flex flex-col;
+  }
+  .footer-brand-link {
+    @apply flex items-center gap-2;
+  }
+  .footer-brand-avatar {
+    @apply rounded-full;
+  }
+  .footer-copyright {
+    @apply text-sm opacity-70;
+  }
+  .footer-heading {
+    @apply text-sm font-semibold mb-4;
+  }
+  .footer-nav {
+    @apply flex flex-col space-y-2;
+  }
+  .footer-nav-link {
+    @apply text-sm hover:opacity-70 transition-colors;
+  }
+  .footer-social-links {
+    @apply flex space-x-4;
+  }
+  .footer-bottom {
+    @apply mt-8 pt-8 border-t border-[color:var(--border-color)] flex flex-wrap gap-6 justify-center md:justify-start;
+  }
+  .footer-bottom-link {
+    @apply text-sm hover:opacity-70 transition-colors;
+  }
+
   /* Citation */
   .citation {
     @apply mt-4 italic border-l-4 border-gray-300 pl-4 text-lg text-gray-700;

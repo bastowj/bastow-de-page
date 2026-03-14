@@ -10,37 +10,35 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full py-8 px-8 sm:px-20 mt-auto border-t border-subtle bg-background text-foreground">
-      <div className="max-w-screen-xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="footer">
+      <div className="footer-inner">
+        <div className="footer-grid">
           {/* Brand and Copyright */}
-          <div className="flex flex-col">
-            <Link href="/" className="flex items-center gap-2">
+          <div className="footer-section">
+            <Link href="/" className="footer-brand-link">
               <Image
                 src="/avatar.png"
                 alt="Julian"
                 width={32}
                 height={32}
-                className="rounded-full"
+                className="footer-brand-avatar"
               />
               Bastow.de
             </Link>
-            <p className="text-sm opacity-70">
+            <p className="footer-copyright">
               © {currentYear} Bastow.de. All rights reserved.
             </p>
           </div>
 
           {/* Navigation Links */}
-          <div className="flex flex-col">
-            <h3 className="text-sm font-semibold mb-4">Navigation</h3>
-            <nav className="flex flex-col space-y-2">
+          <div className="footer-section">
+            <h3 className="footer-heading">Navigation</h3>
+            <nav className="footer-nav">
               {footerNavItems.map((item: NavItem) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`text-sm nav-link ${
-                    pathname === item.href ? "font-medium" : "font-normal"
-                  }`}
+                  className={`footer-nav-link ${pathname === item.href ? "font-medium" : "font-normal"}`}
                 >
                   {item.name}
                 </Link>
@@ -49,9 +47,9 @@ export function Footer() {
           </div>
 
           {/* Social Links */}
-          <div className="flex flex-col">
-            <h3 className="text-sm font-semibold mb-4">Connect</h3>
-            <div className="flex space-x-4">
+          <div className="footer-section">
+            <h3 className="footer-heading">Connect</h3>
+            <div className="footer-social-links">
               {socialLinks.map((link) => (
                 <a
                   key={link.name}
@@ -61,7 +59,6 @@ export function Footer() {
                   className="nav-button"
                   aria-label={link.name}
                 >
-                  {/* Simple text representation of icons */}
                   {link.icon === "github" && "GH"}
                   {link.icon === "twitter" && "TW"}
                   {link.icon === "linkedin" && "LI"}
@@ -73,16 +70,10 @@ export function Footer() {
         </div>
 
         {/* Bottom Links */}
-        <div className="mt-8 pt-8 border-t border-subtle flex flex-wrap gap-6 justify-center md:justify-start">
-          <a className="text-sm nav-link" href="/privacy">
-            Privacy Policy
-          </a>
-          <a className="text-sm nav-link" href="/impressum">
-            Imprint (Impressum)
-          </a>
-          <a className="text-sm nav-link" href="/feed.xml">
-            RSS
-          </a>
+        <div className="footer-bottom">
+          <a className="footer-bottom-link" href="/privacy">Privacy Policy</a>
+          <a className="footer-bottom-link" href="/impressum">Imprint (Impressum)</a>
+          <a className="footer-bottom-link" href="/feed.xml">RSS</a>
         </div>
       </div>
     </footer>
