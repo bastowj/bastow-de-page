@@ -139,8 +139,10 @@
   .nav-theme-icon {
     @apply w-6 h-6 transition-colors;
   }
-  .nav-button:hover .nav-theme-icon {
-    @apply text-[color:var(--primary)];
+  @media (hover: hover) {
+    .nav-button:hover .nav-theme-icon {
+      @apply text-[color:var(--primary)];
+    }
   }
 
   /* LabelBar */
