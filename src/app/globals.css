@@ -73,6 +73,9 @@
   .text-muted {
     @apply text-[color:var(--foreground-muted)];
   }
+  .border-subtle {
+    @apply border-[color:var(--border-color)];
+  }
 
   /* Navbar */
   .nav {
@@ -112,9 +115,6 @@
     @apply p-2 rounded-full transition-colors border border-solid border-transparent;
     @apply hover:bg-[color:var(--hover-bg)];
     @apply hover:border-[color:var(--border-color)];
-  }
-  .border-subtle {
-    @apply border-[color:var(--border-color)];
   }
   .nav-theme-icon {
     @apply w-6 h-6;
