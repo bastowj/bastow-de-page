@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { footerNavItems, socialLinks, NavItem } from "@/constants/navigation";
 
@@ -16,13 +15,6 @@ export function Footer() {
           {/* Brand and Copyright */}
           <div className="footer-section">
             <Link href="/" className="footer-brand-link">
-              <Image
-                src="/avatar.png"
-                alt="Julian"
-                width={32}
-                height={32}
-                className="footer-brand-avatar"
-              />
               Bastow.de
             </Link>
             <p className="footer-copyright">
