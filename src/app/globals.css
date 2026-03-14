@@ -73,8 +73,40 @@
   .text-muted {
     @apply text-[color:var(--foreground-muted)];
   }
+
+  /* Navbar */
+  .nav {
+    @apply w-full py-4 px-8 sm:px-20 flex justify-between items-center border-b border-[color:var(--border-color)] bg-background text-foreground;
+  }
+  .nav-brand {
+    @apply flex items-center gap-2;
+  }
+  .nav-brand-link {
+    @apply flex items-center gap-2;
+  }
+  .nav-brand-avatar {
+    @apply rounded-full;
+  }
+  .nav-brand-title {
+    @apply text-lg font-bold;
+  }
+  .nav-desktop {
+    @apply hidden sm:flex items-center space-x-8;
+  }
+  .nav-mobile-buttons {
+    @apply sm:hidden flex items-center;
+  }
+  .nav-mobile-menu {
+    @apply sm:hidden absolute top-16 right-0 left-0 bg-background border-b border-[color:var(--border-color)] z-50;
+  }
+  .nav-mobile-menu-inner {
+    @apply flex flex-col p-4;
+  }
   .nav-link {
     @apply hover:opacity-70 transition-colors;
+  }
+  .nav-mobile-link {
+    @apply py-2 hover:opacity-70 transition-colors;
   }
   .nav-button {
     @apply p-2 rounded-full transition-colors border border-solid border-transparent;

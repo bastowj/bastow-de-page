@@ -30,38 +30,32 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav className="w-full py-4 px-8 sm:px-20 flex justify-between items-center border-b border-subtle bg-background text-foreground">
-      <div className="flex items-center gap-2">
-        <Link href="/" className="flex items-center gap-2">
+    <nav className="nav">
+      <div className="nav-brand">
+        <Link href="/" className="nav-brand-link">
           <Image
             src="/avatar.png"
             alt="Julian"
             width={32}
             height={32}
-            className="rounded-full"
+            className="nav-brand-avatar"
           />
-          <span className="text-lg font-bold">Bastow.de</span>
+          <span className="nav-brand-title">Bastow.de</span>
         </Link>
       </div>
 
       {/* Desktop Menu */}
-      <div className="hidden sm:flex items-center space-x-8">
+      <div className="nav-desktop">
         {navItems.map((item: NavItem) => (
           <Link
             key={item.name}
             href={item.href}
-            className={`nav-link ${
-              pathname === item.href ? "font-medium" : "font-normal"
-            }`}
+            className={`nav-link ${pathname === item.href ? "font-medium" : "font-normal"}`}
           >
             {item.name}
           </Link>
         ))}
-        <button
-          onClick={toggleTheme}
-          className="nav-button"
-          aria-label="Toggle theme"
-        >
+        <button onClick={toggleTheme} className="nav-button" aria-label="Toggle theme">
           {theme === "dark" ? (
             <MoonIcon className="nav-theme-icon" />
           ) : (
@@ -71,23 +65,15 @@ export function Navbar() {
       </div>
 
       {/* Mobile Menu Button */}
-      <div className="sm:hidden flex items-center">
-        <button
-          onClick={toggleTheme}
-          className="nav-button mr-2"
-          aria-label="Toggle theme"
-        >
+      <div className="nav-mobile-buttons">
+        <button onClick={toggleTheme} className="nav-button mr-2" aria-label="Toggle theme">
           {theme === "dark" ? (
             <MoonIcon className="nav-theme-icon" />
           ) : (
             <SunIcon className="nav-theme-icon" />
           )}
         </button>
-        <button
-          onClick={toggleMenu}
-          className="nav-button"
-          aria-label="Toggle menu"
-        >
+        <button onClick={toggleMenu} className="nav-button" aria-label="Toggle menu">
           {isMenuOpen ? (
             <XMarkIcon className="nav-theme-icon" />
           ) : (
@@ -98,15 +84,13 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="sm:hidden absolute top-16 right-0 left-0 bg-background border-b border-subtle z-50">
-          <div className="flex flex-col p-4">
+        <div className="nav-mobile-menu">
+          <div className="nav-mobile-menu-inner">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`py-2 nav-link ${
-                  pathname === item.href ? "font-medium" : "font-normal"
-                }`}
+                className={`nav-mobile-link ${pathname === item.href ? "font-medium" : "font-normal"}`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
