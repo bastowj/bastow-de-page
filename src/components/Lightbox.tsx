@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import type { ImagePost } from "@/app/api/images/route";
 import { XMarkIcon, ChevronLeftIcon, ChevronRightIcon } from "@/lib/icons";
 
@@ -15,6 +15,7 @@ interface LightboxProps {
 
 export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxProps) {
   const img = images[index];
+  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -30,9 +31,22 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
     };
   }, [onClose, onPrev, onNext]);
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) > 50) {
+      delta < 0 ? onNext() : onPrev();
+    }
+    touchStartX.current = null;
+  };
+
   return (
     <div className="lightbox-backdrop" onClick={onClose} role="dialog" aria-modal="true">
-      <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+      <div className="lightbox-content" onClick={(e) => e.stopPropagation()} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         <button className="lightbox-close nav-button" onClick={onClose} aria-label="Close">
           <XMarkIcon className="nav-theme-icon" />
         </button>
