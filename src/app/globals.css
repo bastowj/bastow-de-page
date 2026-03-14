@@ -220,7 +220,7 @@
     @apply px-2 py-1 rounded-full text-xs transition-colors;
   }
   .category-all-link.active {
-    @apply bg-blue-600 text-white;
+    @apply oklch(0.5084 0.102 234.51) text-white;
   }
   .category-all-link.inactive {
     @apply bg-gray-300  hover:bg-gray-400;
@@ -229,7 +229,7 @@
     @apply px-2 py-1 rounded-full text-xs text-[color:var(--foreground-btn)] transition-colors;
   }
   .category-link.active {
-    @apply bg-blue-600 text-white;
+    @apply oklch(0.5084 0.102 234.51) text-white;
   }
   .category-link.inactive {
     @apply bg-gray-300 hover:bg-gray-400;
