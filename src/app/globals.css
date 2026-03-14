@@ -154,13 +154,13 @@
     @apply text-sm font-semibold mb-4;
   }
   .footer-nav {
-    @apply flex flex-col space-y-2;
+    @apply flex flex-row flex-wrap gap-x-4 gap-y-1 md:flex-col md:flex-nowrap md:gap-0 md:space-y-2;
   }
   .footer-nav-link {
     @apply text-sm hover:opacity-70 transition-colors;
   }
   .footer-social-links {
-    @apply flex space-x-4;
+    @apply flex flex-wrap gap-2;
   }
   .footer-bottom {
     @apply mt-8 pt-8 border-t border-[color:var(--border-color)] flex flex-wrap gap-6 justify-center md:justify-start;
