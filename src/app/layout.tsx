@@ -45,6 +45,10 @@ export default function RootLayout({
           <a href="#main-content" className="skip-to-content">
             Skip to content
           </a>
+          <div className="vaporwave-horizon" aria-hidden="true">
+            <div className="vaporwave-horizon-sun"></div>
+            <div className="vaporwave-horizon-grid"></div>
+          </div>
           <div className="layout-shell">
             <Navbar />
             <main id="main-content" className="grow">{children}</main>

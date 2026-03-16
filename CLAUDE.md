@@ -35,3 +35,5 @@ Tailwind variant classes (`group`, `group-hover`, `peer`, etc.) cannot be used i
 **Site config**: `src/constants/config.ts` holds `baseUrl`, author metadata, and site-wide constants (e.g. `PIXELFED_PROFILE`). Add any new site-wide URLs or identifiers here rather than inlining them in page files.
 
 **Path alias**: `@/*` maps to `src/*`.
+
+**Icons**: Always use `@heroicons/react/24/outline` for icons. Export new icons via `src/lib/icons.ts`. Do not create custom SVG icon components.

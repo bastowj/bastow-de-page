@@ -8,6 +8,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
       attribute="class" // Crucial: adds 'dark'/'light' class to <html>
       defaultTheme="system" // Uses OS preference as default
       enableSystem // Allows choosing the "system" option
+      themes={["light", "dark", "vaporwave"]}
       {...props}
     >
       {children}
