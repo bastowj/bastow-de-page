@@ -1,7 +1,7 @@
 import { getAllBlogPosts } from "@/lib/blog";
 import { BlogPostPreview } from "@/components/BlogPostPreview";
-import { LabelBar } from "@/components/LabelBar";
 import { RandomCitation } from "@/components/RandomCitation";
+import { SITE_CONFIG } from "@/constants/config";
 import Link from "next/link";
 
 export default function Home() {
@@ -12,8 +12,7 @@ export default function Home() {
     <div className="main-content-wrapper">
       <section className="mb-16">
         <div className="mb-12">
-          <h1 className="blog-h1">Welcome to my stuff</h1>
-          <LabelBar />
+          <h1 className="blog-h1">Bastow.de</h1>
           <RandomCitation />
         </div>
       </section>
