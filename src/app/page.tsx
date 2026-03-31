@@ -1,7 +1,6 @@
 import { getAllBlogPosts } from "@/lib/blog";
 import { BlogPostPreview } from "@/components/BlogPostPreview";
 import { RandomCitation } from "@/components/RandomCitation";
-import { SITE_CONFIG } from "@/constants/config";
 import Link from "next/link";
 
 export default function Home() {
