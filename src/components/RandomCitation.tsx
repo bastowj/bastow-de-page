@@ -6,11 +6,6 @@ export function RandomCitation() {
   return (
     <blockquote className="citation">
       &quot;{randomCitation.text}&quot;
-      {randomCitation.author && (
-        <footer className="citation-footer">
-          — {randomCitation.author}
-        </footer>
-      )}
     </blockquote>
   );
 }

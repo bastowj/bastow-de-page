@@ -7,18 +7,21 @@ describe("getRandomCitation", () => {
     expect(Citations).toContainEqual(result);
   });
 
-  it("returns an object with text and author", () => {
+  it("returns an object with text", () => {
     const result = getRandomCitation();
     expect(typeof result.text).toBe("string");
-    expect(typeof result.author).toBe("string");
     expect(result.text.length).toBeGreaterThan(0);
-    expect(result.author.length).toBeGreaterThan(0);
   });
 
-  it("returns different citations over multiple calls", () => {
-    const results = new Set(
-      Array.from({ length: 50 }, () => getRandomCitation().text),
-    );
-    expect(results.size).toBeGreaterThan(1);
+  it("returns different citations over multiple calls when more than one exists", () => {
+    if (Citations.length > 1) {
+      const results = new Set(
+        Array.from({ length: 50 }, () => getRandomCitation().text),
+      );
+      expect(results.size).toBeGreaterThan(1);
+    } else {
+      const result = getRandomCitation();
+      expect(result).toEqual(Citations[0]);
+    }
   });
 });

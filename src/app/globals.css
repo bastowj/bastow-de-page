@@ -222,9 +222,6 @@
   .citation {
     @apply bg-[color:var(--surface)] border border-[color:var(--border)] border-l-4 border-l-[color:var(--primary)] rounded p-5 my-6 italic text-lg text-[color:var(--foreground-muted)];
   }
-  .citation-footer {
-    @apply block mt-2 text-right font-normal not-italic;
-  }
 
   /* MDXContent Styles */
   .mdx-h1 {
