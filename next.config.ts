@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "pixelfed.de",
       },
+      {
+        protocol: "https",
+        hostname: "pxlfdde.fsn1.your-objectstorage.com",
+      },
     ],
   },
 };
