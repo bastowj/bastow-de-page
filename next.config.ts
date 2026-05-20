@@ -1,12 +1,10 @@
 import type { NextConfig } from "next";
+import { withContentCollections } from "@content-collections/next";
 
 const csp = [
   "default-src 'self'",
   "img-src 'self' data: blob: https://pixelfed.de https://pxlfdde.fsn1.your-objectstorage.com",
-  // 'unsafe-eval' is required: next-mdx-remote's <MDXRemote> compiles the MDX
-  // bundle on the client via `new Function(...)`. Without it, blog post bodies
-  // render as an empty <div>. See src/components/ClientMDXContent.tsx.
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
+  "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
   "connect-src 'self' https://vitals.vercel-insights.com https://va.vercel-scripts.com",
@@ -56,4 +54,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withContentCollections(nextConfig);

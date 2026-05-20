@@ -1,34 +1,51 @@
+type TextDoc = {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  categories: string[];
+  coverImage?: string;
+  author?: string;
+  body: string;
+};
+
+const mockTexts: TextDoc[] = [];
+
+jest.mock(
+  "content-collections",
+  () => ({
+    allTexts: mockTexts,
+    allPages: [],
+  }),
+  { virtual: true },
+);
+
 import {
   getAllBlogPosts,
   getAllCategories,
   getBlogPostsByCategory,
-  type BlogPost,
 } from "../blog";
-import * as mdxLib from "../mdx";
 
-jest.mock("../mdx");
-
-function makePost(slug: string, date: string, categories: string[]): BlogPost {
-  return {
+function addDoc(slug: string, date: string, categories: string[]) {
+  mockTexts.push({
     slug,
-    content: "",
-    frontmatter: { title: slug, date, excerpt: "", categories },
-  };
+    title: slug,
+    date,
+    excerpt: "",
+    categories,
+    body: "",
+  });
 }
 
 beforeEach(() => {
-  jest.clearAllMocks();
-  jest.spyOn(mdxLib, "getMdxSlugs").mockReturnValue([]);
-  jest.spyOn(mdxLib, "getAllMdxContent").mockReturnValue([]);
+  mockTexts.length = 0;
 });
 
 describe("getAllBlogPosts", () => {
   it("returns posts sorted newest first", () => {
-    jest.spyOn(mdxLib, "getAllMdxContent").mockReturnValue([
-      makePost("old", "2023-01-01", []),
-      makePost("new", "2024-06-01", []),
-      makePost("mid", "2023-12-01", []),
-    ]);
+    addDoc("old", "2023-01-01", []);
+    addDoc("new", "2024-06-01", []);
+    addDoc("mid", "2023-12-01", []);
 
     const posts = getAllBlogPosts();
     expect(posts.map((p) => p.slug)).toEqual(["new", "mid", "old"]);
@@ -37,10 +54,8 @@ describe("getAllBlogPosts", () => {
 
 describe("getAllCategories", () => {
   it("returns a sorted, deduplicated list of categories", () => {
-    jest.spyOn(mdxLib, "getAllMdxContent").mockReturnValue([
-      makePost("a", "2024-01-01", ["Tech", "Language"]),
-      makePost("b", "2024-02-01", ["Tech", "Product"]),
-    ]);
+    addDoc("a", "2024-01-01", ["Tech", "Language"]);
+    addDoc("b", "2024-02-01", ["Tech", "Product"]);
 
     expect(getAllCategories()).toEqual(["Language", "Product", "Tech"]);
   });
@@ -52,20 +67,16 @@ describe("getAllCategories", () => {
 
 describe("getBlogPostsByCategory", () => {
   it("returns only posts matching the given category", () => {
-    jest.spyOn(mdxLib, "getAllMdxContent").mockReturnValue([
-      makePost("a", "2024-01-01", ["Tech"]),
-      makePost("b", "2024-02-01", ["Language"]),
-      makePost("c", "2024-03-01", ["Tech", "Infra"]),
-    ]);
+    addDoc("a", "2024-01-01", ["Tech"]);
+    addDoc("b", "2024-02-01", ["Language"]);
+    addDoc("c", "2024-03-01", ["Tech", "Infra"]);
 
     const result = getBlogPostsByCategory("Tech");
     expect(result.map((p) => p.slug)).toEqual(["c", "a"]);
   });
 
   it("returns empty array when no posts match", () => {
-    jest.spyOn(mdxLib, "getAllMdxContent").mockReturnValue([
-      makePost("a", "2024-01-01", ["Tech"]),
-    ]);
+    addDoc("a", "2024-01-01", ["Tech"]);
 
     expect(getBlogPostsByCategory("Language")).toEqual([]);
   });

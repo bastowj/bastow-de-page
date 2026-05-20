@@ -40,6 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# content-collections
+.content-collections
+
 # claude
 .claude/settings.local.json
 memory

@@ -1,12 +1,5 @@
-import path from "path";
-import {
-  getMdxSlugs,
-  getMdxContentBySlug,
-  getAllMdxContent,
-  MdxContent,
-} from "./mdx";
+import { allTexts } from "content-collections";
 
-// Types for blog posts
 export interface BlogPostFrontmatter {
   title: string;
   date: string;
@@ -16,79 +9,60 @@ export interface BlogPostFrontmatter {
   author?: string;
 }
 
-export type BlogPost = MdxContent<BlogPostFrontmatter>;
+export interface BlogPost {
+  slug: string;
+  frontmatter: BlogPostFrontmatter;
+  body: string;
+}
 
-const BLOG_DIRECTORY = path.join(process.cwd(), "content/texts");
+type TextDoc = (typeof allTexts)[number];
 
-/**
- * Get all blog post slugs
- *
- * @returns {string[]} - An array of blog post slugs
- */
+function toBlogPost(doc: TextDoc): BlogPost {
+  return {
+    slug: doc.slug,
+    frontmatter: {
+      title: doc.title,
+      date: doc.date,
+      excerpt: doc.excerpt,
+      categories: doc.categories,
+      coverImage: doc.coverImage ?? undefined,
+      author: doc.author ?? undefined,
+    },
+    body: doc.body,
+  };
+}
+
 export function getBlogPostSlugs(): string[] {
-  return getMdxSlugs(BLOG_DIRECTORY);
+  return allTexts.map((doc) => doc.slug);
 }
 
-/**
- * Get a single blog post by slug
- *
- * @param {string} slug - The slug of the blog post to retrieve
- * @returns {BlogPost | null} - The blog post with the given slug, or null if not found
- */
 export function getBlogPostBySlug(slug: string): BlogPost | null {
-  const mdxContent = getMdxContentBySlug<BlogPostFrontmatter>(
-    BLOG_DIRECTORY,
-    slug,
-  );
-  if (!mdxContent) {
-    return null;
-  }
-
-  return mdxContent as BlogPost;
+  const doc = allTexts.find((d) => d.slug === slug);
+  return doc ? toBlogPost(doc) : null;
 }
 
-/**
- * Get all blog posts
- *
- * @param {string} category - The category to filter by
- * @returns {BlogPost[]} - An array of blog posts that match the category
- */
 export function getAllBlogPosts(): BlogPost[] {
-  const posts = getAllMdxContent<BlogPostFrontmatter>(BLOG_DIRECTORY).sort(
-    (post1, post2) =>
-      new Date(post2.frontmatter.date).getTime() -
-      new Date(post1.frontmatter.date).getTime(),
-  );
-
-  return posts as BlogPost[];
+  return allTexts
+    .map(toBlogPost)
+    .sort(
+      (a, b) =>
+        new Date(b.frontmatter.date).getTime() -
+        new Date(a.frontmatter.date).getTime(),
+    );
 }
 
-/**
- * Get all categories from blog posts
- *
- * @param {string} category - The category to filter by
- * @returns {BlogPost[]} - An array of blog posts that match the category
- */
 export function getAllCategories(): string[] {
-  const posts = getAllBlogPosts();
   const categoriesSet = new Set<string>();
-
-  posts.forEach((post) => {
-    post.frontmatter.categories.forEach((category) => {
+  for (const post of allTexts) {
+    for (const category of post.categories) {
       categoriesSet.add(category);
-    });
-  });
-
+    }
+  }
   return Array.from(categoriesSet).sort();
 }
 
-/**
- * Get blog posts by category
- *
- * @param {string} category - The category to filter by
- * @returns {BlogPost[]} - An array of blog posts that match the category
- */
 export function getBlogPostsByCategory(category: string): BlogPost[] {
-  const posts = getAllBlogPosts();
-  return posts.filter((post) => post.frontmatter.categories.includes(category));
+  return getAllBlogPosts().filter((post) =>
+    post.frontmatter.categories.includes(category),
+  );
 }

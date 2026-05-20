@@ -34,9 +34,6 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
     notFound();
   }
 
-  // Get the raw MDX content
-  const mdxContent = post.content;
-
   // Format the date using the utility function
   const formattedDate = formatDate(post.frontmatter.date);
 
@@ -79,7 +76,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
         </header>
 
         {/* MDX Content */}
-        <MDXContent content={mdxContent} />
+        <MDXContent code={post.body} />
       </article>
     </div>
   );

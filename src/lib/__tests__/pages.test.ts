@@ -1,18 +1,37 @@
-import { getStaticPageSlugs, getStaticPageBySlug, getAllStaticPages } from "../pages";
-import * as mdxLib from "../mdx";
+type PageDoc = {
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+};
 
-jest.mock("../mdx");
+const mockPages: PageDoc[] = [];
+
+jest.mock(
+  "content-collections",
+  () => ({
+    allTexts: [],
+    allPages: mockPages,
+  }),
+  { virtual: true },
+);
+
+import {
+  getStaticPageSlugs,
+  getStaticPageBySlug,
+  getAllStaticPages,
+} from "../pages";
 
 beforeEach(() => {
-  jest.clearAllMocks();
-  jest.spyOn(mdxLib, "getMdxSlugs").mockReturnValue([]);
-  jest.spyOn(mdxLib, "getMdxContentBySlug").mockReturnValue(null);
-  jest.spyOn(mdxLib, "getAllMdxContent").mockReturnValue([]);
+  mockPages.length = 0;
 });
 
 describe("getStaticPageSlugs", () => {
   it("returns slugs from the pages directory", () => {
-    jest.spyOn(mdxLib, "getMdxSlugs").mockReturnValue(["about", "contact"]);
+    mockPages.push(
+      { slug: "about", title: "About", description: "", body: "" },
+      { slug: "contact", title: "Contact", description: "", body: "" },
+    );
     expect(getStaticPageSlugs()).toEqual(["about", "contact"]);
   });
 
@@ -23,10 +42,11 @@ describe("getStaticPageSlugs", () => {
 
 describe("getStaticPageBySlug", () => {
   it("returns the page for a valid slug", () => {
-    jest.spyOn(mdxLib, "getMdxContentBySlug").mockReturnValue({
+    mockPages.push({
       slug: "about",
-      content: "About content",
-      frontmatter: { title: "About", description: "About me" },
+      title: "About",
+      description: "About me",
+      body: "About content",
     });
     const page = getStaticPageBySlug("about");
     expect(page?.slug).toBe("about");
@@ -41,10 +61,10 @@ describe("getStaticPageBySlug", () => {
 
 describe("getAllStaticPages", () => {
   it("returns all pages", () => {
-    jest.spyOn(mdxLib, "getAllMdxContent").mockReturnValue([
-      { slug: "about", content: "", frontmatter: { title: "About", description: "About me" } },
-      { slug: "contact", content: "", frontmatter: { title: "Contact", description: "Contact me" } },
-    ]);
+    mockPages.push(
+      { slug: "about", title: "About", description: "About me", body: "" },
+      { slug: "contact", title: "Contact", description: "Contact me", body: "" },
+    );
     const pages = getAllStaticPages();
     expect(pages).toHaveLength(2);
     expect(pages.map((p) => p.slug)).toEqual(["about", "contact"]);

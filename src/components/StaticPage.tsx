@@ -41,7 +41,7 @@ export default async function StaticPage({ slug, className }: StaticPageProps) {
 
   return (
     <div className={className}>
-      <MDXContent content={page.content} />
+      <MDXContent code={page.body} />
     </div>
   );
 }

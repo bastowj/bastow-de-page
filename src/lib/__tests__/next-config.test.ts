@@ -1,8 +1,9 @@
-import nextConfig from "../../../next.config";
+import nextConfigExport from "../../../next.config";
 
 type Header = { key: string; value: string };
 
 async function getCsp(): Promise<string> {
+  const nextConfig = await nextConfigExport;
   if (typeof nextConfig.headers !== "function") {
     throw new Error("next.config headers() function missing");
   }
@@ -14,13 +15,13 @@ async function getCsp(): Promise<string> {
 }
 
 describe("next.config CSP", () => {
-  // Regression: next-mdx-remote's <MDXRemote> compiles MDX on the client via
-  // `new Function(...)`. If 'unsafe-eval' is removed from script-src, every
-  // blog post body renders as an empty <div>.
-  it("script-src allows 'unsafe-eval' so MDX content can render on the client", async () => {
+  it("script-src does not allow 'unsafe-eval' (MDX is compiled at build time)", async () => {
     const csp = await getCsp();
-    const scriptSrc = csp.split(";").map((d) => d.trim()).find((d) => d.startsWith("script-src"));
+    const scriptSrc = csp
+      .split(";")
+      .map((d) => d.trim())
+      .find((d) => d.startsWith("script-src"));
     expect(scriptSrc).toBeDefined();
-    expect(scriptSrc).toContain("'unsafe-eval'");
+    expect(scriptSrc).not.toContain("'unsafe-eval'");
   });
 });
