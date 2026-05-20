@@ -7,11 +7,11 @@ Built with Next.js (App Router), MDX, and Tailwind CSS v4.
 ## Commands
 
 ```bash
-npm run dev      # Start dev server with Turbopack
-npm run build    # Production build
-npm run lint     # ESLint + Prettier check
-npm run format   # Auto-format with Prettier
-npm test         # Run Jest tests
+pnpm dev         # Start dev server with Turbopack
+pnpm build       # Production build
+pnpm lint        # ESLint + Prettier check
+pnpm format      # Auto-format with Prettier
+pnpm test        # Run Jest tests
 ```
 
 ## Docker
@@ -24,7 +24,7 @@ docker run -p 3000:3000 bastow-de
 ## Stack
 
 - **Next.js** (App Router)
-- **MDX** via `next-mdx-remote` + `gray-matter` for blog posts and static pages
+- **content-collections** for build-time MDX compilation with Zod-validated frontmatter
 - **Tailwind CSS v4** via PostCSS
 - **next-themes** for dark/light mode
 - **Jest** for testing

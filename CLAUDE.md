@@ -5,11 +5,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run dev      # Start dev server with Turbopack
-npm run build    # Production build
-npm run lint     # ESLint + Prettier check
-npm run format   # Auto-format with Prettier
-npm test         # Run Jest tests
+pnpm dev         # Start dev server with Turbopack
+pnpm build       # Production build
+pnpm lint        # ESLint + Prettier check
+pnpm format      # Auto-format with Prettier
+pnpm test        # Run Jest tests
 ```
 
 Tests live in `src/lib/__tests__/`. A pre-commit hook runs `lint` and `test` before every commit.

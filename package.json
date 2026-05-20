@@ -13,6 +13,10 @@
   "engines": {
     "node": ">=24.0.0"
   },
+  "packageManager": "pnpm@10.33.0",
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "sharp", "unrs-resolver"]
+  },
   "dependencies": {
     "@content-collections/core": "^0.15.0",
     "@content-collections/mdx": "^0.2.2",
