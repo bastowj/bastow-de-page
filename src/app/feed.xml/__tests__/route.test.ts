@@ -7,7 +7,7 @@ jest.mock("@/lib/blog");
 function makePost(overrides: Partial<BlogPost["frontmatter"]> = {}): BlogPost {
   return {
     slug: "test-post",
-    content: "",
+    body: "",
     frontmatter: {
       title: "Test Post",
       date: "2024-06-01",

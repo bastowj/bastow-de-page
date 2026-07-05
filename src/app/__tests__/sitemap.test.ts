@@ -8,7 +8,7 @@ jest.mock("@/lib/blog");
 function makePost(slug: string, date: string, categories: string[]): BlogPost {
   return {
     slug,
-    content: "",
+    body: "",
     frontmatter: { title: slug, date, excerpt: "", categories },
   };
 }
