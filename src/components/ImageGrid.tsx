@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useEffect, useState, useCallback } from "react";
-import type { ImagePost } from "@/app/api/images/route";
+import type { ImagePost } from "@/lib/pixelfed";
 import { Lightbox } from "@/components/Lightbox";
 import { Spinner } from "@/components/Spinner";
 

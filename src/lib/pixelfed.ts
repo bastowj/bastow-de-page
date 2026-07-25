@@ -1,3 +1,5 @@
+import { blurhashToDataURL } from "@/lib/blurhash";
+
 const PIXELFED_INSTANCE = "https://pixelfed.de";
 const PIXELFED_USERNAME = "jbastow";
 const PIXELFED_ACCOUNT_ID = "938013709751862754";
@@ -17,6 +19,48 @@ export interface PixelfedPost {
   url: string;
   content: string;
   media_attachments: PixelfedMediaAttachment[];
+}
+
+export interface ImagePost {
+  postId: string;
+  postUrl: string;
+  content: string;
+  mediaId: string;
+  preview_url: string;
+  description: string | null;
+  blurDataURL: string | null;
+}
+
+/**
+ * Flatten Pixelfed statuses into one entry per image attachment.
+ *
+ * @param posts - The statuses to flatten
+ * @returns One ImagePost per image attachment, in status order
+ */
+export function postsToImagePosts(posts: PixelfedPost[]): ImagePost[] {
+  return posts.flatMap((post) =>
+    post.media_attachments
+      .filter((m) => m.type === "image")
+      .map((media) => ({
+        postId: post.id,
+        postUrl: post.url,
+        content: post.content,
+        mediaId: media.id,
+        preview_url: media.preview_url,
+        description: media.description,
+        blurDataURL: media.blurhash ? blurhashToDataURL(media.blurhash) : null,
+      })),
+  );
+}
+
+/**
+ * The id to pass as `maxId` to fetch the page after these posts.
+ *
+ * @param posts - The current page of statuses
+ * @returns The last status id, or null if there is no further page
+ */
+export function nextMaxId(posts: PixelfedPost[]): string | null {
+  return posts.length > 0 ? posts[posts.length - 1].id : null;
 }
 
 export async function getPixelfedPosts(maxId?: string): Promise<PixelfedPost[]> {

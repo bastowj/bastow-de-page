@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Lightbox } from "../Lightbox";
-import type { ImagePost } from "@/app/api/images/route";
+import type { ImagePost } from "@/lib/pixelfed";
 
 jest.mock("next/image", () => ({
   __esModule: true,

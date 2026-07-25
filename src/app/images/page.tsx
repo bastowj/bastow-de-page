@@ -1,7 +1,10 @@
-import { getPixelfedPosts } from "@/lib/pixelfed";
-import { blurhashToDataURL } from "@/lib/blurhash";
+import {
+  getPixelfedPosts,
+  nextMaxId,
+  postsToImagePosts,
+  type ImagePost,
+} from "@/lib/pixelfed";
 import { ImageGrid } from "@/components/ImageGrid";
-import type { ImagePost } from "@/app/api/images/route";
 import { PIXELFED_PROFILE } from "@/constants/config";
 import type { Metadata } from "next";
 
@@ -16,22 +19,8 @@ export default async function ImagesPage() {
 
   try {
     const posts = await getPixelfedPosts();
-    initialImages = posts.flatMap((post) =>
-      post.media_attachments
-        .filter((m) => m.type === "image")
-        .map((media) => ({
-          postId: post.id,
-          postUrl: post.url,
-          content: post.content,
-          mediaId: media.id,
-          preview_url: media.preview_url,
-          description: media.description,
-          blurDataURL: media.blurhash ? blurhashToDataURL(media.blurhash) : null,
-        })),
-    );
-    if (posts.length > 0) {
-      initialNextMaxId = posts[posts.length - 1].id;
-    }
+    initialImages = postsToImagePosts(posts);
+    initialNextMaxId = nextMaxId(posts);
   } catch {
     initialImages = [];
   }

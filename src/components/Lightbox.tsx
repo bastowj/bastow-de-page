@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import type { ImagePost } from "@/app/api/images/route";
+import type { ImagePost } from "@/lib/pixelfed";
 import { XMarkIcon, ChevronLeftIcon, ChevronRightIcon } from "@/lib/icons";
 
 interface LightboxProps {
