@@ -5,6 +5,12 @@ import { BlogLayout } from "@/components/BlogLayout";
 // Define params type for Next.js 15
 type CategoryParams = Promise<{ category: string }>;
 
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getAllCategories().map((category) => ({ category }));
+}
+
 // Generate metadata for the page - https://nextjs.org/docs/app/api-reference/functions/generate-metadata
 export async function generateMetadata({ params }: { params: CategoryParams }) {
   const resolvedParams = await params;

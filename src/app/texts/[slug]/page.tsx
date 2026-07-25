@@ -1,4 +1,4 @@
-import { getBlogPostBySlug } from "@/lib/blog";
+import { getBlogPostBySlug, getBlogPostSlugs } from "@/lib/blog";
 import { MDXContent } from "@/components/MDXContent";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -7,6 +7,12 @@ import { formatDate } from "@/lib/utils"; // Import formatDate
 
 // Define params type for Next.js 15
 type SlugParams = Promise<{ slug: string }>;
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getBlogPostSlugs().map((slug) => ({ slug }));
+}
 
 // Generate metadata for the page - https://nextjs.org/docs/app/api-reference/functions/generate-metadata
 export async function generateMetadata({ params }: { params: SlugParams }) {
