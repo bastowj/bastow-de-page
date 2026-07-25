@@ -24,3 +24,28 @@ export function isValidSlug(s: string): boolean {
   }
   return /^[a-zA-Z0-9_-]+$/.test(s);
 }
+
+/**
+ * Convert a category name into a URL-safe slug.
+ *
+ * Category names are free text, so they can contain spaces, umlauts and
+ * punctuation. Percent-encoding them is not viable: Next hands
+ * `generateMetadata` and the page component different encoding levels of the
+ * same param, so no fixed number of decode calls is correct in both. Slugs
+ * avoid the problem by keeping URLs in `[a-z0-9-]`, where encoding is a no-op.
+ *
+ * @param category - The category name to slugify
+ * @returns The slug, or an empty string if nothing URL-safe remains
+ */
+export function categorySlug(category: string): string {
+  return category
+    .toLowerCase()
+    .replace(/ä/g, "ae")
+    .replace(/ö/g, "oe")
+    .replace(/ü/g, "ue")
+    .replace(/ß/g, "ss")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}

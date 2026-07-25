@@ -3,7 +3,7 @@ import { MDXContent } from "@/components/MDXContent";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { formatDate } from "@/lib/utils"; // Import formatDate
+import { categorySlug, formatDate } from "@/lib/utils"; // Import formatDate
 
 // Define params type for Next.js 15
 type SlugParams = Promise<{ slug: string }>;
@@ -52,7 +52,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
             {post.frontmatter.categories.map((category) => (
               <Link
                 key={category}
-                href={`/texts/category/${category}`}
+                href={`/texts/category/${categorySlug(category)}`}
                 className="blog-category-link"
               >
                 {category}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { BlogPost } from "@/lib/blog";
-import { formatDate, isValidSlug } from "@/lib/utils";
+import { categorySlug, formatDate, isValidSlug } from "@/lib/utils";
 
 interface BlogPostPreviewProps {
   post: BlogPost;
@@ -25,7 +25,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
           {categories.map((category) => (
             <Link
               key={category}
-              href={`/texts/category/${category}`}
+              href={`/texts/category/${categorySlug(category)}`}
               className="blog-category-link"
             >
               {category}

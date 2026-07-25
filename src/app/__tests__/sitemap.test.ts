@@ -5,7 +5,7 @@ import type { BlogPost } from "@/lib/blog";
 
 jest.mock("@/lib/blog", () => ({
   getAllBlogPosts: jest.fn(),
-  getAllCategories: jest.fn(),
+  getCategorySlugs: jest.fn(),
 }));
 
 function makePost(slug: string, date: string, categories: string[]): BlogPost {
@@ -18,7 +18,7 @@ function makePost(slug: string, date: string, categories: string[]): BlogPost {
 
 beforeEach(() => {
   jest.spyOn(blog, "getAllBlogPosts").mockReturnValue([]);
-  jest.spyOn(blog, "getAllCategories").mockReturnValue([]);
+  jest.spyOn(blog, "getCategorySlugs").mockReturnValue([]);
 });
 
 describe("sitemap", () => {
@@ -58,10 +58,26 @@ describe("sitemap", () => {
   });
 
   it("includes category URLs", async () => {
-    jest.spyOn(blog, "getAllCategories").mockReturnValue(["Tech", "Linux"]);
+    jest.spyOn(blog, "getCategorySlugs").mockReturnValue(["tech", "linux"]);
     const entries = await sitemap();
     const urls = entries.map((e) => e.url);
-    expect(urls).toContain(`${SITE_CONFIG.baseUrl}/texts/category/Tech`);
-    expect(urls).toContain(`${SITE_CONFIG.baseUrl}/texts/category/Linux`);
+    expect(urls).toContain(`${SITE_CONFIG.baseUrl}/texts/category/tech`);
+    expect(urls).toContain(`${SITE_CONFIG.baseUrl}/texts/category/linux`);
+  });
+
+  it("emits URL-safe category URLs for names needing a slug", async () => {
+    jest
+      .spyOn(blog, "getCategorySlugs")
+      .mockReturnValue(["web-dev", "100-pure", "muenchen"]);
+    const entries = await sitemap();
+    const urls = entries.map((e) => e.url);
+
+    expect(urls).toContain(`${SITE_CONFIG.baseUrl}/texts/category/web-dev`);
+    expect(urls).toContain(`${SITE_CONFIG.baseUrl}/texts/category/100-pure`);
+    expect(urls).toContain(`${SITE_CONFIG.baseUrl}/texts/category/muenchen`);
+    for (const url of urls) {
+      expect(url).toBe(encodeURI(url));
+      expect(url).not.toMatch(/[ %]/);
+    }
   });
 });

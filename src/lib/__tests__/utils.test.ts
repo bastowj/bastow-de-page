@@ -1,4 +1,4 @@
-import { formatDate, isValidSlug } from "../utils";
+import { categorySlug, formatDate, isValidSlug } from "../utils";
 
 describe("formatDate", () => {
   it("formats a date string to a human-readable format", () => {
@@ -38,5 +38,54 @@ describe("isValidSlug", () => {
 
   it("rejects empty string", () => {
     expect(isValidSlug("")).toBe(false);
+  });
+});
+
+describe("categorySlug", () => {
+  it("leaves an already-safe name unchanged", () => {
+    expect(categorySlug("linux")).toBe("linux");
+    expect(categorySlug("cryptsetup")).toBe("cryptsetup");
+  });
+
+  it("lowercases", () => {
+    expect(categorySlug("Tech")).toBe("tech");
+  });
+
+  it("replaces spaces with a single hyphen", () => {
+    expect(categorySlug("web dev")).toBe("web-dev");
+    expect(categorySlug("a   b")).toBe("a-b");
+  });
+
+  it("transliterates German umlauts and eszett", () => {
+    expect(categorySlug("münchen")).toBe("muenchen");
+    expect(categorySlug("Größe")).toBe("groesse");
+  });
+
+  it("strips other diacritics", () => {
+    expect(categorySlug("café")).toBe("cafe");
+  });
+
+  it("collapses punctuation and trims leading and trailing hyphens", () => {
+    expect(categorySlug("c++")).toBe("c");
+    expect(categorySlug("100% pure")).toBe("100-pure");
+    expect(categorySlug("--edge--")).toBe("edge");
+  });
+
+  it("returns a slug containing only lowercase alphanumerics and hyphens", () => {
+    for (const name of ["web dev", "c++", "münchen", "100% pure", "Größe"]) {
+      expect(categorySlug(name)).toMatch(/^[a-z0-9-]+$/);
+    }
+  });
+
+  it("returns an empty string when nothing URL-safe remains", () => {
+    expect(categorySlug("+++")).toBe("");
+    expect(categorySlug("")).toBe("");
+  });
+
+  it("is idempotent", () => {
+    for (const name of ["web dev", "c++", "münchen", "100% pure"]) {
+      const once = categorySlug(name);
+      expect(categorySlug(once)).toBe(once);
+    }
   });
 });

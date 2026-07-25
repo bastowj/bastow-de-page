@@ -1,4 +1,5 @@
 import { allTexts } from "content-collections";
+import { categorySlug } from "@/lib/utils";
 
 export interface BlogPostFrontmatter {
   title: string;
@@ -65,4 +66,32 @@ export function getBlogPostsByCategory(category: string): BlogPost[] {
   return getAllBlogPosts().filter((post) =>
     post.frontmatter.categories.includes(category),
   );
+}
+
+function getCategorySlugMap(): Map<string, string> {
+  const bySlug = new Map<string, string>();
+  for (const category of getAllCategories()) {
+    const slug = categorySlug(category);
+    if (!slug) {
+      throw new Error(
+        `Category ${JSON.stringify(category)} has no URL-safe slug`,
+      );
+    }
+    const claimed = bySlug.get(slug);
+    if (claimed !== undefined && claimed !== category) {
+      throw new Error(
+        `Categories ${JSON.stringify(claimed)} and ${JSON.stringify(category)} both slugify to ${JSON.stringify(slug)}`,
+      );
+    }
+    bySlug.set(slug, category);
+  }
+  return bySlug;
+}
+
+export function getCategorySlugs(): string[] {
+  return Array.from(getCategorySlugMap().keys()).sort();
+}
+
+export function getCategoryBySlug(slug: string): string | null {
+  return getCategorySlugMap().get(slug) ?? null;
 }

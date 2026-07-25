@@ -24,6 +24,8 @@ import {
   getAllBlogPosts,
   getAllCategories,
   getBlogPostsByCategory,
+  getCategoryBySlug,
+  getCategorySlugs,
 } from "../blog";
 
 function addDoc(slug: string, date: string, categories: string[]) {
@@ -79,5 +81,46 @@ describe("getBlogPostsByCategory", () => {
     addDoc("a", "2024-01-01", ["Tech"]);
 
     expect(getBlogPostsByCategory("Language")).toEqual([]);
+  });
+});
+
+describe("getCategorySlugs", () => {
+  it("returns URL-safe slugs for names that need one", () => {
+    addDoc("a", "2024-01-01", ["web dev", "münchen", "100% pure"]);
+
+    expect(getCategorySlugs()).toEqual(["100-pure", "muenchen", "web-dev"]);
+  });
+
+  it("throws when two categories share a slug", () => {
+    addDoc("a", "2024-01-01", ["web dev", "Web-Dev"]);
+
+    expect(() => getCategorySlugs()).toThrow(/both slugify to "web-dev"/);
+  });
+
+  it("throws when a category has no URL-safe slug", () => {
+    addDoc("a", "2024-01-01", ["+++"]);
+
+    expect(() => getCategorySlugs()).toThrow(/no URL-safe slug/);
+  });
+});
+
+describe("getCategoryBySlug", () => {
+  it("resolves a slug back to the original category name", () => {
+    addDoc("a", "2024-01-01", ["web dev", "münchen"]);
+
+    expect(getCategoryBySlug("web-dev")).toBe("web dev");
+    expect(getCategoryBySlug("muenchen")).toBe("münchen");
+  });
+
+  it("returns null for an unknown slug", () => {
+    addDoc("a", "2024-01-01", ["Tech"]);
+
+    expect(getCategoryBySlug("nope")).toBeNull();
+  });
+
+  it("does not resolve the unslugified name", () => {
+    addDoc("a", "2024-01-01", ["web dev"]);
+
+    expect(getCategoryBySlug("web dev")).toBeNull();
   });
 });

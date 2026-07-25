@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { categorySlug } from "@/lib/utils";
 
 interface CategoryListProps {
   categories: string[];
@@ -23,7 +24,7 @@ export function CategoryList({
         {categories.map((category) => (
           <Link
             key={category}
-            href={`/texts/category/${category}`}
+            href={`/texts/category/${categorySlug(category)}`}
             className={`category-link ${activeCategory === category ? "active" : "inactive"}`}
           >
             {category}
