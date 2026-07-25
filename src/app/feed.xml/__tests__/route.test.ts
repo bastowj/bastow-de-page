@@ -2,7 +2,9 @@ import { GET } from "../route";
 import * as blog from "@/lib/blog";
 import type { BlogPost } from "@/lib/blog";
 
-jest.mock("@/lib/blog");
+jest.mock("@/lib/blog", () => ({
+  getAllBlogPosts: jest.fn(),
+}));
 
 function makePost(overrides: Partial<BlogPost["frontmatter"]> = {}): BlogPost {
   return {

@@ -3,7 +3,10 @@ import * as blog from "@/lib/blog";
 import { SITE_CONFIG } from "@/constants/config";
 import type { BlogPost } from "@/lib/blog";
 
-jest.mock("@/lib/blog");
+jest.mock("@/lib/blog", () => ({
+  getAllBlogPosts: jest.fn(),
+  getAllCategories: jest.fn(),
+}));
 
 function makePost(slug: string, date: string, categories: string[]): BlogPost {
   return {
