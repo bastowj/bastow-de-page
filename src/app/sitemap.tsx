@@ -1,6 +1,7 @@
 import { getCategorySlugs, getAllBlogPosts } from "@/lib/blog";
 import type { MetadataRoute } from "next";
 import { SITE_CONFIG } from "@/constants/config";
+import { legalNavItems, navItems } from "@/constants/navigation";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_CONFIG.baseUrl;
@@ -23,15 +24,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
-  // Static routes
-  const routes: string[] = [
-    "", // root
-    "/about",
-    "/texts",
-    "/contact",
-    "/impressum",
-    "/privacy",
-  ];
+  // Static routes, derived from the nav so a new page cannot be forgotten here
+  const routes: string[] = [...navItems, ...legalNavItems].map((item) =>
+    item.href === "/" ? "" : item.href,
+  );
 
   const staticRoutesSitemap = routes.map((route) => ({
     url: `${baseUrl}${route}`,

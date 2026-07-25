@@ -1,6 +1,7 @@
 import sitemap from "../sitemap";
 import * as blog from "@/lib/blog";
 import { SITE_CONFIG } from "@/constants/config";
+import { legalNavItems, navItems } from "@/constants/navigation";
 import type { BlogPost } from "@/lib/blog";
 
 jest.mock("@/lib/blog", () => ({
@@ -31,6 +32,25 @@ describe("sitemap", () => {
     expect(urls).toContain(`${SITE_CONFIG.baseUrl}/contact`);
     expect(urls).toContain(`${SITE_CONFIG.baseUrl}/impressum`);
     expect(urls).toContain(`${SITE_CONFIG.baseUrl}/privacy`);
+    expect(urls).toContain(`${SITE_CONFIG.baseUrl}/texts`);
+    expect(urls).toContain(`${SITE_CONFIG.baseUrl}/images`);
+  });
+
+  it("covers every nav and legal page", async () => {
+    const urls = (await sitemap()).map((e) => e.url);
+
+    for (const item of [...navItems, ...legalNavItems]) {
+      const expected =
+        item.href === "/" ? SITE_CONFIG.baseUrl : `${SITE_CONFIG.baseUrl}${item.href}`;
+      expect(urls).toContain(expected);
+    }
+  });
+
+  it("does not emit a trailing slash for the root route", async () => {
+    const urls = (await sitemap()).map((e) => e.url);
+
+    expect(urls).toContain(SITE_CONFIG.baseUrl);
+    expect(urls).not.toContain(`${SITE_CONFIG.baseUrl}/`);
   });
 
   it("gives the root route priority 1", async () => {

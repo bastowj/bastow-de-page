@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { footerNavItems, socialLinks, NavItem } from "@/constants/navigation";
+import {
+  footerNavItems,
+  legalNavItems,
+  socialLinks,
+  type NavItem,
+} from "@/constants/navigation";
 
 export function Footer() {
   const pathname = usePathname();
@@ -59,8 +64,11 @@ export function Footer() {
 
         {/* Bottom Links */}
         <div className="footer-bottom">
-          <a className="footer-bottom-link" href="/privacy">Privacy Policy</a>
-          <a className="footer-bottom-link" href="/impressum">Imprint (Impressum)</a>
+          {legalNavItems.map((item) => (
+            <Link key={item.href} className="footer-bottom-link" href={item.href}>
+              {item.name}
+            </Link>
+          ))}
           <a className="footer-bottom-link" href="/feed.xml">RSS</a>
         </div>
       </div>
