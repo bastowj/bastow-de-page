@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { BlogPost } from "@/lib/blog";
-import { categorySlug, formatDate, isValidSlug } from "@/lib/utils";
+import { categorySlug, formatDate } from "@/lib/utils";
 
 interface BlogPostPreviewProps {
   post: BlogPost;
@@ -10,9 +10,6 @@ interface BlogPostPreviewProps {
 export function BlogPostPreview({ post }: BlogPostPreviewProps) {
   const { slug, frontmatter } = post;
   const { title, date, excerpt, categories, coverImage } = frontmatter;
-
-  // Make sure the slug is valid
-  const safeSlug = isValidSlug(slug) ? slug : "default-fallback-slug";
 
   // Format the date using the utility function
   const formattedDate = formatDate(date);
@@ -35,7 +32,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
 
         {/* Title */}
         <h2 className="blog-h2">
-          <Link href={`/texts/${safeSlug}`}>{title}</Link>
+          <Link href={`/texts/${slug}`}>{title}</Link>
         </h2>
 
         {/* Date */}
@@ -44,7 +41,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
         {/* Cover Image (if available) */}
         {coverImage && (
           <div className="my-4">
-            <Link href={`/texts/${safeSlug}`}>
+            <Link href={`/texts/${slug}`}>
               <Image
                 src={coverImage}
                 alt={title}
@@ -61,7 +58,7 @@ export function BlogPostPreview({ post }: BlogPostPreviewProps) {
 
         {/* Read More Link */}
         <div>
-          <Link href={`/texts/${safeSlug}`} className="link">
+          <Link href={`/texts/${slug}`} className="link">
             Read More
           </Link>
         </div>

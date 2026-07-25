@@ -23,6 +23,7 @@ jest.mock(
 import {
   getAllBlogPosts,
   getAllCategories,
+  getBlogPostSlugs,
   getBlogPostsByCategory,
   getCategoryBySlug,
   getCategorySlugs,
@@ -81,6 +82,37 @@ describe("getBlogPostsByCategory", () => {
     addDoc("a", "2024-01-01", ["Tech"]);
 
     expect(getBlogPostsByCategory("Language")).toEqual([]);
+  });
+});
+
+describe("post slug safety", () => {
+  it("accepts the slug shapes real filenames produce", () => {
+    addDoc("ubuntu-How-to--add-an-additional-partition", "2024-01-01", []);
+    addDoc("post_123", "2024-02-01", []);
+
+    expect(getBlogPostSlugs()).toEqual([
+      "ubuntu-How-to--add-an-additional-partition",
+      "post_123",
+    ]);
+  });
+
+  it("throws for a filename containing a space", () => {
+    addDoc("hello world", "2024-01-01", []);
+
+    expect(() => getBlogPostSlugs()).toThrow(/is not URL-safe/);
+    expect(() => getAllBlogPosts()).toThrow(/is not URL-safe/);
+  });
+
+  it("throws for a filename containing a percent sign", () => {
+    addDoc("100% pure", "2024-01-01", []);
+
+    expect(() => getBlogPostSlugs()).toThrow(/is not URL-safe/);
+  });
+
+  it("names the offending slug in the error", () => {
+    addDoc("bad slug", "2024-01-01", []);
+
+    expect(() => getBlogPostSlugs()).toThrow(/"bad slug"/);
   });
 });
 

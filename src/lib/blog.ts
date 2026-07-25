@@ -1,5 +1,5 @@
 import { allTexts } from "content-collections";
-import { categorySlug } from "@/lib/utils";
+import { categorySlug, isValidSlug } from "@/lib/utils";
 
 export interface BlogPostFrontmatter {
   title: string;
@@ -18,9 +18,23 @@ export interface BlogPost {
 
 type TextDoc = (typeof allTexts)[number];
 
+/**
+ * A post's slug is its MDX filename, which becomes the public URL verbatim.
+ * Unlike a category it is not slugified, because that would rewrite already
+ * published URLs. So an unsafe filename has to fail the build instead.
+ */
+function assertSafeSlug(slug: string): string {
+  if (!isValidSlug(slug)) {
+    throw new Error(
+      `Post slug ${JSON.stringify(slug)} is not URL-safe. Rename the MDX file to use only letters, digits, hyphens and underscores.`,
+    );
+  }
+  return slug;
+}
+
 function toBlogPost(doc: TextDoc): BlogPost {
   return {
-    slug: doc.slug,
+    slug: assertSafeSlug(doc.slug),
     frontmatter: {
       title: doc.title,
       date: doc.date,
@@ -34,7 +48,7 @@ function toBlogPost(doc: TextDoc): BlogPost {
 }
 
 export function getBlogPostSlugs(): string[] {
-  return allTexts.map((doc) => doc.slug);
+  return allTexts.map((doc) => assertSafeSlug(doc.slug));
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost | null {
