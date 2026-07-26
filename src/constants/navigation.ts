@@ -28,6 +28,10 @@ export const legalNavItems: NavItem[] = [
 
 export const socialLinks: NavItem[] = [
   { name: "GitHub", href: "https://github.com/bastowj", icon: "github" },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/julian-bastow", icon: "linkedin" },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/julian-bastow",
+    icon: "linkedin",
+  },
   { name: "Pixelfed", href: PIXELFED_PROFILE, icon: "pixelfed" },
 ];

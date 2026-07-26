@@ -5,5 +5,10 @@ interface SpinnerProps {
 }
 
 export function Spinner({ className = "w-6 h-6" }: SpinnerProps) {
-  return <ArrowPathIcon className={`animate-spin ${className}`} aria-label="Loading" />;
+  return (
+    <ArrowPathIcon
+      className={`animate-spin ${className}`}
+      aria-label="Loading"
+    />
+  );
 }

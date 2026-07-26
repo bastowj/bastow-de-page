@@ -28,14 +28,22 @@ export default async function ImagesPage() {
     <div className="main-content-wrapper">
       <div className="images-page-header">
         <h1 className="blog-h1">Images</h1>
-        <a href={PIXELFED_PROFILE} target="_blank" rel="noopener noreferrer" className="link images-profile-link">
+        <a
+          href={PIXELFED_PROFILE}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link images-profile-link"
+        >
           View on Pixelfed
         </a>
       </div>
       {initialImages.length === 0 ? (
         <p className="text-muted">No images yet.</p>
       ) : (
-        <ImageGrid initialImages={initialImages} initialNextMaxId={initialNextMaxId} />
+        <ImageGrid
+          initialImages={initialImages}
+          initialNextMaxId={initialNextMaxId}
+        />
       )}
     </div>
   );

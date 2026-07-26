@@ -67,9 +67,7 @@ export function getAllCategories(): string[] {
 }
 
 export function getBlogPostsByCategory(category: string): BlogPost[] {
-  return getAllBlogPosts().filter((post) =>
-    post.categories.includes(category),
-  );
+  return getAllBlogPosts().filter((post) => post.categories.includes(category));
 }
 
 function getCategorySlugMap(): Map<string, string> {

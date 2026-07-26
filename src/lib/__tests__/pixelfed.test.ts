@@ -194,8 +194,13 @@ describe("getPixelfedPage", () => {
   });
 
   it("throws when statuses fetch fails", async () => {
-    (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: false, status: 401 });
-    await expect(getPixelfedPage()).rejects.toThrow("Failed to fetch Pixelfed posts");
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 401,
+    });
+    await expect(getPixelfedPage()).rejects.toThrow(
+      "Failed to fetch Pixelfed posts",
+    );
   });
 });
 
@@ -228,7 +233,10 @@ describe("PIXELFED_PROFILE", () => {
 
 describe("postsToImagePosts", () => {
   it("returns one entry per image attachment", () => {
-    const images = postsToImagePosts([makePost("1", [{}, {}]), makePost("2", [{}])]);
+    const images = postsToImagePosts([
+      makePost("1", [{}, {}]),
+      makePost("2", [{}]),
+    ]);
 
     expect(images).toHaveLength(3);
     expect(images.map((i) => i.mediaId)).toEqual(["1-m0", "1-m1", "2-m0"]);
@@ -267,4 +275,3 @@ describe("postsToImagePosts", () => {
     expect(postsToImagePosts([])).toEqual([]);
   });
 });
-

@@ -7,7 +7,5 @@ export function generateMetadata() {
 }
 
 export default function ImpressumPage() {
-  return (
-    <StaticPage slug="impressum" className="main-content-wrapper" />
-  );
+  return <StaticPage slug="impressum" className="main-content-wrapper" />;
 }

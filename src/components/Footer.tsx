@@ -65,11 +65,17 @@ export function Footer() {
         {/* Bottom Links */}
         <div className="footer-bottom">
           {legalNavItems.map((item) => (
-            <Link key={item.href} className="footer-bottom-link" href={item.href}>
+            <Link
+              key={item.href}
+              className="footer-bottom-link"
+              href={item.href}
+            >
               {item.name}
             </Link>
           ))}
-          <a className="footer-bottom-link" href="/feed.xml">RSS</a>
+          <a className="footer-bottom-link" href="/feed.xml">
+            RSS
+          </a>
         </div>
       </div>
     </footer>

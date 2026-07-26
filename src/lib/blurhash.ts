@@ -26,7 +26,11 @@ function makeChunk(type: string, data: Buffer): Buffer {
   return Buffer.concat([len, typeBytes, data, crcVal]);
 }
 
-export function blurhashToDataURL(hash: string, width = 32, height = 32): string {
+export function blurhashToDataURL(
+  hash: string,
+  width = 32,
+  height = 32,
+): string {
   const pixels = decode(hash, width, height);
 
   const rowSize = width * 4 + 1;

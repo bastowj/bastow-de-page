@@ -74,10 +74,12 @@ describe("GET /feed.xml", () => {
   });
 
   it("renders one item per post", async () => {
-    jest.spyOn(blog, "getAllBlogPosts").mockReturnValue([
-      makePost({ title: "Post A" }),
-      makePost({ title: "Post B" }),
-    ]);
+    jest
+      .spyOn(blog, "getAllBlogPosts")
+      .mockReturnValue([
+        makePost({ title: "Post A" }),
+        makePost({ title: "Post B" }),
+      ]);
     const xml = await (await GET()).text();
     expect(xml).toContain("<![CDATA[Post A]]>");
     expect(xml).toContain("<![CDATA[Post B]]>");

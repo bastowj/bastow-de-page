@@ -37,14 +37,19 @@ export function BlogLayout({
       <div className="blog-layout-grid">
         {/* Sidebar with categories */}
         <div className="lg:col-span-1">
-          <CategoryList categories={categories} activeCategory={activeCategory} />
+          <CategoryList
+            categories={categories}
+            activeCategory={activeCategory}
+          />
         </div>
 
         {/* Blog posts */}
         <div className="lg:col-span-3">
           <div className="blog-layout-posts">
             {posts.length > 0 ? (
-              posts.map((post) => <BlogPostPreview key={post.slug} post={post} />)
+              posts.map((post) => (
+                <BlogPostPreview key={post.slug} post={post} />
+              ))
             ) : (
               <p className="blog-layout-empty">No texts found.</p>
             )}

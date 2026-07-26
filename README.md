@@ -35,8 +35,8 @@ Blog posts and static pages live as MDX files in `/content/`. Blog posts are ser
 
 ## Environment Variables
 
-| Variable | Required | Description |
-|---|---|---|
-| `PIXELFED_TOKEN` | Yes | Personal access token for the Pixelfed API (read scope) |
+| Variable         | Required | Description                                             |
+| ---------------- | -------- | ------------------------------------------------------- |
+| `PIXELFED_TOKEN` | Yes      | Personal access token for the Pixelfed API (read scope) |
 
 Create a `.env.local` file for local development. Get a token at pixelfed.de/settings/applications.

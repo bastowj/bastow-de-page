@@ -32,7 +32,7 @@ This is a **Next.js App Router** personal website/blog for Julian Bastow (bastow
 
 Both dynamic routes set `generateStaticParams` and `dynamicParams = false`, so every post and category is prerendered and an unknown param 404s without invoking the page. If you add a dynamic route over build-time content, do the same — without `generateStaticParams` the route silently renders on demand (`ƒ` rather than `●` in the build output).
 
-**URL safety**: Category names are free text, so routes use a slug from `categorySlug()` and `getCategoryBySlug()` resolves it back to the real name. Do not percent-encode a category into a URL instead: Next hands `generateMetadata` and the page component *different* encoding levels of the same param, so no fixed number of `decodeURIComponent` calls is correct in both. Post slugs are MDX filenames used verbatim, so they are validated rather than slugified — an unsafe filename fails the build instead of moving a published URL.
+**URL safety**: Category names are free text, so routes use a slug from `categorySlug()` and `getCategoryBySlug()` resolves it back to the real name. Do not percent-encode a category into a URL instead: Next hands `generateMetadata` and the page component _different_ encoding levels of the same param, so no fixed number of `decodeURIComponent` calls is correct in both. Post slugs are MDX filenames used verbatim, so they are validated rather than slugified — an unsafe filename fails the build instead of moving a published URL.
 
 **Styling**: Tailwind CSS v4 via PostCSS — no `tailwind.config.*` file, uses v4 defaults. Global styles in `src/app/globals.css`.
 
@@ -45,7 +45,7 @@ Tailwind variant classes (`group`, `group-hover`, `peer`, etc.) cannot be used i
 - Declared there (`background`, `surface`, `foreground`, `foreground-muted`, `foreground-btn`, `link`, `link-hover`, `primary-subtle`, `primary-strong`): the shorthand is fine and preferred — `bg-background`, `text-foreground-muted`, `text-link`.
 - Not declared there (`--primary`, `--primary-hover`, `--border`, `--hover-bg`): no shorthand exists, so reference the property directly — `text-[color:var(--primary)]`.
 
-`@theme inline` inlines the token's *reference*, not its resolved value, so a shorthand compiles to a runtime `var()` and the `.dark` / `.vaporwave` overrides still apply. Verified by compiling probe classes: `text-link` → `color:var(--primary)`, `text-foreground-muted` → `color:var(--foreground-muted)`, `bg-surface` → `background-color:var(--surface)`. `globals.css` relies on this itself in `body { @apply bg-background text-foreground; }`.
+`@theme inline` inlines the token's _reference_, not its resolved value, so a shorthand compiles to a runtime `var()` and the `.dark` / `.vaporwave` overrides still apply. Verified by compiling probe classes: `text-link` → `color:var(--primary)`, `text-foreground-muted` → `color:var(--foreground-muted)`, `bg-surface` → `background-color:var(--surface)`. `globals.css` relies on this itself in `body { @apply bg-background text-foreground; }`.
 
 This would not hold under a plain `@theme` block, which emits resolved values — that is the case the earlier "never use shorthand, it breaks dark mode" rule was guarding against. If the block ever loses `inline`, revisit this.
 

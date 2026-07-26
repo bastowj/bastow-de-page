@@ -1,11 +1,19 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import { ImageGrid } from "../ImageGrid";
 import type { ImagePost } from "@/lib/pixelfed";
 
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: ({ src, alt }: { src: string; alt: string }) => <img src={src} alt={alt} />,
+  default: ({ src, alt }: { src: string; alt: string }) => (
+    <img src={src} alt={alt} />
+  ),
 }));
 
 // Lightbox renders many icons — stub it to keep tests focused
@@ -81,7 +89,9 @@ describe("ImageGrid", () => {
     callback([{ isIntersecting: true }]);
 
     await waitFor(() => {
-      expect(screen.getAllByRole("img")).toHaveLength(images.length + newImages.length);
+      expect(screen.getAllByRole("img")).toHaveLength(
+        images.length + newImages.length,
+      );
     });
   });
 

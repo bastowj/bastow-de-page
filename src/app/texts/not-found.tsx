@@ -7,10 +7,7 @@ export default function BlogNotFound() {
       <p className="text-xl text-muted mb-8">
         The text or category you&apos;re looking for doesn&apos;t exist.
       </p>
-      <Link
-        href="/texts"
-        className="blog-category-link"
-      >
+      <Link href="/texts" className="blog-category-link">
         Back to Texts
       </Link>
     </div>

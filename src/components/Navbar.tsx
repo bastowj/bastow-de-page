@@ -6,7 +6,13 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { navItems, type NavItem } from "@/constants/navigation";
-import { SunIcon, MoonIcon, GlobeAltIcon, Bars3Icon, XMarkIcon } from "@/lib/icons";
+import {
+  SunIcon,
+  MoonIcon,
+  GlobeAltIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from "@/lib/icons";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -73,17 +79,29 @@ export function Navbar() {
             {item.name}
           </Link>
         ))}
-        <button onClick={toggleTheme} className="nav-button" aria-label="Toggle theme">
+        <button
+          onClick={toggleTheme}
+          className="nav-button"
+          aria-label="Toggle theme"
+        >
           <ThemeIcon className="nav-theme-icon" />
         </button>
       </div>
 
       {/* Mobile Menu Button */}
       <div className="nav-mobile-buttons">
-        <button onClick={toggleTheme} className="nav-button mr-2" aria-label="Toggle theme">
+        <button
+          onClick={toggleTheme}
+          className="nav-button mr-2"
+          aria-label="Toggle theme"
+        >
           <ThemeIcon className="nav-theme-icon" />
         </button>
-        <button onClick={toggleMenu} className="nav-button" aria-label="Toggle menu">
+        <button
+          onClick={toggleMenu}
+          className="nav-button"
+          aria-label="Toggle menu"
+        >
           {isMenuOpen ? (
             <XMarkIcon className="nav-theme-icon" />
           ) : (

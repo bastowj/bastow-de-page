@@ -3,8 +3,18 @@ import { render, screen } from "@testing-library/react";
 import { Spinner } from "../Spinner";
 
 jest.mock("@heroicons/react/24/outline", () => ({
-  ArrowPathIcon: ({ className, "aria-label": ariaLabel }: { className: string; "aria-label": string }) => (
-    <svg data-testid="arrow-path-icon" className={className} aria-label={ariaLabel} />
+  ArrowPathIcon: ({
+    className,
+    "aria-label": ariaLabel,
+  }: {
+    className: string;
+    "aria-label": string;
+  }) => (
+    <svg
+      data-testid="arrow-path-icon"
+      className={className}
+      aria-label={ariaLabel}
+    />
   ),
 }));
 

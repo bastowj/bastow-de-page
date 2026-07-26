@@ -9,7 +9,8 @@ const escapeXml = (s: string) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 
-const cdata = (s: string) => `<![CDATA[${s.replace(/]]>/g, "]]]]><![CDATA[>")}]]>`;
+const cdata = (s: string) =>
+  `<![CDATA[${s.replace(/]]>/g, "]]]]><![CDATA[>")}]]>`;
 
 export async function GET() {
   const posts = getAllBlogPosts();

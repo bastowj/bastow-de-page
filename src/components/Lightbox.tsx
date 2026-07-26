@@ -13,7 +13,13 @@ interface LightboxProps {
   onNext: () => void;
 }
 
-export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxProps) {
+export function Lightbox({
+  images,
+  index,
+  onClose,
+  onPrev,
+  onNext,
+}: LightboxProps) {
   const img = images[index];
   const touchStartX = useRef<number | null>(null);
   const [offset, setOffset] = useState(0);
@@ -51,14 +57,19 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
     const atStart = index === 0;
     const atEnd = index === images.length - 1;
 
-    if (Math.abs(delta) > 50 && !(delta > 0 && atStart) && !(delta < 0 && atEnd)) {
+    if (
+      Math.abs(delta) > 50 &&
+      !(delta > 0 && atStart) &&
+      !(delta < 0 && atEnd)
+    ) {
       const direction = delta < 0 ? -1 : 1;
       const targetIndex = index + (direction < 0 ? 1 : -1);
       setIncomingIndex(targetIndex);
       setTransitioning(true);
       setOffset(direction * window.innerWidth);
       setTimeout(() => {
-        if (direction < 0) onNext(); else onPrev();
+        if (direction < 0) onNext();
+        else onPrev();
         setTransitioning(false);
         setOffset(0);
         setIncomingIndex(null);
@@ -73,7 +84,12 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
   const incomingImg = incomingIndex !== null ? images[incomingIndex] : null;
 
   return (
-    <div className="lightbox-backdrop" onClick={onClose} role="dialog" aria-modal="true">
+    <div
+      className="lightbox-backdrop"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+    >
       <div
         className="lightbox-content"
         onClick={(e) => e.stopPropagation()}
@@ -81,7 +97,11 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        <button className="lightbox-close nav-button" onClick={onClose} aria-label="Close">
+        <button
+          className="lightbox-close nav-button"
+          onClick={onClose}
+          aria-label="Close"
+        >
           <XMarkIcon className="nav-theme-icon" />
         </button>
 
@@ -113,7 +133,9 @@ export function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxPro
             alt={img.description ?? img.content ?? ""}
             fill
             className="lightbox-img"
-            {...(img.blurDataURL ? { placeholder: "blur", blurDataURL: img.blurDataURL } : {})}
+            {...(img.blurDataURL
+              ? { placeholder: "blur", blurDataURL: img.blurDataURL }
+              : {})}
           />
         </div>
 

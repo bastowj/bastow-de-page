@@ -70,9 +70,13 @@ export function ImageGrid({ initialImages, initialNextMaxId }: ImageGridProps) {
               width={300}
               height={300}
               className="image-card-img"
-              {...(img.blurDataURL ? { placeholder: "blur", blurDataURL: img.blurDataURL } : {})}
+              {...(img.blurDataURL
+                ? { placeholder: "blur", blurDataURL: img.blurDataURL }
+                : {})}
             />
-            {img.content && <span className="image-card-caption">{img.content}</span>}
+            {img.content && (
+              <span className="image-card-caption">{img.content}</span>
+            )}
           </button>
         ))}
       </div>
@@ -85,7 +89,9 @@ export function ImageGrid({ initialImages, initialNextMaxId }: ImageGridProps) {
           index={lightboxIndex}
           onClose={() => setLightboxIndex(null)}
           onPrev={() => setLightboxIndex((i) => Math.max(0, (i ?? 0) - 1))}
-          onNext={() => setLightboxIndex((i) => Math.min(images.length - 1, (i ?? 0) + 1))}
+          onNext={() =>
+            setLightboxIndex((i) => Math.min(images.length - 1, (i ?? 0) + 1))
+          }
         />
       )}
     </>
