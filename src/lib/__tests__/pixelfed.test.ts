@@ -1,6 +1,5 @@
 import {
-  getPixelfedPosts,
-  nextMaxId,
+  getPixelfedPage,
   postsToImagePosts,
   type PixelfedPost,
 } from "../pixelfed";
@@ -43,14 +42,34 @@ afterEach(() => {
   delete process.env.PIXELFED_TOKEN;
 });
 
-describe("getPixelfedPosts", () => {
+/** A page exactly as full as the request limit, so more may follow. */
+function fullPage(): PixelfedPost[] {
+  return Array.from({ length: 24 }, (_, i) => ({
+    id: String(i + 1),
+    created_at: "2024-06-01T10:00:00Z",
+    url: `https://pixelfed.de/p/jbastow/${i + 1}`,
+    content: `Post ${i + 1}`,
+    media_attachments: [
+      {
+        id: `m${i + 1}`,
+        type: "image",
+        url: "https://pixelfed.de/storage/photo.jpg",
+        preview_url: "https://pixelfed.de/storage/photo_thumb.jpg",
+        description: null,
+        blurhash: null,
+      },
+    ],
+  }));
+}
+
+describe("getPixelfedPage", () => {
   it("fetches and returns posts with media", async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => mockStatuses,
     });
 
-    const posts = await getPixelfedPosts();
+    const { posts } = await getPixelfedPage();
     expect(posts).toHaveLength(1);
     expect(posts[0].id).toBe("1");
     expect(posts[0].media_attachments[0].description).toBe("A nice photo");
@@ -62,8 +81,77 @@ describe("getPixelfedPosts", () => {
       json: async () => mockStatuses,
     });
 
-    const posts = await getPixelfedPosts();
+    const { posts } = await getPixelfedPage();
     expect(posts.every((p) => p.media_attachments.length > 0)).toBe(true);
+  });
+
+  it("reports no next page when the response is shorter than the limit", async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockStatuses,
+    });
+
+    const { nextMaxId } = await getPixelfedPage();
+    expect(nextMaxId).toBeNull();
+  });
+
+  it("reports no next page for an empty response", async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => [],
+    });
+
+    const { posts, nextMaxId } = await getPixelfedPage();
+    expect(posts).toEqual([]);
+    expect(nextMaxId).toBeNull();
+  });
+
+  it("returns a cursor when the response fills the limit", async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => fullPage(),
+    });
+
+    const { nextMaxId } = await getPixelfedPage();
+    expect(nextMaxId).toBe("24");
+  });
+
+  it("takes the cursor from the raw last status, not the filtered list", async () => {
+    const page = fullPage();
+    page[page.length - 1].media_attachments = [];
+
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => page,
+    });
+
+    const { posts, nextMaxId } = await getPixelfedPage();
+    expect(posts).toHaveLength(23);
+    expect(nextMaxId).toBe("24");
+  });
+
+  it("passes max_id through when given", async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => [],
+    });
+
+    await getPixelfedPage("abc123");
+
+    const [url] = (global.fetch as jest.Mock).mock.calls[0];
+    expect(url).toContain("max_id=abc123");
+  });
+
+  it("requests the page limit it checks against", async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => [],
+    });
+
+    await getPixelfedPage();
+
+    const [url] = (global.fetch as jest.Mock).mock.calls[0];
+    expect(url).toContain("limit=24");
   });
 
   it("includes Authorization header when PIXELFED_TOKEN is set", async () => {
@@ -73,7 +161,7 @@ describe("getPixelfedPosts", () => {
       json: async () => [],
     });
 
-    await getPixelfedPosts();
+    await getPixelfedPage();
 
     const [, options] = (global.fetch as jest.Mock).mock.calls[0];
     expect(options.headers["Authorization"]).toBe("Bearer test-token");
@@ -85,7 +173,7 @@ describe("getPixelfedPosts", () => {
       json: async () => [],
     });
 
-    await getPixelfedPosts();
+    await getPixelfedPage();
 
     const [, options] = (global.fetch as jest.Mock).mock.calls[0];
     expect(options.headers["Authorization"]).toBeUndefined();
@@ -93,7 +181,7 @@ describe("getPixelfedPosts", () => {
 
   it("throws when statuses fetch fails", async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({ ok: false, status: 401 });
-    await expect(getPixelfedPosts()).rejects.toThrow("Failed to fetch Pixelfed posts");
+    await expect(getPixelfedPage()).rejects.toThrow("Failed to fetch Pixelfed posts");
   });
 });
 
@@ -160,12 +248,3 @@ describe("postsToImagePosts", () => {
   });
 });
 
-describe("nextMaxId", () => {
-  it("returns the last post's id", () => {
-    expect(nextMaxId([makePost("1", []), makePost("2", [])])).toBe("2");
-  });
-
-  it("returns null when there are no posts", () => {
-    expect(nextMaxId([])).toBeNull();
-  });
-});

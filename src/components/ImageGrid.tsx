@@ -22,11 +22,20 @@ export function ImageGrid({ initialImages, initialNextMaxId }: ImageGridProps) {
     if (!nextMaxId || loading) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/images?maxId=${nextMaxId}`);
-      if (!res.ok) return;
+      const res = await fetch(
+        `/api/images?maxId=${encodeURIComponent(nextMaxId)}`,
+      );
+      if (!res.ok) {
+        // Give up rather than let the observer retry a failing request every
+        // time `loading` flips back while the sentinel stays in view.
+        setNextMaxId(null);
+        return;
+      }
       const data = await res.json();
       setImages((prev) => [...prev, ...data.images]);
       setNextMaxId(data.nextMaxId);
+    } catch {
+      setNextMaxId(null);
     } finally {
       setLoading(false);
     }

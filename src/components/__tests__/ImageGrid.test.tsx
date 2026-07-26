@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import { ImageGrid } from "../ImageGrid";
 import type { ImagePost } from "@/lib/pixelfed";
 
@@ -91,5 +91,66 @@ describe("ImageGrid", () => {
     const [[callback]] = (global.IntersectionObserver as jest.Mock).mock.calls;
     callback([{ isIntersecting: true }]);
     expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  // Each `loading` change re-runs the effect and observes the sentinel again,
+  // and re-observing an element already in view fires the callback immediately.
+  // So a retry uses the newest callback, not the one captured on first render.
+  const intersectNewest = () => {
+    const { calls } = (global.IntersectionObserver as jest.Mock).mock;
+    calls[calls.length - 1][0]([{ isIntersecting: true }]);
+  };
+
+  // Let the in-flight response and its state updates settle.
+  const settle = () => act(async () => {});
+
+  it("stops paginating after a failed response", async () => {
+    global.fetch = jest.fn().mockResolvedValue({ ok: false, status: 500 });
+
+    render(<ImageGrid initialImages={images} initialNextMaxId="post-3" />);
+
+    intersectNewest();
+    await settle();
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+
+    // The sentinel is still in view; without clearing the cursor on failure
+    // this would retry forever.
+    intersectNewest();
+    await settle();
+    intersectNewest();
+    await settle();
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("stops paginating after a network error", async () => {
+    global.fetch = jest.fn().mockRejectedValue(new Error("offline"));
+
+    render(<ImageGrid initialImages={images} initialNextMaxId="post-3" />);
+
+    intersectNewest();
+    await settle();
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+
+    intersectNewest();
+    await settle();
+    intersectNewest();
+    await settle();
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("encodes the cursor in the request URL", async () => {
+    global.fetch = jest.fn().mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ images: [], nextMaxId: null }),
+    });
+
+    render(<ImageGrid initialImages={images} initialNextMaxId="a b&c" />);
+    const [[callback]] = (global.IntersectionObserver as jest.Mock).mock.calls;
+    callback([{ isIntersecting: true }]);
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
+    expect((global.fetch as jest.Mock).mock.calls[0][0]).toBe(
+      "/api/images?maxId=a%20b%26c",
+    );
   });
 });

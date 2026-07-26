@@ -1,6 +1,5 @@
 import {
-  getPixelfedPosts,
-  nextMaxId,
+  getPixelfedPage,
   postsToImagePosts,
   type ImagePost,
 } from "@/lib/pixelfed";
@@ -18,9 +17,9 @@ export default async function ImagesPage() {
   let initialNextMaxId: string | null = null;
 
   try {
-    const posts = await getPixelfedPosts();
-    initialImages = postsToImagePosts(posts);
-    initialNextMaxId = nextMaxId(posts);
+    const page = await getPixelfedPage();
+    initialImages = postsToImagePosts(page.posts);
+    initialNextMaxId = page.nextMaxId;
   } catch {
     initialImages = [];
   }

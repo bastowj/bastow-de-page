@@ -1,6 +1,7 @@
 import { blurhashToDataURL } from "@/lib/blurhash";
 
 const PIXELFED_INSTANCE = "https://pixelfed.de";
+const PAGE_LIMIT = 24;
 const PIXELFED_USERNAME = "jbastow";
 const PIXELFED_ACCOUNT_ID = "938013709751862754";
 
@@ -53,23 +54,29 @@ export function postsToImagePosts(posts: PixelfedPost[]): ImagePost[] {
   );
 }
 
-/**
- * The id to pass as `maxId` to fetch the page after these posts.
- *
- * @param posts - The current page of statuses
- * @returns The last status id, or null if there is no further page
- */
-export function nextMaxId(posts: PixelfedPost[]): string | null {
-  return posts.length > 0 ? posts[posts.length - 1].id : null;
+export interface PixelfedPage {
+  /** Statuses on this page that actually carry media. */
+  posts: PixelfedPost[];
+  /** `maxId` for the next page, or null when this is the last one. */
+  nextMaxId: string | null;
 }
 
-export async function getPixelfedPosts(maxId?: string): Promise<PixelfedPost[]> {
+/**
+ * Fetch one page of media statuses.
+ *
+ * @param maxId - Return statuses older than this id
+ * @returns The page's media-bearing statuses and the cursor for the next page
+ */
+export async function getPixelfedPage(maxId?: string): Promise<PixelfedPage> {
   const headers: HeadersInit = {};
   if (process.env.PIXELFED_TOKEN) {
     headers["Authorization"] = `Bearer ${process.env.PIXELFED_TOKEN}`;
   }
 
-  const params = new URLSearchParams({ only_media: "true", limit: "24" });
+  const params = new URLSearchParams({
+    only_media: "true",
+    limit: String(PAGE_LIMIT),
+  });
   if (maxId) params.set("max_id", maxId);
 
   const res = await fetch(
@@ -78,8 +85,18 @@ export async function getPixelfedPosts(maxId?: string): Promise<PixelfedPost[]> 
   );
 
   if (!res.ok) throw new Error(`Failed to fetch Pixelfed posts: ${res.status}`);
-  const posts: PixelfedPost[] = await res.json();
-  return posts.filter((p) => p.media_attachments.length > 0);
+  const statuses: PixelfedPage["posts"] = await res.json();
+
+  // Pixelfed sends no Link rel="next" header, so a full page is the only
+  // available signal that more may follow. The cursor comes from the raw last
+  // status rather than the filtered list, so statuses without media still
+  // advance it instead of being re-fetched forever.
+  const isFullPage = statuses.length === PAGE_LIMIT;
+
+  return {
+    posts: statuses.filter((p) => p.media_attachments.length > 0),
+    nextMaxId: isFullPage ? statuses[statuses.length - 1].id : null,
+  };
 }
 
 // Keep for reference
