@@ -3,14 +3,15 @@
 Next.js App Router personal website/blog for Julian Bastow (bastow.de).
 
 ```bash
-pnpm dev      # Dev server (Turbopack)
-pnpm build    # Production build, also typechecks
-pnpm lint     # eslint . --max-warnings 0 && prettier --check .
-pnpm format   # Prettier write
-pnpm test     # Jest
+pnpm dev        # Dev server (Turbopack)
+pnpm build      # Production build
+pnpm lint       # eslint . --max-warnings 0 && prettier --check .
+pnpm typecheck  # content-collections build && tsc --noEmit
+pnpm format     # Prettier write
+pnpm test       # Jest
 ```
 
-Warnings fail `lint`; to accept one, scope the rule off in `eslint.config.mjs`. `lint` does not typecheck — `tsc` needs `.content-collections/generated`, which only a build writes. A pre-commit hook runs `lint` and `test`.
+Warnings fail `lint`; to accept one, scope the rule off in `eslint.config.mjs`. `typecheck` needs the `content-collections build` prefix because `.content-collections/generated` is gitignored, and it is a separate gate because `next build` does not typecheck test files. A pre-commit hook runs `lint`, `typecheck` and `test`.
 
 After changing dependencies, run `pnpm audit` and record fixes or accepted findings in `CVE.log`. Raise transitive pins with `pnpm.overrides` in `package.json`.
 
