@@ -5,26 +5,35 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { navItems, NavItem } from "@/constants/navigation";
+import { navItems, type NavItem } from "@/constants/navigation";
 import { SunIcon, MoonIcon, GlobeAltIcon, Bars3Icon, XMarkIcon } from "@/lib/icons";
 
 export function Navbar() {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
+  // Cycle on resolvedTheme, not theme: with defaultTheme="system" the latter is
+  // "system" until the user picks one, so the first click always jumped to light
+  // regardless of what was actually on screen.
   const toggleTheme = () => {
-    if (theme === "light") setTheme("dark");
-    else if (theme === "dark") setTheme("vaporwave");
+    if (resolvedTheme === "light") setTheme("dark");
+    else if (resolvedTheme === "dark") setTheme("vaporwave");
     else setTheme("light");
   };
 
   // Render SunIcon during SSR/hydration to avoid mismatch, then swap after mount
-  const ThemeIcon = !mounted ? SunIcon : theme === "dark" ? MoonIcon : theme === "vaporwave" ? GlobeAltIcon : SunIcon;
+  const ThemeIcon = !mounted
+    ? SunIcon
+    : resolvedTheme === "dark"
+      ? MoonIcon
+      : resolvedTheme === "vaporwave"
+        ? GlobeAltIcon
+        : SunIcon;
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

@@ -3,9 +3,8 @@ import { MDXContent } from "@/components/MDXContent";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { categorySlug, formatDate } from "@/lib/utils"; // Import formatDate
+import { categorySlug, formatDate } from "@/lib/utils";
 
-// Define params type for Next.js 15
 type SlugParams = Promise<{ slug: string }>;
 
 export const dynamicParams = false;
@@ -14,7 +13,6 @@ export function generateStaticParams() {
   return getBlogPostSlugs().map((slug) => ({ slug }));
 }
 
-// Generate metadata for the page - https://nextjs.org/docs/app/api-reference/functions/generate-metadata
 export async function generateMetadata({ params }: { params: SlugParams }) {
   const resolvedParams = await params;
   const post = getBlogPostBySlug(resolvedParams.slug);
@@ -30,17 +28,14 @@ export async function generateMetadata({ params }: { params: SlugParams }) {
 }
 
 export default async function BlogPostPage({ params }: { params: SlugParams }) {
-  // Await the params object first
   const resolvedParams = await params;
 
-  // Get the post data
   const post = getBlogPostBySlug(resolvedParams.slug);
 
   if (!post) {
     notFound();
   }
 
-  // Format the date using the utility function
   const formattedDate = formatDate(post.date);
 
   return (

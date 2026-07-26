@@ -6,6 +6,6 @@ export function generateMetadata() {
   return generateStaticPageMetadata({ slug: "privacy" });
 }
 
-export default function ImpressumPage() {
+export default function PrivacyPage() {
   return <StaticPage slug="privacy" className="main-content-wrapper" />;
 }

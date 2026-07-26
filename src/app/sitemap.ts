@@ -3,11 +3,11 @@ import type { MetadataRoute } from "next";
 import { SITE_CONFIG } from "@/constants/config";
 import { legalNavItems, navItems } from "@/constants/navigation";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = SITE_CONFIG.baseUrl;
 
   // Blog posts
-  const allPosts = await getAllBlogPosts();
+  const allPosts = getAllBlogPosts();
   const postsSitemap = allPosts.map((post) => ({
     url: `${baseUrl}/texts/${encodeURIComponent(post.slug)}`,
     lastModified: new Date(post.date),
