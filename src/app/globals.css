@@ -265,6 +265,10 @@
   .mdx-pre {
     @apply bg-[color:var(--surface)] border border-[color:var(--border)] border-l-4 border-l-[color:var(--primary)] rounded p-5 overflow-x-auto my-6 font-mono text-sm leading-relaxed;
   }
+  /* .mdx-code is an inline chip; inside a pre the border and padding would nest. */
+  .mdx-pre .mdx-code {
+    @apply bg-transparent border-0 rounded-none p-0;
+  }
 
   /* Blog Styles */
   .blog-h1 {
