@@ -7,9 +7,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        // "/public/" was also listed, but Next serves that directory's contents
-        // from the root, so no such path exists to disallow.
-        disallow: ["/api/", "/_next/"],
+        // Do not add /_next/ — it holds the CSS and JS crawlers need to render
+        // pages, and /_next/image serves every optimised image.
+        disallow: "/api/",
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
