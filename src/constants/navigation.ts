@@ -1,3 +1,5 @@
+import { PIXELFED_PROFILE } from "@/constants/config";
+
 export type NavItem = {
   name: string;
   href: string;
@@ -27,5 +29,5 @@ export const legalNavItems: NavItem[] = [
 export const socialLinks: NavItem[] = [
   { name: "GitHub", href: "https://github.com/bastowj", icon: "github" },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/julian-bastow", icon: "linkedin" },
-  { name: "Pixelfed", href: "https://pixelfed.de/jbastow", icon: "pixelfed" },
+  { name: "Pixelfed", href: PIXELFED_PROFILE, icon: "pixelfed" },
 ];

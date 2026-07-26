@@ -3,6 +3,7 @@ import {
   postsToImagePosts,
   type PixelfedPost,
 } from "../pixelfed";
+import { PIXELFED, PIXELFED_PROFILE } from "@/constants/config";
 
 jest.mock("@/lib/blurhash", () => ({
   blurhashToDataURL: (hash: string) => `data:image/png;base64,${hash}`,
@@ -142,6 +143,19 @@ describe("getPixelfedPage", () => {
     expect(url).toContain("max_id=abc123");
   });
 
+  it("builds the request URL from the shared Pixelfed config", async () => {
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => [],
+    });
+
+    await getPixelfedPage();
+
+    const [url] = (global.fetch as jest.Mock).mock.calls[0];
+    expect(url).toContain(`${PIXELFED.instance}/api/v1/accounts/`);
+    expect(url).toContain(PIXELFED.accountId);
+  });
+
   it("requests the page limit it checks against", async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
@@ -205,6 +219,12 @@ function makePost(
     })),
   };
 }
+
+describe("PIXELFED_PROFILE", () => {
+  it("is derived from the instance and username, not spelled out again", () => {
+    expect(PIXELFED_PROFILE).toBe(`${PIXELFED.instance}/${PIXELFED.username}`);
+  });
+});
 
 describe("postsToImagePosts", () => {
   it("returns one entry per image attachment", () => {

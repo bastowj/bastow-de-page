@@ -1,9 +1,7 @@
 import { blurhashToDataURL } from "@/lib/blurhash";
+import { PIXELFED } from "@/constants/config";
 
-const PIXELFED_INSTANCE = "https://pixelfed.de";
 const PAGE_LIMIT = 24;
-const PIXELFED_USERNAME = "jbastow";
-const PIXELFED_ACCOUNT_ID = "938013709751862754";
 
 export interface PixelfedMediaAttachment {
   id: string;
@@ -80,7 +78,7 @@ export async function getPixelfedPage(maxId?: string): Promise<PixelfedPage> {
   if (maxId) params.set("max_id", maxId);
 
   const res = await fetch(
-    `${PIXELFED_INSTANCE}/api/v1/accounts/${PIXELFED_ACCOUNT_ID}/statuses?${params}`,
+    `${PIXELFED.instance}/api/v1/accounts/${PIXELFED.accountId}/statuses?${params}`,
     { headers, next: { revalidate: 900 } },
   );
 
@@ -98,6 +96,3 @@ export async function getPixelfedPage(maxId?: string): Promise<PixelfedPage> {
     nextMaxId: isFullPage ? statuses[statuses.length - 1].id : null,
   };
 }
-
-// Keep for reference
-export { PIXELFED_USERNAME };

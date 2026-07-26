@@ -5,6 +5,10 @@ export const SITE_CONFIG = {
   author: "Julian Bastow",
 };
 
-export const PIXELFED_PROFILE = "https://pixelfed.de/jbastow";
+export const PIXELFED = {
+  instance: "https://pixelfed.de",
+  username: "jbastow",
+  accountId: "938013709751862754",
+};
 
-export type SiteConfig = typeof SITE_CONFIG;
+export const PIXELFED_PROFILE = `${PIXELFED.instance}/${PIXELFED.username}`;
