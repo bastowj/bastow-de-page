@@ -7,12 +7,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 pnpm dev         # Start dev server with Turbopack
 pnpm build       # Production build
-pnpm lint        # ESLint only — see below
+pnpm lint        # eslint . --max-warnings 0 && prettier --check .
 pnpm format      # Auto-format with Prettier
 pnpm test        # Run Jest tests
 ```
 
-`lint` runs `eslint .` and does **not** check formatting. `eslint-config-prettier` only switches off rules that would fight Prettier; it never runs Prettier. Nothing in `lint`, the pre-commit hook or CI would catch an unformatted file, so run `pnpm format` (or `pnpm exec prettier --check .`) yourself.
+`lint` is two gates. `eslint . --max-warnings 0` treats warnings as failures, so they cannot pile up unread — if a warning is genuinely acceptable, scope the rule off in `eslint.config.mjs` rather than leaving it to be ignored. `prettier --check .` enforces formatting, which `eslint-config-prettier` does **not** do: it only switches off rules that would fight Prettier and never runs it.
+
+`lint` deliberately does **not** run `tsc --noEmit`. Typechecking needs `.content-collections/generated`, which is gitignored and only produced by a build, so on a fresh checkout — including CI, which lints before it builds — `tsc` cannot resolve the `content-collections` alias and fails. `pnpm build` typechecks, so that is the gate for types.
 
 Tests live in `__tests__/` directories anywhere under `src/` — currently `src/lib/`, `src/components/`, `src/app/` and `src/app/feed.xml/`. `jest.config.ts` runs two projects, split by extension: `.test.ts` under Node, `.test.tsx` under jsdom. Put a test in the `__tests__` directory next to what it covers; narrower globs previously caused two test files to be silently collected by neither project.
 
