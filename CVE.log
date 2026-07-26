@@ -1,0 +1,23 @@
+# CVE log
+
+Audit findings and what was decided. Current state: `pnpm audit`.
+Transitive pins are raised via `pnpm.overrides` in `package.json`.
+
+## Open
+
+**CVE-2026-14257** / GHSA-mh99-v99m-4gvg — brace-expansion, high, OOM DoS.
+Present as 1.1.16 (`eslint>minimatch`) and 2.1.2 (`jest>@jest/core>@jest/reporters>glob>minimatch`).
+
+Accepted. Fixed only in 5.0.8; the 1.x and 2.x lines have no backport and are already at their latest. v5 exports `{ expand }` rather than a callable, so an override breaks `minimatch`, which calls it as a function. Both paths are dev-only — no runtime exposure. Revisit when `minimatch` moves to a v5-compatible release.
+
+## 2026-07-25 — 8efa9d7
+
+18 of 20 findings resolved.
+
+| Package        | From → To          | How              | Advisories                                                                        |
+| -------------- | ------------------ | ---------------- | --------------------------------------------------------------------------------- |
+| next           | 16.2.10 → 16.2.11  | version bump     | 9, incl. GHSA-q8wf-6r8g-63ch (image optimizer DoS via SVG), GHSA-955p-x3mx-jcvp (Server Function endpoint disclosure) |
+| postcss        | 8.4.31 → 8.5.23    | override, `next` pins it exactly | 3, incl. CVE-2026-41305 (XSS via unescaped `</style>`)             |
+| sharp          | 0.34.5 → 0.35.3    | override, `next` pins `^0.34.5`  | CVE-2026-33327, -33328, -35590, -35591 (libvips, now 8.18.3)       |
+| uuid           | 9.0.1 → 11.1.1     | override, `mdx-bundler` pins 9   | CVE-2026-41907 (missing buffer bounds check)                       |
+| brace-expansion | 1.1.15/2.1.1/5.0.7 → 1.1.16/2.1.2/5.0.8 | transitive | CVE-2026-13149 (exponential expansion DoS)              |

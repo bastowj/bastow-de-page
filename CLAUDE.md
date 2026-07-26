@@ -12,6 +12,8 @@ pnpm test     # Jest
 
 Warnings fail `lint`; to accept one, scope the rule off in `eslint.config.mjs`. `lint` does not typecheck — `tsc` needs `.content-collections/generated`, which only a build writes. A pre-commit hook runs `lint` and `test`.
 
+After changing dependencies, run `pnpm audit` and record fixes or accepted findings in `CVE.log`. Raise transitive pins with `pnpm.overrides` in `package.json`.
+
 ## Structure
 
 - MDX content in `/content/`, compiled by `content-collections.ts` into `allTexts` / `allPages`. `src/lib/blog.ts` and `pages.ts` wrap those; `MDXContent.tsx` renders a body.
