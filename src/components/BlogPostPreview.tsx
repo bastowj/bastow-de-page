@@ -8,8 +8,7 @@ interface BlogPostPreviewProps {
 }
 
 export function BlogPostPreview({ post }: BlogPostPreviewProps) {
-  const { slug, frontmatter } = post;
-  const { title, date, excerpt, categories, coverImage } = frontmatter;
+  const { slug, title, date, excerpt, categories, coverImage } = post;
 
   // Format the date using the utility function
   const formattedDate = formatDate(date);

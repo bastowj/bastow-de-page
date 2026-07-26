@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: { params: SlugParams }) {
   }
 
   return {
-    title: post.frontmatter.title,
-    description: post.frontmatter.excerpt,
+    title: post.title,
+    description: post.excerpt,
   };
 }
 
@@ -41,7 +41,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
   }
 
   // Format the date using the utility function
-  const formattedDate = formatDate(post.frontmatter.date);
+  const formattedDate = formatDate(post.date);
 
   return (
     <div className="main-content-wrapper">
@@ -49,7 +49,7 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
         <header className="mb-8">
           {/* Categories, Author, Date, Back link */}
           <div className="blog-post-categories mb-4">
-            {post.frontmatter.categories.map((category) => (
+            {post.categories.map((category) => (
               <Link
                 key={category}
                 href={`/texts/category/${categorySlug(category)}`}
@@ -58,8 +58,8 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
                 {category}
               </Link>
             ))}
-            {post.frontmatter.author && (
-              <span className="blog-post-meta">By {post.frontmatter.author},</span>
+            {post.author && (
+              <span className="blog-post-meta">By {post.author},</span>
             )}
             <span className="blog-post-meta">{formattedDate}</span>
             <Link href="/texts" className="link ml-auto">
@@ -68,11 +68,11 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
           </div>
 
           {/* Cover Image */}
-          {post.frontmatter.coverImage && (
+          {post.coverImage && (
             <div className="mb-8">
               <Image
-                src={post.frontmatter.coverImage}
-                alt={post.frontmatter.title}
+                src={post.coverImage}
+                alt={post.title}
                 width={1200}
                 height={630}
                 className="blog-cover-image"

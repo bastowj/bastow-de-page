@@ -1,18 +1,14 @@
 import { allTexts } from "content-collections";
 import { categorySlug, isValidSlug } from "@/lib/utils";
 
-export interface BlogPostFrontmatter {
+export interface BlogPost {
+  slug: string;
   title: string;
   date: string;
   excerpt: string;
   categories: string[];
   coverImage?: string;
   author?: string;
-}
-
-export interface BlogPost {
-  slug: string;
-  frontmatter: BlogPostFrontmatter;
   body: string;
 }
 
@@ -35,14 +31,12 @@ function assertSafeSlug(slug: string): string {
 function toBlogPost(doc: TextDoc): BlogPost {
   return {
     slug: assertSafeSlug(doc.slug),
-    frontmatter: {
-      title: doc.title,
-      date: doc.date,
-      excerpt: doc.excerpt,
-      categories: doc.categories,
-      coverImage: doc.coverImage ?? undefined,
-      author: doc.author ?? undefined,
-    },
+    title: doc.title,
+    date: doc.date,
+    excerpt: doc.excerpt,
+    categories: doc.categories,
+    coverImage: doc.coverImage ?? undefined,
+    author: doc.author ?? undefined,
     body: doc.body,
   };
 }
@@ -59,11 +53,7 @@ export function getBlogPostBySlug(slug: string): BlogPost | null {
 export function getAllBlogPosts(): BlogPost[] {
   return allTexts
     .map(toBlogPost)
-    .sort(
-      (a, b) =>
-        new Date(b.frontmatter.date).getTime() -
-        new Date(a.frontmatter.date).getTime(),
-    );
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export function getAllCategories(): string[] {
@@ -78,7 +68,7 @@ export function getAllCategories(): string[] {
 
 export function getBlogPostsByCategory(category: string): BlogPost[] {
   return getAllBlogPosts().filter((post) =>
-    post.frontmatter.categories.includes(category),
+    post.categories.includes(category),
   );
 }
 

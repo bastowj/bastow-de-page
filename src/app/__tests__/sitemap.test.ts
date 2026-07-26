@@ -10,11 +10,7 @@ jest.mock("@/lib/blog", () => ({
 }));
 
 function makePost(slug: string, date: string, categories: string[]): BlogPost {
-  return {
-    slug,
-    body: "",
-    frontmatter: { title: slug, date, excerpt: "", categories },
-  };
+  return { slug, body: "", title: slug, date, excerpt: "", categories };
 }
 
 beforeEach(() => {

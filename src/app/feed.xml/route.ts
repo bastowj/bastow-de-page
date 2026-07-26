@@ -19,13 +19,13 @@ export async function GET() {
     .map(
       (post) => `
     <item>
-      <title>${cdata(post.frontmatter.title)}</title>
+      <title>${cdata(post.title)}</title>
       <link>${baseUrl}/texts/${encodeURIComponent(post.slug)}</link>
       <guid>${baseUrl}/texts/${encodeURIComponent(post.slug)}</guid>
-      <pubDate>${new Date(post.frontmatter.date).toUTCString()}</pubDate>
-      <description>${cdata(post.frontmatter.excerpt)}</description>
-      ${post.frontmatter.author ? `<author>${escapeXml(post.frontmatter.author)}</author>` : ""}
-      ${post.frontmatter.categories.map((c) => `<category>${escapeXml(c)}</category>`).join("\n      ")}
+      <pubDate>${new Date(post.date).toUTCString()}</pubDate>
+      <description>${cdata(post.excerpt)}</description>
+      ${post.author ? `<author>${escapeXml(post.author)}</author>` : ""}
+      ${post.categories.map((c) => `<category>${escapeXml(c)}</category>`).join("\n      ")}
     </item>`,
     )
     .join("");

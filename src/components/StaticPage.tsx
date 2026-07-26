@@ -27,8 +27,8 @@ export async function generateStaticPageMetadata({
   }
 
   return {
-    title: page.frontmatter.title,
-    description: page.frontmatter.description,
+    title: page.title,
+    description: page.description,
   };
 }
 
