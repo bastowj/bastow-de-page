@@ -18,6 +18,15 @@ Not security-related. Recorded so they are not retried blind.
 - **typescript 6 → 7**: `ts-jest@29.4.12` declares `typescript: ">=4.3 <7"`.
 - **@types/node 25 → 26**: no known blocker, deferred by choice.
 
+## 2026-08-14
+
+| Package            | From → To  | How         | Advisories |
+| ------------------ | ---------- | ----------- | ---------- |
+| next               | 16.2.11 → 16.3.1 | version bump | security updates |
+| eslint-config-next | 16.2.11 → 16.3.1 | version bump | follows next |
+
+lint, typecheck, and tests all pass.
+
 ## 2026-07-25 — 8efa9d7
 
 18 of 20 findings resolved.
