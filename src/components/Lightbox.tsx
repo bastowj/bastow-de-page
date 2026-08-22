@@ -13,6 +13,10 @@ interface LightboxProps {
   onNext: () => void;
 }
 
+const prefersReducedMotion = () =>
+  typeof window.matchMedia === "function" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export function Lightbox({
   images,
   index,
@@ -95,6 +99,7 @@ export function Lightbox({
 
     const atStart = index === 0;
     const atEnd = index === images.length - 1;
+    const reduceMotion = prefersReducedMotion();
 
     if (
       Math.abs(delta) > 50 &&
@@ -102,6 +107,14 @@ export function Lightbox({
       !(delta < 0 && atEnd)
     ) {
       const direction = delta < 0 ? -1 : 1;
+
+      if (reduceMotion) {
+        setOffset(0);
+        if (direction < 0) onNext();
+        else onPrev();
+        return;
+      }
+
       const targetIndex = index + (direction < 0 ? 1 : -1);
       setIncomingIndex(targetIndex);
       setTransitioning(true);
@@ -114,6 +127,11 @@ export function Lightbox({
         setIncomingIndex(null);
       }, 200);
     } else {
+      if (reduceMotion) {
+        setOffset(0);
+        return;
+      }
+
       setTransitioning(true);
       setOffset(0);
       setTimeout(() => setTransitioning(false), 200);

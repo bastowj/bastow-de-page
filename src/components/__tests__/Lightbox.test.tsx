@@ -184,6 +184,42 @@ describe("Lightbox", () => {
     expect(onNext).toHaveBeenCalledTimes(1);
   });
 
+  it("changes images without a delayed transition when motion is reduced", () => {
+    const originalMatchMedia = window.matchMedia;
+    Object.defineProperty(window, "matchMedia", {
+      configurable: true,
+      value: jest.fn().mockReturnValue({ matches: true }),
+    });
+    const onNext = jest.fn();
+
+    try {
+      render(
+        <Lightbox
+          images={images}
+          index={1}
+          onClose={noop}
+          onPrev={noop}
+          onNext={onNext}
+        />,
+      );
+      const content = screen
+        .getByRole("dialog")
+        .querySelector(".lightbox-content");
+      expect(content).not.toBeNull();
+
+      fireEvent.touchStart(content!, { touches: [{ clientX: 200 }] });
+      fireEvent.touchMove(content!, { touches: [{ clientX: 100 }] });
+      fireEvent.touchEnd(content!, { changedTouches: [{ clientX: 100 }] });
+
+      expect(onNext).toHaveBeenCalledTimes(1);
+    } finally {
+      Object.defineProperty(window, "matchMedia", {
+        configurable: true,
+        value: originalMatchMedia,
+      });
+    }
+  });
+
   it("disables prev button on first image", () => {
     render(
       <Lightbox

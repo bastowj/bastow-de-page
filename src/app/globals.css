@@ -16,6 +16,18 @@
   --primary-strong: oklch(0.38 0.13 234.51);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 .dark {
   --background: oklch(0.22 0.03 234.51);
   --surface: oklch(0.28 0.02 234.51);
