@@ -26,6 +26,7 @@ After changing dependencies, run `pnpm audit` and record fixes or accepted findi
 
 ## Rules
 
+- `output: "standalone"` is for the Docker image only, and `next.config.ts` gates it off when `NEXT_ADAPTER_PATH` or `VERCEL` is set. Next runs the standalone copy step after a build adapter's `onBuildComplete`, and the `next-server.js.nft.json` it needs is gone by then, so enabling both fails the build. Keep the gate.
 - New dynamic route over build-time content: set `generateStaticParams` and `dynamicParams = false`, else it renders on demand.
 - Category URLs use `categorySlug()` / `getCategoryBySlug()`. Never percent-encode a category param — `generateMetadata` and the page component get different encoding levels of the same param.
 - Post slugs are MDX filenames, used verbatim and validated. Unsafe filenames and colliding category slugs fail the build by design; rename the content.

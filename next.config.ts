@@ -30,8 +30,12 @@ const securityHeaders = [
   },
 ];
 
+const isAdapterBuild = Boolean(
+  process.env.NEXT_ADAPTER_PATH || process.env.VERCEL,
+);
+
 const nextConfig: NextConfig = {
-  output: "standalone",
+  output: isAdapterBuild ? undefined : "standalone",
   images: {
     remotePatterns: [
       {

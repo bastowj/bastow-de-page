@@ -5,10 +5,7 @@ Transitive pins are raised via `pnpm.overrides` in `package.json`.
 
 ## Open
 
-**CVE-2026-14257** / GHSA-mh99-v99m-4gvg — brace-expansion, high, OOM DoS.
-Present as 1.1.16 (`eslint>minimatch`) and 2.1.2 (`jest>@jest/core>@jest/reporters>glob>minimatch`).
-
-Accepted. Fixed only in 5.0.8; the 1.x and 2.x lines have no backport and are already at their latest. v5 exports `{ expand }` rather than a callable, so an override breaks `minimatch`, which calls it as a function. Both paths are dev-only — no runtime exposure. Revisit when `minimatch` moves to a v5-compatible release.
+None. `pnpm audit` is clean.
 
 ## Deferred major upgrades
 
@@ -17,6 +14,24 @@ Not security-related. Recorded so they are not retried blind.
 - **eslint 9 → 10**: `eslint-config-next` resolves `eslint-plugin-react@7.37.5`, whose eslint peer range ends at `^9.7`.
 - **typescript 6 → 7**: `ts-jest@29.4.12` declares `typescript: ">=4.3 <7"`.
 - **@types/node 25 → 26**: no known blocker, deferred by choice.
+
+## 2026-08-22
+
+| Package            | From → To        | How          | Advisories |
+| ------------------ | ---------------- | ------------ | ---------- |
+| next               | 16.3.1 → 16.3.2  | version bump | none; backport-only patch release |
+| eslint-config-next | 16.3.1 → 16.3.2  | version bump | follows next |
+| brace-expansion    | 1.1.16 → 1.1.18, 2.1.2 → 2.1.4 | scoped override | GHSA-mh99-v99m-4gvg, GHSA-rgw5-rvv9-x895 |
+| js-yaml            | → 3.15.1, 4.3.1  | scoped override | GHSA-5p4m-2wfm-xmqj |
+| nanoid             | → 3.3.18         | scoped override | GHSA-2v37-7h3g-55p8 |
+
+The earlier brace-expansion acceptance no longer applies: 1.1.18 and 2.1.4 now
+exist, so the fix no longer requires the incompatible v5 line. Overrides are
+keyed per major (`brace-expansion@1`) to avoid forcing one major onto both
+dependency paths.
+
+`pnpm audit` clean. lint, typecheck, tests (122), `next build`, and a full
+Docker build + container route check all pass.
 
 ## 2026-08-14
 
