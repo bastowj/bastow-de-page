@@ -6,6 +6,11 @@ import Image from "next/image";
 import { categorySlug, formatDate } from "@/lib/utils";
 import { SITE_CONFIG } from "@/constants/config";
 import type { Metadata } from "next";
+import {
+  getBlogPostingJsonLd,
+  getBlogPostUrl,
+  serializeJsonLd,
+} from "@/lib/structured-data";
 
 type SlugParams = Promise<{ slug: string }>;
 
@@ -27,7 +32,7 @@ export async function generateMetadata({
     notFound();
   }
 
-  const url = `${SITE_CONFIG.baseUrl}/texts/${post.slug}`;
+  const url = getBlogPostUrl(post.slug);
   const images = post.coverImage ? [post.coverImage] : undefined;
 
   return {
@@ -65,9 +70,14 @@ export default async function BlogPostPage({ params }: { params: SlugParams }) {
   }
 
   const formattedDate = formatDate(post.date);
+  const jsonLd = getBlogPostingJsonLd(post);
 
   return (
     <div className="main-content-wrapper">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+      />
       <article>
         <header className="mb-8">
           {/* Categories, Author, Date, Back link */}
