@@ -23,6 +23,18 @@ export function isValidSlug(s: string): boolean {
 }
 
 /**
+ * Match a navigation target to its route and any nested routes. The homepage
+ * remains exact so it does not become active for every pathname.
+ */
+export function isRouteActive(pathname: string, href: string): boolean {
+  if (href === "/") {
+    return pathname === href;
+  }
+
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+/**
  * Convert a category name into a URL-safe slug.
  *
  * Category names are free text, so they can contain spaces, umlauts and

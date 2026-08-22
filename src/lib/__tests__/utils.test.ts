@@ -1,4 +1,4 @@
-import { categorySlug, formatDate, isValidSlug } from "../utils";
+import { categorySlug, formatDate, isRouteActive, isValidSlug } from "../utils";
 
 describe("formatDate", () => {
   it("formats a date string to a human-readable format", () => {
@@ -38,6 +38,26 @@ describe("isValidSlug", () => {
 
   it("rejects empty string", () => {
     expect(isValidSlug("")).toBe(false);
+  });
+});
+
+describe("isRouteActive", () => {
+  it("matches an exact route", () => {
+    expect(isRouteActive("/texts", "/texts")).toBe(true);
+  });
+
+  it("matches nested routes", () => {
+    expect(isRouteActive("/texts/example-post", "/texts")).toBe(true);
+    expect(isRouteActive("/texts/category/linux", "/texts")).toBe(true);
+  });
+
+  it("does not match routes that only share a prefix", () => {
+    expect(isRouteActive("/textual", "/texts")).toBe(false);
+  });
+
+  it("matches the homepage exactly", () => {
+    expect(isRouteActive("/", "/")).toBe(true);
+    expect(isRouteActive("/about", "/")).toBe(false);
   });
 });
 

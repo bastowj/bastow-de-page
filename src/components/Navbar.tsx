@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { navItems, type NavItem } from "@/constants/navigation";
+import { isRouteActive } from "@/lib/utils";
 import {
   SunIcon,
   MoonIcon,
@@ -70,15 +71,20 @@ export function Navbar() {
 
       {/* Desktop Menu */}
       <div className="nav-desktop">
-        {navItems.map((item: NavItem) => (
-          <Link
-            key={item.name}
-            href={item.href}
-            className={`nav-link ${pathname === item.href ? "font-medium" : "font-normal"}`}
-          >
-            {item.name}
-          </Link>
-        ))}
+        {navItems.map((item: NavItem) => {
+          const isActive = isRouteActive(pathname, item.href);
+
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`nav-link ${isActive ? "font-medium" : "font-normal"}`}
+              aria-current={isActive ? "page" : undefined}
+            >
+              {item.name}
+            </Link>
+          );
+        })}
         <button
           onClick={toggleTheme}
           className="nav-button"
@@ -114,16 +120,21 @@ export function Navbar() {
       {isMenuOpen && (
         <div className="nav-mobile-menu">
           <div className="nav-mobile-menu-inner">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`nav-mobile-link ${pathname === item.href ? "font-medium" : "font-normal"}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive = isRouteActive(pathname, item.href);
+
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`nav-mobile-link ${isActive ? "font-medium" : "font-normal"}`}
+                  aria-current={isActive ? "page" : undefined}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}
