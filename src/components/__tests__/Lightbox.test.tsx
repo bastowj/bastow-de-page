@@ -44,6 +44,54 @@ describe("Lightbox", () => {
     );
     expect(screen.getByAltText("Alt text 1")).toBeInTheDocument();
     expect(screen.getByText("Alt text 1")).toBeInTheDocument();
+    expect(
+      screen.getByRole("dialog", {
+        name: "Image viewer, image 1 of 3",
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it("moves focus into the dialog and restores it on unmount", () => {
+    const trigger = document.createElement("button");
+    document.body.appendChild(trigger);
+    trigger.focus();
+
+    const { unmount } = render(
+      <Lightbox
+        images={images}
+        index={0}
+        onClose={noop}
+        onPrev={noop}
+        onNext={noop}
+      />,
+    );
+
+    expect(screen.getByLabelText("Close")).toHaveFocus();
+    unmount();
+    expect(trigger).toHaveFocus();
+    trigger.remove();
+  });
+
+  it("traps Tab focus within the dialog", () => {
+    render(
+      <Lightbox
+        images={images}
+        index={1}
+        onClose={noop}
+        onPrev={noop}
+        onNext={noop}
+      />,
+    );
+
+    const closeButton = screen.getByLabelText("Close");
+    const lastLink = screen.getByRole("link", { name: /view on pixelfed/i });
+
+    lastLink.focus();
+    fireEvent.keyDown(lastLink, { key: "Tab" });
+    expect(closeButton).toHaveFocus();
+
+    fireEvent.keyDown(closeButton, { key: "Tab", shiftKey: true });
+    expect(lastLink).toHaveFocus();
   });
 
   it("calls onClose when close button is clicked", () => {

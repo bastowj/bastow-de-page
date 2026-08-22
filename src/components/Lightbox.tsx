@@ -21,10 +21,23 @@ export function Lightbox({
   onNext,
 }: LightboxProps) {
   const img = images[index];
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const touchStartX = useRef<number | null>(null);
   const [offset, setOffset] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   const [incomingIndex, setIncomingIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    const previouslyFocused =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+
+    closeButtonRef.current?.focus();
+
+    return () => previouslyFocused?.focus();
+  }, []);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -39,6 +52,32 @@ export function Lightbox({
       document.body.style.overflow = "";
     };
   }, [onClose, onPrev, onNext]);
+
+  const handleDialogKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key !== "Tab") return;
+
+    const focusable = Array.from(
+      dialogRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not(:disabled), [tabindex]:not([tabindex="-1"])',
+      ) ?? [],
+    );
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const focusIsOutside = !dialogRef.current?.contains(document.activeElement);
+
+    if (e.shiftKey && (document.activeElement === first || focusIsOutside)) {
+      e.preventDefault();
+      last.focus();
+    } else if (
+      !e.shiftKey &&
+      (document.activeElement === last || focusIsOutside)
+    ) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -85,10 +124,13 @@ export function Lightbox({
 
   return (
     <div
+      ref={dialogRef}
       className="lightbox-backdrop"
       onClick={onClose}
+      onKeyDown={handleDialogKeyDown}
       role="dialog"
       aria-modal="true"
+      aria-label={`Image viewer, image ${index + 1} of ${images.length}`}
     >
       <div
         className="lightbox-content"
@@ -98,6 +140,7 @@ export function Lightbox({
         onTouchEnd={handleTouchEnd}
       >
         <button
+          ref={closeButtonRef}
           className="lightbox-close nav-button"
           onClick={onClose}
           aria-label="Close"
