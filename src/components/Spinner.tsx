@@ -6,9 +6,12 @@ interface SpinnerProps {
 
 export function Spinner({ className = "w-6 h-6" }: SpinnerProps) {
   return (
-    <ArrowPathIcon
-      className={`animate-spin ${className}`}
-      aria-label="Loading"
-    />
+    <span role="status" aria-live="polite" className="inline-flex">
+      <ArrowPathIcon
+        className={`animate-spin ${className}`}
+        aria-hidden="true"
+      />
+      <span className="sr-only">Loading</span>
+    </span>
   );
 }

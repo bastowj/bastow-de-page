@@ -56,7 +56,12 @@ export function ImageGrid({ initialImages, initialNextMaxId }: ImageGridProps) {
 
   return (
     <>
-      <div className="image-grid">
+      <div
+        className="image-grid"
+        role="region"
+        aria-label="Image gallery"
+        aria-busy={loading}
+      >
         {images.map((img, i) => (
           <button
             key={img.mediaId}

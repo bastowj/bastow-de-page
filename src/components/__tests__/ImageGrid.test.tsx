@@ -49,6 +49,36 @@ describe("ImageGrid", () => {
   it("renders all initial images", () => {
     render(<ImageGrid initialImages={images} initialNextMaxId={null} />);
     expect(screen.getAllByRole("img")).toHaveLength(images.length);
+    expect(
+      screen.getByRole("region", { name: "Image gallery" }),
+    ).toHaveAttribute("aria-busy", "false");
+  });
+
+  it("marks the gallery busy and exposes a loading status", async () => {
+    let resolveFetch!: (value: Response) => void;
+    global.fetch = jest.fn(
+      () =>
+        new Promise<Response>((resolve) => {
+          resolveFetch = resolve;
+        }),
+    );
+
+    render(<ImageGrid initialImages={images} initialNextMaxId="post-3" />);
+    const gallery = screen.getByRole("region", { name: "Image gallery" });
+
+    const [[callback]] = (global.IntersectionObserver as jest.Mock).mock.calls;
+    act(() => callback([{ isIntersecting: true }]));
+
+    await waitFor(() => expect(gallery).toHaveAttribute("aria-busy", "true"));
+    expect(screen.getByRole("status")).toHaveTextContent("Loading");
+
+    await act(async () => {
+      resolveFetch({
+        ok: true,
+        json: async () => ({ images: [], nextMaxId: null }),
+      } as Response);
+    });
+    await waitFor(() => expect(gallery).toHaveAttribute("aria-busy", "false"));
   });
 
   it("opens lightbox when an image is clicked", () => {

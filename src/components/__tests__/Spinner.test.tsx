@@ -5,15 +5,15 @@ import { Spinner } from "../Spinner";
 jest.mock("@heroicons/react/24/outline", () => ({
   ArrowPathIcon: ({
     className,
-    "aria-label": ariaLabel,
+    "aria-hidden": ariaHidden,
   }: {
     className: string;
-    "aria-label": string;
+    "aria-hidden": boolean | "true" | "false";
   }) => (
     <svg
       data-testid="arrow-path-icon"
       className={className}
-      aria-label={ariaLabel}
+      aria-hidden={ariaHidden}
     />
   ),
 }));
@@ -31,8 +31,14 @@ describe("Spinner", () => {
     expect(icon).toHaveClass("w-4", "h-4", "animate-spin");
   });
 
-  it("has an accessible label", () => {
+  it("announces loading as a live status", () => {
     render(<Spinner />);
-    expect(screen.getByLabelText("Loading")).toBeInTheDocument();
+    const status = screen.getByRole("status");
+    expect(status).toHaveAttribute("aria-live", "polite");
+    expect(status).toHaveTextContent("Loading");
+    expect(screen.getByTestId("arrow-path-icon")).toHaveAttribute(
+      "aria-hidden",
+      "true",
+    );
   });
 });
