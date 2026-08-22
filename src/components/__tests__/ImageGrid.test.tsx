@@ -11,9 +11,15 @@ import type { ImagePost } from "@/lib/pixelfed";
 
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: ({ src, alt }: { src: string; alt: string }) => (
-    <img src={src} alt={alt} />
-  ),
+  default: ({
+    src,
+    alt,
+    sizes,
+  }: {
+    src: string;
+    alt: string;
+    sizes?: string;
+  }) => <img src={src} alt={alt} sizes={sizes} />,
 }));
 
 // Lightbox renders many icons — stub it to keep tests focused
@@ -38,7 +44,8 @@ const makeImage = (i: number): ImagePost => ({
   postUrl: `https://pixelfed.de/p/jbastow/${i}`,
   content: `Caption ${i}`,
   mediaId: `media-${i}`,
-  preview_url: `https://pixelfed.de/storage/photo-${i}.jpg`,
+  url: `https://pixelfed.de/storage/photo-${i}-full.jpg`,
+  preview_url: `https://pixelfed.de/storage/photo-${i}-thumb.jpg`,
   description: `Alt text ${i}`,
   blurDataURL: null,
 });
@@ -52,6 +59,15 @@ describe("ImageGrid", () => {
     expect(
       screen.getByRole("region", { name: "Image gallery" }),
     ).toHaveAttribute("aria-busy", "false");
+  });
+
+  it("renders responsive variants from the full-size media", () => {
+    render(<ImageGrid initialImages={images} initialNextMaxId={null} />);
+    const image = screen.getAllByRole("img")[0];
+
+    expect(image).toHaveAttribute("src", images[0].url);
+    expect(image).not.toHaveAttribute("src", images[0].preview_url);
+    expect(image).toHaveAttribute("sizes");
   });
 
   it("marks the gallery busy and exposes a loading status", async () => {

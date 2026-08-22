@@ -25,6 +25,7 @@ export interface ImagePost {
   postUrl: string;
   content: string;
   mediaId: string;
+  url: string;
   preview_url: string;
   description: string | null;
   blurDataURL: string | null;
@@ -45,6 +46,7 @@ export function postsToImagePosts(posts: PixelfedPost[]): ImagePost[] {
         postUrl: post.url,
         content: post.content,
         mediaId: media.id,
+        url: media.url,
         preview_url: media.preview_url,
         description: media.description,
         blurDataURL: media.blurhash ? blurhashToDataURL(media.blurhash) : null,

@@ -250,6 +250,22 @@ describe("postsToImagePosts", () => {
     expect(image.content).toBe("Post 7");
   });
 
+  it("preserves both full-size and preview media URLs", () => {
+    const [image] = postsToImagePosts([
+      makePost("1", [
+        {
+          url: "https://pixelfed.de/storage/photo-full.jpg",
+          preview_url: "https://pixelfed.de/storage/photo-thumb.jpg",
+        },
+      ]),
+    ]);
+
+    expect(image.url).toBe("https://pixelfed.de/storage/photo-full.jpg");
+    expect(image.preview_url).toBe(
+      "https://pixelfed.de/storage/photo-thumb.jpg",
+    );
+  });
+
   it("drops attachments that are not images", () => {
     const images = postsToImagePosts([
       makePost("1", [{ type: "video" }, { type: "image" }]),

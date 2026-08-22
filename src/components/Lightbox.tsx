@@ -190,9 +190,10 @@ export function Lightbox({
           }}
         >
           <Image
-            src={img.preview_url}
+            src={img.url}
             alt={img.description ?? img.content ?? ""}
             fill
+            sizes="(min-width: 896px) 896px, 100vw"
             className="lightbox-img"
             {...(img.blurDataURL
               ? { placeholder: "blur", blurDataURL: img.blurDataURL }

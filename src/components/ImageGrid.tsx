@@ -70,10 +70,11 @@ export function ImageGrid({ initialImages, initialNextMaxId }: ImageGridProps) {
             aria-label={img.description ?? img.content ?? "Open image"}
           >
             <Image
-              src={img.preview_url}
+              src={img.url}
               alt={img.description ?? img.content ?? ""}
               width={300}
               height={300}
+              sizes="(min-width: 1152px) 276px, (min-width: 768px) 25vw, (min-width: 640px) 33vw, 50vw"
               className="image-card-img"
               {...(img.blurDataURL
                 ? { placeholder: "blur", blurDataURL: img.blurDataURL }
