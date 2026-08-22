@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { categorySlug, formatDate } from "@/lib/utils";
+import { SITE_CONFIG } from "@/constants/config";
+import type { Metadata } from "next";
 
 type SlugParams = Promise<{ slug: string }>;
 
@@ -13,7 +15,11 @@ export function generateStaticParams() {
   return getBlogPostSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: SlugParams }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: SlugParams;
+}): Promise<Metadata> {
   const resolvedParams = await params;
   const post = getBlogPostBySlug(resolvedParams.slug);
 
@@ -21,9 +27,31 @@ export async function generateMetadata({ params }: { params: SlugParams }) {
     notFound();
   }
 
+  const url = `${SITE_CONFIG.baseUrl}/texts/${post.slug}`;
+  const images = post.coverImage ? [post.coverImage] : undefined;
+
   return {
     title: post.title,
     description: post.excerpt,
+    authors: [{ name: post.author ?? SITE_CONFIG.author }],
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      siteName: SITE_CONFIG.defaultTitle,
+      title: post.title,
+      description: post.excerpt,
+      publishedTime: post.date,
+      authors: [post.author ?? SITE_CONFIG.author],
+      tags: post.categories,
+      images,
+    },
+    twitter: {
+      card: post.coverImage ? "summary_large_image" : "summary",
+      title: post.title,
+      description: post.excerpt,
+      images,
+    },
   };
 }
 
