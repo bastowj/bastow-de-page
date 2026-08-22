@@ -8,6 +8,7 @@ import {
   socialLinks,
   type NavItem,
 } from "@/constants/navigation";
+import { isRouteActive } from "@/lib/utils";
 
 export function Footer() {
   const pathname = usePathname();
@@ -31,15 +32,20 @@ export function Footer() {
           <div className="footer-section">
             <h3 className="footer-heading">Navigation</h3>
             <nav className="footer-nav">
-              {footerNavItems.map((item: NavItem) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`footer-nav-link ${pathname === item.href ? "font-medium" : "font-normal"}`}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {footerNavItems.map((item: NavItem) => {
+                const isActive = isRouteActive(pathname, item.href);
+
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`footer-nav-link ${isActive ? "font-medium" : "font-normal"}`}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
 
