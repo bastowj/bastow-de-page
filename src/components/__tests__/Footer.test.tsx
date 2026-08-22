@@ -27,6 +27,10 @@ describe("Footer", () => {
 
     render(<Footer />);
 
+    expect(
+      screen.getByRole("navigation", { name: "Footer navigation" }),
+    ).toBeInTheDocument();
+
     const textsLink = screen.getByRole("link", { name: "Texts" });
     expect(textsLink).toHaveClass("font-medium");
     expect(textsLink).toHaveAttribute("aria-current", "page");

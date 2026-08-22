@@ -31,7 +31,7 @@ export function Footer() {
           {/* Navigation Links */}
           <div className="footer-section">
             <h3 className="footer-heading">Navigation</h3>
-            <nav className="footer-nav">
+            <nav className="footer-nav" aria-label="Footer navigation">
               {footerNavItems.map((item: NavItem) => {
                 const isActive = isRouteActive(pathname, item.href);
 
