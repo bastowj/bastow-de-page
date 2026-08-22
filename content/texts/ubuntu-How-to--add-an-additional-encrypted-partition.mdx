@@ -11,7 +11,7 @@ author: "Julian Bastow"
 
 You want to add an additional encrypted disk or partition to your LUKS setup - if you do not want to input your key a second time on each boot here is how to daisy chain the unlocking.
 
-### Find and encrypt your disk
+## Find and encrypt your disk
 
 First find the correct disk using `lsblk`. Make sure you identify the correct one or disaster is waiting to happen. If you do not know what you are doing its best to stop here.
 
@@ -42,7 +42,7 @@ Format the unlocked partition:
 sudo mkfs.ext4 /dev/mapper/your_crypt_device
 ```
 
-### Setup a keyfile for unlocking on boot
+## Setup a keyfile for unlocking on boot
 
 The unlocking of the partition we will do by storing a keyfile on the already encrypted root partition. Do not store this on an unencrypted one if you do not want to compromise your data!
 
@@ -58,7 +58,7 @@ Now add this key to your encrypted partition (the new one!)
 sudo cryptsetup luksAddKey /dev/sdb1 /etc/luks/your_crypt_device.key
 ```
 
-### Find the correct UUIDs
+## Find the correct UUIDs
 
 First you'll need to get the UUID of the new encrypted partition. A normal run of `lsblk -f /dev/sdb1` might loop empty output so first force the kernel to rescan the disk:
 
@@ -86,7 +86,7 @@ The first one is the outer one of the encrypted disk. Thisone goes into `/etc/cr
 
 The second one is the inner one from the unlocked encrypted partition. Thisone goes into `/etc/fstab`.
 
-### Setup unlocking
+## Setup unlocking
 
 Edit `/etc/crypttab` and add the outer `crypto_LUKS` UUID as follows:
 
@@ -94,7 +94,7 @@ Edit `/etc/crypttab` and add the outer `crypto_LUKS` UUID as follows:
 your_crypt_device UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx /etc/luks/your_crypt_device.key luks,discard
 ```
 
-### Setup mounting
+## Setup mounting
 
 Edit `/etc/fstab` and add the inner `ext4` UUID as follows at the bottom:
 

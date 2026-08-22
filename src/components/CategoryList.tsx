@@ -12,7 +12,7 @@ export function CategoryList({
 }: CategoryListProps) {
   return (
     <div className="mb-8">
-      <h3 className="blog-h3">Categories</h3>
+      <h2 className="blog-h3">Categories</h2>
       <div className="category-list-tags">
         <Link
           href="/texts"

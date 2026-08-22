@@ -30,6 +30,12 @@ describe("Footer", () => {
     expect(
       screen.getByRole("navigation", { name: "Footer navigation" }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Navigation", level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Connect", level: 2 }),
+    ).toBeInTheDocument();
 
     const textsLink = screen.getByRole("link", { name: "Texts" });
     expect(textsLink).toHaveClass("font-medium");
