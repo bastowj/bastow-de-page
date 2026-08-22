@@ -22,3 +22,7 @@ export function getStaticPageBySlug(slug: string): StaticPage | null {
   const doc = allPages.find((d) => d.slug === slug);
   return doc ? toStaticPage(doc) : null;
 }
+
+export function getStaticPageSlugs(): string[] {
+  return allPages.map((page) => page.slug).sort();
+}

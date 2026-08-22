@@ -16,7 +16,7 @@ jest.mock(
   { virtual: true },
 );
 
-import { getStaticPageBySlug } from "../pages";
+import { getStaticPageBySlug, getStaticPageSlugs } from "../pages";
 
 beforeEach(() => {
   mockPages.length = 0;
@@ -61,5 +61,20 @@ describe("getStaticPageBySlug", () => {
       { slug: "privacy", title: "Privacy", description: "", body: "p" },
     );
     expect(getStaticPageBySlug("privacy")?.title).toBe("Privacy");
+  });
+});
+
+describe("getStaticPageSlugs", () => {
+  it("returns all page slugs in a stable order", () => {
+    mockPages.push(
+      { slug: "privacy", title: "Privacy", description: "", body: "" },
+      { slug: "about", title: "About", description: "", body: "" },
+    );
+
+    expect(getStaticPageSlugs()).toEqual(["about", "privacy"]);
+  });
+
+  it("returns an empty array when there are no pages", () => {
+    expect(getStaticPageSlugs()).toEqual([]);
   });
 });
