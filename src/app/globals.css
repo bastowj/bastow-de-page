@@ -372,7 +372,8 @@
   .image-card-img {
     @apply w-full h-full object-cover transition-opacity;
   }
-  .image-card:hover .image-card-img {
+  .image-card:hover .image-card-img,
+  .image-card:focus-visible .image-card-img {
     @apply opacity-60;
   }
   .image-card-caption {
@@ -380,7 +381,8 @@
     @apply bg-black/70 text-white text-xs px-2 py-1.5 line-clamp-2;
     transform: translateY(100%);
   }
-  .image-card:hover .image-card-caption {
+  .image-card:hover .image-card-caption,
+  .image-card:focus-visible .image-card-caption {
     transform: translateY(0);
   }
 
