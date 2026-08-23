@@ -139,6 +139,7 @@ export function Lightbox({
   };
 
   const incomingImg = incomingIndex !== null ? images[incomingIndex] : null;
+  const imageDescription = img.description ?? img.content;
 
   return (
     <div
@@ -148,7 +149,8 @@ export function Lightbox({
       onKeyDown={handleDialogKeyDown}
       role="dialog"
       aria-modal="true"
-      aria-label={`Image viewer, image ${index + 1} of ${images.length}`}
+      aria-label="Image viewer"
+      aria-describedby="lightbox-status"
     >
       <div
         className="lightbox-content"
@@ -157,6 +159,17 @@ export function Lightbox({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
+        <p
+          id="lightbox-status"
+          className="sr-only"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          Image {index + 1} of {images.length}
+          {imageDescription ? `: ${imageDescription}` : ""}
+        </p>
+
         <button
           ref={closeButtonRef}
           className="lightbox-close nav-button"

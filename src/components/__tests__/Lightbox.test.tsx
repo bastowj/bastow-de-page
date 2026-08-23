@@ -55,11 +55,35 @@ describe("Lightbox", () => {
     expect(image).not.toHaveAttribute("src", images[0].preview_url);
     expect(image).toHaveAttribute("sizes", "(min-width: 896px) 896px, 100vw");
     expect(screen.getByText("Alt text 1")).toBeInTheDocument();
-    expect(
-      screen.getByRole("dialog", {
-        name: "Image viewer, image 1 of 3",
-      }),
-    ).toBeInTheDocument();
+    const dialog = screen.getByRole("dialog", { name: "Image viewer" });
+    expect(dialog).toBeInTheDocument();
+    expect(dialog).toHaveAccessibleDescription("Image 1 of 3: Alt text 1");
+  });
+
+  it("announces the current image when the index changes", () => {
+    const { rerender } = render(
+      <Lightbox
+        images={images}
+        index={0}
+        onClose={noop}
+        onPrev={noop}
+        onNext={noop}
+      />,
+    );
+
+    const status = screen.getByRole("status");
+    expect(status).toHaveTextContent("Image 1 of 3: Alt text 1");
+
+    rerender(
+      <Lightbox
+        images={images}
+        index={1}
+        onClose={noop}
+        onPrev={noop}
+        onNext={noop}
+      />,
+    );
+    expect(status).toHaveTextContent("Image 2 of 3: Alt text 2");
   });
 
   it("moves focus into the dialog and restores it on unmount", () => {
