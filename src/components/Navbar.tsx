@@ -24,14 +24,23 @@ export function Navbar() {
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
+  const nextTheme =
+    resolvedTheme === "light"
+      ? "dark"
+      : resolvedTheme === "dark"
+        ? "vaporwave"
+        : "light";
+
   // Cycle on resolvedTheme, not theme: with defaultTheme="system" the latter is
   // "system" until the user picks one, so the first click always jumped to light
   // regardless of what was actually on screen.
   const toggleTheme = () => {
-    if (resolvedTheme === "light") setTheme("dark");
-    else if (resolvedTheme === "dark") setTheme("vaporwave");
-    else setTheme("light");
+    setTheme(nextTheme);
   };
+
+  const themeButtonLabel = mounted
+    ? `Switch to ${nextTheme} theme`
+    : "Change theme";
 
   // Render SunIcon during SSR/hydration to avoid mismatch, then swap after mount
   const ThemeIcon = !mounted
@@ -88,7 +97,7 @@ export function Navbar() {
         <button
           onClick={toggleTheme}
           className="nav-button"
-          aria-label="Toggle theme"
+          aria-label={themeButtonLabel}
         >
           <ThemeIcon className="nav-theme-icon" />
         </button>
@@ -99,7 +108,7 @@ export function Navbar() {
         <button
           onClick={toggleTheme}
           className="nav-button mr-2"
-          aria-label="Toggle theme"
+          aria-label={themeButtonLabel}
         >
           <ThemeIcon className="nav-theme-icon" />
         </button>

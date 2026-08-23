@@ -4,13 +4,14 @@ import { Navbar } from "../Navbar";
 
 const mockUsePathname = jest.fn();
 const mockSetTheme = jest.fn();
+const mockUseTheme = jest.fn();
 
 jest.mock("next/navigation", () => ({
   usePathname: () => mockUsePathname(),
 }));
 
 jest.mock("next-themes", () => ({
-  useTheme: () => ({ resolvedTheme: "light", setTheme: mockSetTheme }),
+  useTheme: () => mockUseTheme(),
 }));
 
 jest.mock("next/link", () => ({
@@ -45,6 +46,10 @@ describe("Navbar", () => {
   beforeEach(() => {
     mockUsePathname.mockReturnValue("/texts/example-post");
     mockSetTheme.mockClear();
+    mockUseTheme.mockReturnValue({
+      resolvedTheme: "light",
+      setTheme: mockSetTheme,
+    });
   });
 
   it("labels the primary navigation landmark", () => {
@@ -54,6 +59,29 @@ describe("Navbar", () => {
       screen.getByRole("navigation", { name: "Primary navigation" }),
     ).toBeInTheDocument();
   });
+
+  it.each([
+    ["light", "dark"],
+    ["dark", "vaporwave"],
+    ["vaporwave", "light"],
+  ])(
+    "announces and activates the theme after %s",
+    (currentTheme, nextTheme) => {
+      mockUseTheme.mockReturnValue({
+        resolvedTheme: currentTheme,
+        setTheme: mockSetTheme,
+      });
+      render(<Navbar />);
+
+      const themeButtons = screen.getAllByRole("button", {
+        name: `Switch to ${nextTheme} theme`,
+      });
+      expect(themeButtons).toHaveLength(2);
+
+      fireEvent.click(themeButtons[0]);
+      expect(mockSetTheme).toHaveBeenCalledWith(nextTheme);
+    },
+  );
 
   it("exposes and updates the mobile menu state", () => {
     render(<Navbar />);
