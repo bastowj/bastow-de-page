@@ -65,68 +65,70 @@ export function Navbar() {
 
   return (
     <nav className="nav" aria-label="Primary navigation">
-      <div className="nav-brand">
-        <Link href="/" className="nav-brand-link">
-          <Image
-            src="/avatar.png"
-            alt="Julian"
-            width={32}
-            height={32}
-            className="nav-brand-avatar"
-          />
-          <span className="nav-brand-title">Bastow.de</span>
-        </Link>
-      </div>
+      <div className="nav-inner">
+        <div className="nav-brand">
+          <Link href="/" className="nav-brand-link">
+            <Image
+              src="/avatar.png"
+              alt="Julian"
+              width={32}
+              height={32}
+              className="nav-brand-avatar"
+            />
+            <span className="nav-brand-title">Bastow.de</span>
+          </Link>
+        </div>
 
-      {/* Desktop Menu */}
-      <div className="nav-desktop">
-        {navItems.map((item: NavItem) => {
-          const isActive = isRouteActive(pathname, item.href);
+        {/* Desktop Menu */}
+        <div className="nav-desktop">
+          {navItems.map((item: NavItem) => {
+            const isActive = isRouteActive(pathname, item.href);
 
-          return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={`nav-link ${isActive ? "font-medium" : "font-normal"}`}
-              aria-current={isActive ? "page" : undefined}
-            >
-              {item.name}
-            </Link>
-          );
-        })}
-        <button
-          onClick={toggleTheme}
-          className="nav-button"
-          aria-label={themeButtonLabel}
-        >
-          <ThemeIcon className="nav-theme-icon" />
-        </button>
-      </div>
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`nav-link ${isActive ? "font-medium" : "font-normal"}`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
+          <button
+            onClick={toggleTheme}
+            className="nav-button"
+            aria-label={themeButtonLabel}
+          >
+            <ThemeIcon className="nav-theme-icon" />
+          </button>
+        </div>
 
-      {/* Mobile Menu Button */}
-      <div className="nav-mobile-buttons">
-        <button
-          onClick={toggleTheme}
-          className="nav-button mr-2"
-          aria-label={themeButtonLabel}
-        >
-          <ThemeIcon className="nav-theme-icon" />
-        </button>
-        <button
-          onClick={toggleMenu}
-          className="nav-button"
-          aria-label={
-            isMenuOpen ? "Close navigation menu" : "Open navigation menu"
-          }
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-navigation-menu"
-        >
-          {isMenuOpen ? (
-            <XMarkIcon className="nav-theme-icon" />
-          ) : (
-            <Bars3Icon className="nav-theme-icon" />
-          )}
-        </button>
+        {/* Mobile Menu Button */}
+        <div className="nav-mobile-buttons">
+          <button
+            onClick={toggleTheme}
+            className="nav-button mr-2"
+            aria-label={themeButtonLabel}
+          >
+            <ThemeIcon className="nav-theme-icon" />
+          </button>
+          <button
+            onClick={toggleMenu}
+            className="nav-button"
+            aria-label={
+              isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation-menu"
+          >
+            {isMenuOpen ? (
+              <XMarkIcon className="nav-theme-icon" />
+            ) : (
+              <Bars3Icon className="nav-theme-icon" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
