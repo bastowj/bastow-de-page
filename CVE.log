@@ -15,6 +15,29 @@ Not security-related. Recorded so they are not retried blind.
 - **typescript 6 → 7**: `ts-jest@29.4.12` declares `typescript: ">=4.3 <7"`.
 - **@types/node 25 → 26**: no known blocker, deferred by choice.
 
+## 2026-10-25
+
+22 findings (5 critical, 8 high) resolved.
+
+| Package | From → To | How | Advisories |
+| ------- | --------- | --- | ---------- |
+| next | 16.3.5 → 16.4.3 | version bump | GHSA-2464-fhr4-w9xw (Image Optimization RCE), GHSA-673q-mjm6-r5xr (`use cache` RCE), GHSA-vcvr-r3jv-pc5j (next/og RCE), GHSA-cjq9-62q9-8jv4 (image optimizer SSRF), GHSA-p3m5-59mp-jv5r (Server Actions DoS), plus 6 moderate/low cache-poisoning and disclosure advisories |
+| eslint-config-next | 16.3.5 → 16.4.3 | version bump | follows next |
+| zod | 4.4.3 → 4.6.7 | version bump | GHSA-mrhx-c7xc-m3w5 (memory exhaustion on oversized collections) |
+| handlebars | 4.7.9 → 4.7.10 | transitive, via `ts-jest` 29.4.15 | GHSA-p8wg-vrv2-v86f, GHSA-8r5x-fm3f-whwj (JS injection), GHSA-xw65-4hp5-5hc7 |
+| sharp | 0.35.4 → 0.35.5 | override | GHSA-wq5f-xc86-pv6w (librsvg) |
+| toml | 4.3.0 → 5.0.1 | override | GHSA-4qx8-w7c3-pj3p, GHSA-9j65-hcg3-gc64, GHSA-9qmh-m7c6-f92p (CPU DoS) |
+| source-map-js | 1.2.1 → 1.2.2 | override | GHSA-68fv-2mgg-jv7q (event-loop DoS) |
+| serialize-javascript | 7.0.7 → 7.1.4 | override | GHSA-gfhx-hw2g-v5hg, GHSA-m5mm-p8h7-m29v (XSS via `</script`) |
+
+toml 5 is a major bump. `remark-mdx-frontmatter` only uses its named `parse`
+export, which is unchanged, and the content uses YAML frontmatter. Non-security
+patch/minor bumps in the same change: react/react-dom 19.3.1, testing-library,
+jest 30.5, prettier 3.9.10, @types/*.
+
+`pnpm audit` clean. lint, typecheck, tests (146), `next build` with all content
+routes still prerendered, and a `pnpm start` route and image optimizer check pass.
+
 ## 2026-09-12
 
 | Package | From → To | How | Advisories |
